@@ -1,0 +1,4 @@
+love_letter_platform:
+    resource: "@LoveLetterPlatformBundle/Resources/config/routing.yml"
+    prefix:   /
+

@@ -1,0 +1,11 @@
+hello_the_world:
+    path:     /hello-world
+    defaults: { _controller: LoveLetterPlatformBundle:Advert:index }
+    
+LoveLetter_platform_accueil:
+    path: /accueil/{id}
+    defaults: 
+        _controller: LoveLetterPlatformBundle:Advert:Accueil 
+        page: 1
+    requirements:
+        page: \d+
