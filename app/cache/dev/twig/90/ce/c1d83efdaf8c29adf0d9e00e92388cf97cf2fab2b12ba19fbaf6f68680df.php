@@ -36,6 +36,14 @@ class __TwigTemplate_90cec1d83efdaf8c29adf0d9e00e92388cf97cf2fab2b12ba19fbaf6f68
         // line 8
         echo twig_escape_filter($this->env, (isset($context["id"]) ? $context["id"] : $this->getContext($context, "id")), "html", null, true);
         echo "
+    <center> <img src=";
+        // line 9
+        echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : $this->getContext($context, "url")), "html", null, true);
+        echo " alt=\"\" width=\"211\" height=\"300\"/>
+    <img src=";
+        // line 10
+        echo twig_escape_filter($this->env, (isset($context["url2"]) ? $context["url2"] : $this->getContext($context, "url2")), "html", null, true);
+        echo " alt=\"\" width=\"211\" height=\"300\"/></center> 
   </ul>
 
 ";
@@ -53,6 +61,6 @@ class __TwigTemplate_90cec1d83efdaf8c29adf0d9e00e92388cf97cf2fab2b12ba19fbaf6f68
 
     public function getDebugInfo()
     {
-        return array (  37 => 8,  31 => 4,  28 => 3,);
+        return array (  45 => 10,  41 => 9,  37 => 8,  31 => 4,  28 => 3,);
     }
 }
