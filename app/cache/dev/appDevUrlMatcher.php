@@ -135,14 +135,24 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
-        // hello_the_world
-        if ($pathinfo === '/hello-world') {
-            return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\AdvertController::indexAction',  '_route' => 'hello_the_world',);
+        // LoveLetter_platform_index
+        if ($pathinfo === '/index') {
+            return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\AdvertController::indexAction',  '_route' => 'LoveLetter_platform_index',);
         }
 
         // LoveLetter_platform_accueil
-        if (0 === strpos($pathinfo, '/accueil') && preg_match('#^/accueil/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'LoveLetter_platform_accueil')), array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\AdvertController::AccueilAction',  'page' => 1,));
+        if (0 === strpos($pathinfo, '/accueil') && preg_match('#^/accueil(?:/(?P<id>\\d+))?$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'LoveLetter_platform_accueil')), array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\AdvertController::AccueilAction',  'id' => 1,));
+        }
+
+        // LoveLetter_platform_jeu
+        if (0 === strpos($pathinfo, '/Partie') && preg_match('#^/Partie(?:/(?P<id>\\d+))?$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'LoveLetter_platform_jeu')), array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::DebutJeuAction',  'id' => 0,));
+        }
+
+        // LoveLetter_platform_initialisation
+        if ($pathinfo === '/Initialisation') {
+            return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::RemplisageTableCarteAction',  '_route' => 'LoveLetter_platform_initialisation',);
         }
 
         // _welcome

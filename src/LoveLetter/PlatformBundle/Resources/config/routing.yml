@@ -1,11 +1,25 @@
-hello_the_world:
-    path:     /hello-world
+LoveLetter_platform_index:
+    path:     /index
     defaults: { _controller: LoveLetterPlatformBundle:Advert:index }
     
 LoveLetter_platform_accueil:
     path: /accueil/{id}
     defaults: 
         _controller: LoveLetterPlatformBundle:Advert:Accueil 
-        page: 1
+        id: 1
     requirements:
-        page: \d+
+        id: \d+
+        
+LoveLetter_platform_jeu:
+    path: /Partie/{id}
+    defaults: 
+        _controller: LoveLetterPlatformBundle:Partie:DebutJeu
+        id: 0
+    requirements:
+        id: \d+
+
+LoveLetter_platform_initialisation:
+    path: /Initialisation
+    defaults: 
+        _controller: LoveLetterPlatformBundle:Partie:RemplisageTableCarte
+      
