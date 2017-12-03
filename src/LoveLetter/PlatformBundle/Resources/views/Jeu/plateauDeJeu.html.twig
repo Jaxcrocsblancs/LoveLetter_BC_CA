@@ -2,12 +2,14 @@
 
 {% block LoveLetterplatform_body %}
 
-  <h1>Bientot le jeu ici</h1>
+  <h1>Bientot le jeu ici {{id}}</h1>
 
-  <ul>
-    {{id}}
-    <center> <img src={{url}} alt="" width="211" height="300"/>
-    <img src={{url2}} alt="" width="211" height="300"/></center> 
-  </ul>
-
+  
+ 
+    <a href="http://localhost/LoveLetter/web/app_dev.php/Partie/{{id1}} ">
+    <img src={{url}} alt="" width="211" height="300" /> </a>
+     
+    <a href="http://localhost/LoveLetter/web/app_dev.php/Partie/{{id2}} ">
+    <img src={{url2}} alt="" width="211" height="300" align=bottom/> </a>
+    
 {% endblock %}

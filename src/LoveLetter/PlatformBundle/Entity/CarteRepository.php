@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityRepository;
 
 class CarteRepository extends EntityRepository
 {
-  public function Url($id)
+  /*public function Url($id)
   {
       
     $query = $this->_em->createQuery('SELECT url FROM LoveLetterPlatformBundle:Carte a WHERE a.id = :id');
@@ -15,5 +15,5 @@ class CarteRepository extends EntityRepository
   
     // Utilisation de getSingleResult car la requête ne doit retourner qu'un seul résultat
     return $query->getSingleResult();
-  }
+  }*/
 }

@@ -6,19 +6,12 @@ namespace LoveLetter\PlatformBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use LoveLetter\PlatformBundle\Entity\Carte;
-class AdvertController extends Controller
-{
-    public function AccueilAction($id, Request $request)
-    {
-// Création de l'entité
-      
-        
 
-        return $this->render('LoveLetterPlatformBundle:Advert:accueil.html.twig', array(
-          'id'  => $id,
-        ));
+class HomeController extends Controller
+{
+    public function AccueilAction()
+    {
+        return $this->render('LoveLetterPlatformBundle:Advert:accueil.html.twig');
     }
     
      public function indexAction()

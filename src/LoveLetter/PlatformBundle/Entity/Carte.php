@@ -48,8 +48,7 @@ class Carte
      * @ORM\Column(name="pouvoir", type="string", length=255)
      */
     private $pouvoir;
-
-
+  
     /**
      * Get id
      *

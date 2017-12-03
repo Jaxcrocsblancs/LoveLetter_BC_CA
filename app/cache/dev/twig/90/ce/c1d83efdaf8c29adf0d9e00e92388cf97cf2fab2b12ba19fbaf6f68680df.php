@@ -29,23 +29,33 @@ class __TwigTemplate_90cec1d83efdaf8c29adf0d9e00e92388cf97cf2fab2b12ba19fbaf6f68
     {
         // line 4
         echo "
-  <h1>Bientot le jeu ici</h1>
-
-  <ul>
-    ";
-        // line 8
+  <h1>Bientot le jeu ici ";
+        // line 5
         echo twig_escape_filter($this->env, (isset($context["id"]) ? $context["id"] : $this->getContext($context, "id")), "html", null, true);
-        echo "
-    <center> <img src=";
-        // line 9
-        echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : $this->getContext($context, "url")), "html", null, true);
-        echo " alt=\"\" width=\"211\" height=\"300\"/>
-    <img src=";
-        // line 10
-        echo twig_escape_filter($this->env, (isset($context["url2"]) ? $context["url2"] : $this->getContext($context, "url2")), "html", null, true);
-        echo " alt=\"\" width=\"211\" height=\"300\"/></center> 
-  </ul>
+        echo "</h1>
 
+  
+  
+  <footer>
+    <a href=\"http://localhost/LoveLetter/web/app_dev.php/Partie/";
+        // line 10
+        echo twig_escape_filter($this->env, (isset($context["id1"]) ? $context["id1"] : $this->getContext($context, "id1")), "html", null, true);
+        echo " \">
+     <img src=";
+        // line 11
+        echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : $this->getContext($context, "url")), "html", null, true);
+        echo " alt=\"\" width=\"211\" height=\"300\" /> </a>
+     
+      <a href=\"http://localhost/LoveLetter/web/app_dev.php/Partie/";
+        // line 13
+        echo twig_escape_filter($this->env, (isset($context["id2"]) ? $context["id2"] : $this->getContext($context, "id2")), "html", null, true);
+        echo " \">
+    <img src=";
+        // line 14
+        echo twig_escape_filter($this->env, (isset($context["url2"]) ? $context["url2"] : $this->getContext($context, "url2")), "html", null, true);
+        echo " alt=\"\" width=\"211\" height=\"300\" align=bottom/> </a>
+   </footer>
+    
 ";
     }
 
@@ -61,6 +71,6 @@ class __TwigTemplate_90cec1d83efdaf8c29adf0d9e00e92388cf97cf2fab2b12ba19fbaf6f68
 
     public function getDebugInfo()
     {
-        return array (  45 => 10,  41 => 9,  37 => 8,  31 => 4,  28 => 3,);
+        return array (  55 => 14,  51 => 13,  46 => 11,  42 => 10,  34 => 5,  31 => 4,  28 => 3,);
     }
 }

@@ -3,12 +3,10 @@ LoveLetter_platform_index:
     defaults: { _controller: LoveLetterPlatformBundle:Advert:index }
     
 LoveLetter_platform_accueil:
-    path: /accueil/{id}
+    path: /accueil
     defaults: 
-        _controller: LoveLetterPlatformBundle:Advert:Accueil 
-        id: 1
-    requirements:
-        id: \d+
+        _controller: LoveLetterPlatformBundle:Home:Accueil 
+
         
 LoveLetter_platform_jeu:
     path: /Partie/{id}
@@ -22,4 +20,23 @@ LoveLetter_platform_initialisation:
     path: /Initialisation
     defaults: 
         _controller: LoveLetterPlatformBundle:Partie:RemplisageTableCarte
+        
+LoveLetter_platform_UtilisateurCreerPartie:
+    path: /UtilisateurCreerPartie
+    defaults: 
+        _controller: LoveLetterPlatformBundle:Partie:UtilisateurCreerPartie
+        
+LoveLetter_platform_UtilisateurRejoinsPartie:
+    path: /UtilisateurRejoinsPartie
+    defaults: 
+        _controller: LoveLetterPlatformBundle:Partie:UtilisateurRejoinsPartie
       
+LoveLetter_platform_CreationPartie:
+    path: /LancementPartie/{nom}
+    defaults:
+           _controller: LoveLetterPlatformBundle:Partie:CreationPartie
+           
+LoveLetter_platform_DebutManche:
+    path: /DebutManche
+    defaults:
+           _controller: LoveLetterPlatformBundle:Partie:DebutManche
