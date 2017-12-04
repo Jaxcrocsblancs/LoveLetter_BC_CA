@@ -14,7 +14,7 @@ class HomeController extends Controller
         return $this->render('LoveLetterPlatformBundle:Advert:accueil.html.twig');
     }
     
-     public function indexAction()
+    public function indexAction()
      {
         $user = new test();
 

@@ -3,6 +3,7 @@
 namespace LoveLetter\PlatformBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Joueur
@@ -28,64 +29,79 @@ class Joueur
      */
     private $score;
     
-    /**
-    * @ORM\ManyToOne(targetEntity="LoveLetter\PlatformBundle\Entity\Utilisateur")
-    */
-    private $utilisateur;
-    
-    /**
-    * @ORM\ManyToOne(targetEntity="LoveLetter\PlatformBundle\Entity\tourJeu")
-    */
-    private $tourJeu;
-    
+   /**
+    * \ManyToOne(targetEntity="LoveLetter\PlatformBundle\Entity\Utilisateur")
+    *
+    private $utilisateur;*/
+
     /**
     * @ORM\ManyToMany(targetEntity="LoveLetter\PlatformBundle\Entity\Carte", cascade={"persist"})
-    * @ORM\JoinTable(name="joueur_carteMain")
+    * @ORM\JoinTable(name="CarteMain_Joueur")
     */
     private $carteMain;
     
-    /**
+     /**
     * @ORM\ManyToMany(targetEntity="LoveLetter\PlatformBundle\Entity\Carte", cascade={"persist"})
-    * @ORM\JoinTable(name="joueur_carteJouer")
+    * @ORM\JoinTable(name="CarteJouer_Joueur")
     */
     private $carteJouer;
-    
-    public function __construct()
+
+     public function __construct()
     {
+        $this->score=0;
         $this->carteMain = new ArrayCollection();
         $this->carteJouer = new ArrayCollection();
     }
-    
-    public function addCarteMain(Carte $carteMain)
+      /**
+     * Set pioche
+     *
+     * @param integer $carteMain
+     * @return carteMain
+     */
+    public function addCarteMain($carteMain)
     {
-      $this->carteMain[] = $carteMain;
+        $this->carteMain[] = $carteMain;
     }
-
+   
     public function removeCarteMain(Carte $carteMain)
     {
       $this->carteMain->removeElement($carteMain);
     }
-
-    public function getCartesMain()
+    
+    /**
+     * Get carteMain
+     *
+     * @return carteMain
+     */
+    public function getCarteMain()
     {
-      return $this->carteMain;
+        return $this->carteMain;
     }
     
-     public function addCarteJouer(Carte $carteJouer)
+      /**
+     * Set carteJouer
+     *
+     * @param integer $carteJouer
+     * @return carteJouer
+     */
+    public function setCarteJouer($carteJouer)
     {
-      $this->carteJouer[] = $carteJouer;
+        $this->carteJouer = $carteJouer;
+
+        return $this;
     }
 
-    public function removeCarteJouer(Carte $carteJouer)
+    /**
+     * Get pioche
+     *
+     * @return pioche
+     */
+    public function getCarteJouer()
     {
-      $this->carteJouer->removeElement($carteJouer);
-    }
-
-    public function getCartesJouer()
-    {
-      return $this->carteJouer;
+        return $this->carteJouer;
     }
     
+    /*
     public function setUtilisateur(Utilisateur $utilisateur)
    {
      $this->utilisateur = $utilisateur;
@@ -96,19 +112,7 @@ class Joueur
    public function getUtilisateur()
    {
      return $this->utilisateur;
-   }
-   
-    public function setTourJeu(tourJeu $tourJeu)
-   {
-     $this->tourJeu = $tourJeu;
-
-     return $this;
-   }
-
-   public function getTourJeu()
-   {
-     return $this->tourJeu;
-   }
+   }*/
    
     /**
      * Get id

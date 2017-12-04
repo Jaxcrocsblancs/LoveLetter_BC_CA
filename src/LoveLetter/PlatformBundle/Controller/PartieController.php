@@ -71,29 +71,36 @@ class PartieController extends Controller
     
     public function CreationPartieAction($nom){
 
+        $joueur1 = new Joueur;
+        $joueur2 = new Joueur;
+        
         //Création d'une nouvelle partie
         $partie = new Partie;
         $partie->setNomPartie($nom);
-           
+        $partie->addjoueur($joueur1) ;
+        $partie->addjoueur($joueur2) ;
+        
         // On récupère l'EntityManager
         $em = $this->getDoctrine()->getManager();
         
         // Étape 1 : On « persiste » l'entité
+        $em->persist($joueur1);
+        $em->persist($joueur2);
         $em->persist($partie);
         
+       
         // Étape 2 : On « flush » tout ce qui a été persisté avant
         $em->flush();
 
+
         //Redirection vers DebutManche pour créer la première manche
         $url = $this->get('router')->generate('LoveLetter_platform_DebutManche', array(
-            'id_partie' => $partie->getId(),
-            'id_manche' => 1));
+            'id_partie' => $partie->getId()));
         return $this->redirect($url);
     }
        
-    public function DebutMancheAction(Request $id_partie,Request $id_manche){
+    public function DebutMancheAction(Request $id_partie){
         $id_partiebis = $id_partie->query->get('id_partie');
-        $id_manchebis = $id_manche->query->get('id_manche');
         
         $repository = $this
         ->getDoctrine()
@@ -105,13 +112,12 @@ class PartieController extends Controller
         //Création d'une nouvelle manche 
         $manche = new Manche;
         $manche->setPartie($partie);
-        $manche->setIdManche($id_manchebis);
         
         //Creation de la pioche
         $pioche = array(1,1,1,1,1,2,2,3,3,4,4,5,5,6,7,8);
         shuffle($pioche);
         $manche->setPioche($pioche);
-        
+
          // On récupère l'EntityManager
         $em = $this->getDoctrine()->getManager();
         
@@ -121,37 +127,73 @@ class PartieController extends Controller
         // Étape 2 : On « flush » tout ce qui a été persisté avant
         $em->flush();
         
-        return new Response("hello");
         //Redirection vers DebutJeuAction pour créer la première manche
-        $url = $this->get('router')->generate('LoveLetter_platform_Debut/Partie', array(
-            'id_partie' => $partie->getId(),
-            'id_manche' => 1));
+        $url = $this->get('router')->generate('LoveLetter_platform_DistributionCarte', array(
+            'id_manche' => $manche->getId()));
         return $this->redirect($url);
     }
         
     
-    public function DistributionCarteAction(Request $id_partie, Request $id_manche)
+    public function DistributionCarteAction(Request $id_manche)
     {
+        $id_manchebis = $id_manche->query->get('id_manche');
         $repository = $this
         ->getDoctrine()
         ->getManager()
-        ->getRepository('LoveLetterPlatformBundle:Utilisateur');
+        ->getRepository('LoveLetterPlatformBundle:Manche');
 
-        $listUtilisateur = $repository->findAll();
-
-        foreach ($listUtilisateur as $Utilisateur) {
-          // $advert est une instance de Advert
-          echo $Utilisateur->getContent();
+       $mancheEnCour = $repository->find($id_manchebis);
+       
+       $partie = $mancheEnCour->getPartie();
+       $ListeJoueur = $partie->getJoueur();
+       
+       $repositoryCarte = $this
+        ->getDoctrine()
+        ->getManager()
+        ->getRepository('LoveLetterPlatformBundle:Carte');
+  
+       $pioche = $mancheEnCour->getPioche();
+     
+        // On récupère l'EntityManager
+        $em = $this->getDoctrine()->getManager();
+        
+        foreach ($ListeJoueur as $Joueur) {
+            $carte= $repositoryCarte->find($pioche[0]);
+            $Joueur->addCarteMain($carte);
+            // Étape 1 : On « persiste » l'entité 
+            $em->persist($Joueur);
+            array_shift($pioche);
         }
+
+        $mancheEnCour->setPioche($pioche);
+        $em->persist($mancheEnCour);
+        
+        $em->flush();
+         // Étape 2 : On « flush » tout ce qui a été persisté avant
+        
+        $url = $this->get('router')->generate('LoveLetter_platform_jeu', array(
+            'id_manche' => $mancheEnCour->getId()));
+        return $this->redirect($url);
     }
     
-    public function DebutJeuAction()
+    public function DebutJeuAction(Request $id_manche)
     {
+        $id_manchebis = $id_manche->query->get('id_manche');
+         $repositoryManche = $this
+        ->getDoctrine()
+        ->getManager()
+        ->getRepository('LoveLetterPlatformBundle:Manche');
+
+       $mancheEnCour = $repositoryManche->find($id_manchebis);
+       
+       $partie = $mancheEnCour->getPartie();
+       $ListeJoueur = $partie->getJoueur();
+       
         $repository = $this
         ->getDoctrine()
         ->getManager()
         ->getRepository('LoveLetterPlatformBundle:Carte');
-     
+        
         $url = $repository->find(1);
         $url2= $repository->find(8);
         

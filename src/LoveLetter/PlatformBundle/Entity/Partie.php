@@ -29,7 +29,7 @@ class Partie
     private $nomPartie;
 
      /**
-    * @ORM\ManyToMany(targetEntity="LoveLetter\PlatformBundle\Entity\joueur", cascade={"persist"})
+    * @ORM\ManyToMany(targetEntity="LoveLetter\PlatformBundle\Entity\Joueur", cascade={"persist"})
     * @ORM\JoinTable(name="joueur_partie")
     */
     private $joueur;
@@ -40,12 +40,12 @@ class Partie
         $this->joueur = new ArrayCollection();
     }
     
-    public function addjoueur(joueur $joueur)
+    public function addjoueur($joueur)
     {
       $this->joueur[] = $joueur;
     }
 
-    public function removejoueur(Carte $joueur)
+    public function removejoueur(Joueur $joueur)
     {
       $this->joueur->removeElement($joueur);
     }

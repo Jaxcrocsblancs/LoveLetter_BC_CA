@@ -22,12 +22,6 @@ class Manche
     private $id;
 
     /**
-     * @var integer
-     * @ORM\Column(name="manche_id", type="integer")
-     */
-    private $id_manche;
-    
-    /**
     * @ORM\ManyToOne(targetEntity="LoveLetter\PlatformBundle\Entity\Partie")
     */
     private $partie;
@@ -61,30 +55,7 @@ class Manche
     {
         return $this->id;
     }
-    
-     /**
-     * Set id_manche
-     *
-     * @param integer $id_manche
-     * @return Manche
-     */
-    public function setIdManche($id_manche)
-    {
-        $this->id_manche = $id_manche;
 
-        return $this;
-    }
-
-    /**
-     * Get id_manche
-     *
-     * @return integer 
-     */
-    public function getIdManche()
-    {
-        return $this->id_manche;
-    }
-    
      /**
      * Set pioche
      *

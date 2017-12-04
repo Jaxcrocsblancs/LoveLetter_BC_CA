@@ -173,9 +173,17 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'LoveLetter_platform_CreationPartie')), array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::CreationPartieAction',));
         }
 
-        // LoveLetter_platform_DebutManche
-        if ($pathinfo === '/DebutManche') {
-            return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::DebutMancheAction',  '_route' => 'LoveLetter_platform_DebutManche',);
+        if (0 === strpos($pathinfo, '/D')) {
+            // LoveLetter_platform_DebutManche
+            if ($pathinfo === '/DebutManche') {
+                return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::DebutMancheAction',  '_route' => 'LoveLetter_platform_DebutManche',);
+            }
+
+            // LoveLetter_platform_DistributionCarte
+            if ($pathinfo === '/DistributionCarte') {
+                return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::DistributionCarteAction',  '_route' => 'LoveLetter_platform_DistributionCarte',);
+            }
+
         }
 
         // _welcome

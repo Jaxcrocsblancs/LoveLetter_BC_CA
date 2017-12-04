@@ -19,20 +19,15 @@ class __TwigTemplate_1582f8b74ee61661bf9bf9a7dc357c95e611a336ab01aca1f064f23a070
         // line 2
         echo "
 
- <head>
-        <meta charset=\"utf-8\" />
-        <link rel=\"stylesheet\" href=\"style.css\" />
-        <title>Premiers tests du CSS</title>
-    </head>
   ";
-        // line 11
+        // line 6
         echo "  ";
         $this->displayBlock('LoveLetterplatform_body', $context, $blocks);
     }
 
     public function block_LoveLetterplatform_body($context, array $blocks = array())
     {
-        // line 12
+        // line 7
         echo "      
   ";
     }
@@ -44,6 +39,6 @@ class __TwigTemplate_1582f8b74ee61661bf9bf9a7dc357c95e611a336ab01aca1f064f23a070
 
     public function getDebugInfo()
     {
-        return array (  36 => 12,  29 => 11,  20 => 2,  55 => 14,  51 => 13,  46 => 11,  42 => 10,  34 => 5,  31 => 4,  28 => 3,);
+        return array (  24 => 6,  20 => 2,  54 => 13,  50 => 12,  45 => 10,  41 => 9,  34 => 5,  31 => 7,  28 => 3,);
     }
 }

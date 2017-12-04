@@ -40,3 +40,9 @@ LoveLetter_platform_DebutManche:
     path: /DebutManche
     defaults:
            _controller: LoveLetterPlatformBundle:Partie:DebutManche
+           
+LoveLetter_platform_DistributionCarte:
+    path: /DistributionCarte
+    defaults:
+           _controller: LoveLetterPlatformBundle:Partie:DistributionCarte
+           
