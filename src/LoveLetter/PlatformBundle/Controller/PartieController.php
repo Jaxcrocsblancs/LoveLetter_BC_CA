@@ -171,13 +171,172 @@ class PartieController extends Controller
         $em->flush();
          // Étape 2 : On « flush » tout ce qui a été persisté avant
         
-        $url = $this->get('router')->generate('LoveLetter_platform_jeu', array(
-            'id_manche' => $mancheEnCour->getId()));
+        $url = $this->get('router')->generate('LoveLetter_platform_TirerCarte', array(
+            'id_manche' => $mancheEnCour->getId(),
+            'id_joueur' => $ListeJoueur[0]->getId()));
         return $this->redirect($url);
     }
     
-    public function DebutJeuAction(Request $id_manche)
+    public function AffichageJeuAction(Request $id_manche, Request $id_joueur)
     {
+        //recuperation de l'id_manche
+        $id_manchebis = $id_manche->query->get('id_manche');
+        //recuperation de repository des manches
+        $repositoryManche = $this
+        ->getDoctrine()
+        ->getManager()
+        ->getRepository('LoveLetterPlatformBundle:Manche');
+
+        //recuperation de la class manche en cour
+         $mancheEnCour = $repositoryManche->find($id_manchebis);
+       
+        //recuperation de la liste des joueurs participant a la manche
+        $ListeJoueur = $mancheEnCour->getPartie()->getJoueur();
+        $id_joueurbis = $id_joueur->query->get('id_joueur');
+        if($ListeJoueur[0]->getId() == $id_joueurbis) {
+            $ListeCarteJ1 =$ListeJoueur[0]->getCarteMain();
+            $carte1J1 = $ListeCarteJ1[0];
+            $ListeCarteJ2 =$ListeJoueur[1]->getCarteMain();
+            $carte1J2 = $ListeCarteJ2[1];
+        }
+        else{
+            $ListeCarteJ1 =$ListeJoueur[1]->getCarteMain();
+            $carte1J1 = $ListeCarteJ1[1];
+            $ListeCarteJ2 =$ListeJoueur[0]->getCarteMain();
+            $carte1J2 = $ListeCarteJ2[0];
+        }
+
+        //envoi sur l'affichage du jeu
+        return $this->render('LoveLetterPlatformBundle:Jeu:plateauDeJeu.html.twig', array(
+        'id' => $mancheEnCour->getId(), 
+        'joueur' => $id_joueur,
+        'liste_cartesJ1' => $ListeCarteJ1,
+        'liste_cartesJ2' => $ListeCarteJ2,
+        ));
+    }
+    
+    public function TirerCarteAction(Request $id_manche, Request $id_joueur){
+        $em = $this->getDoctrine()->getManager();
+        $repositoryManche = $this
+        ->getDoctrine()
+        ->getManager()
+        ->getRepository('LoveLetterPlatformBundle:Manche');
+        $id_manchebis = $id_manche->query->get('id_manche');    
+       $mancheEnCour = $repositoryManche->find($id_manchebis);
+       
+        $repositoryJoueur= $this
+        ->getDoctrine()
+        ->getManager()
+        ->getRepository('LoveLetterPlatformBundle:Joueur');
+        
+        $id_joueurbis = $id_joueur->query->get('id_joueur');
+        $Joueur= $repositoryJoueur->find($id_joueurbis);
+        
+        $repositoryCarte = $this
+        ->getDoctrine()
+        ->getManager()
+        ->getRepository('LoveLetterPlatformBundle:Carte');
+  
+        $pioche = $mancheEnCour->getPioche();
+       
+        $carte= $repositoryCarte->find($pioche[0]);
+        $Joueur->addCarteMain($carte);
+        array_shift($pioche);
+        
+        $mancheEnCour->setPioche($pioche);
+        
+        $em->persist($mancheEnCour);
+  
+        $carteMain = $Joueur->getCarteMain();
+        if($carteMain[0]->getNombre()==7){
+            if($carteMain[1]->getNombre()==6 || $carteMain[1]->getNombre()==5){
+                $Joueur->addCarteJouer($carteMain[1]);
+                $Joueur->removeCarteMain($carteMain[1]);
+            }
+        }
+        if($carteMain[1]->getNombre()==7){
+            if($carteMain[0]->getNombre()==6 || $carteMain[0]->getNombre()==5){
+                $Joueur->addCarteJouer($carteMain[0]);
+                $Joueur->removeCarteMain($carteMain[0]);    
+               }
+        }
+        
+        $em->persist($Joueur);
+        $em->flush();
+        
+        $url = $this->get('router')->generate('LoveLetter_platform_AffichageJeu', array(
+            'id_manche' => $mancheEnCour->getId(),
+            'id_joueur' => $Joueur->getId()));
+        return $this->redirect($url);
+    }
+    
+    public function ChoixAction(Request $id_manche, Request $id_joueur, Request $numCarteChoisi){
+        $em = $this->getDoctrine()->getManager();
+        $repositoryCarte = $this->getDoctrine()->getManager()->getRepository('LoveLetterPlatformBundle:Carte');
+        
+        $id_carteJouer = $numCarteChoisi->query->get('numCarteChoisi');
+        $carteJouer =$repositoryCarte->find($id_carteJouer);
+        
+        $repositoryJoueur = $this->getDoctrine()->getManager()->getRepository('LoveLetterPlatformBundle:Joueur');
+        $id_joueurbis = $id_joueur->query->get('id_joueur');    
+        $joueur = $repositoryJoueur->find($id_joueurbis);
+        
+       
+        $joueur->addCarteJouer($carteJouer);
+        $joueur->removeCarteMain($carteJouer);
+        $em->persist($joueur);
+        $em->flush();
+        
+        $id_manchebis = $id_manche->query->get('id_manche');    
+        
+        //revoie sur bon action 
+        $url = $this->get('router')->generate('LoveLetter_platform_AffichageJeu', array(
+            'id_manche' => $id_manchebis,
+            'id_joueur' => $joueur->getId()));
+        return $this->redirect($url);
+    }
+    
+    
+    public function Action1Action(Request $id_manche, Request $id_joueur){
+        $repositoryManche = $this
+        ->getDoctrine()
+        ->getManager()
+        ->getRepository('LoveLetterPlatformBundle:Manche');
+        $id_manchebis = $id_manche->query->get('id_manche');    
+        $mancheEnCour = $repositoryManche->find($id_manchebis);
+
+        $partie = $mancheEnCour->getPartie();
+        $ListeJoueur = $partie->getJoueur();
+        $ListeCarteJ1 =$ListeJoueur[0]->getCarteMain();
+        $ListeCarteJ2 =$ListeJoueur[1]->getCarteMain();
+        
+        $repositoryCarte = $this
+        ->getDoctrine()
+        ->getManager()
+        ->getRepository('LoveLetterPlatformBundle:Carte');
+        
+        $ListeCarte[0] = $repositoryCarte->find(2);
+        $ListeCarte[1] = $repositoryCarte->find(3);
+        $ListeCarte[2] = $repositoryCarte->find(4);
+        $ListeCarte[3] = $repositoryCarte->find(5);
+        $ListeCarte[4] = $repositoryCarte->find(6);
+        $ListeCarte[5] = $repositoryCarte->find(7);
+        $ListeCarte[6] = $repositoryCarte->find(8);
+        
+        return $this->render('LoveLetterPlatformBundle:Jeu:garde.html.twig', array(
+        'id' => $mancheEnCour->getId(), 
+        'joueur' => $id_joueur,
+        'liste_cartesJ1' => $ListeCarteJ1,
+        'liste_cartesJ2' => $ListeCarteJ2,
+        'liste_cartes' => $ListeCarte
+        ));  
+    }
+    
+    public function GardeAction(Request $id_manche, Request $id_joueur, Request $id_carte){
+        return new Response("lol");
+    }
+    
+    public function Action2Action(Request $id_manche, Request $id_joueur){
         $id_manchebis = $id_manche->query->get('id_manche');
          $repositoryManche = $this
         ->getDoctrine()
@@ -186,23 +345,34 @@ class PartieController extends Controller
 
        $mancheEnCour = $repositoryManche->find($id_manchebis);
        
-       $partie = $mancheEnCour->getPartie();
-       $ListeJoueur = $partie->getJoueur();
-       
-        $repository = $this
-        ->getDoctrine()
-        ->getManager()
-        ->getRepository('LoveLetterPlatformBundle:Carte');
+       $ListeJoueur = $mancheEnCour->getPartie()->getJoueur();
+        $id_joueurbis = $id_joueur->query->get('id_joueur');
+        if($ListeJoueur[0]->getId() == $id_joueurbis) {
+            $ListeCarteJ1 =$ListeJoueur[0]->getCarteMain();
+            $carte1J1 = $ListeCarteJ1[0];
+            $ListeCarteJ2 =$ListeJoueur[1]->getCarteMain();
+            $carte1J2 = $ListeCarteJ2[1];
+        }
+        else{
+            $ListeCarteJ1 =$ListeJoueur[1]->getCarteMain();
+            $carte1J1 = $ListeCarteJ1[1];
+            $ListeCarteJ2 =$ListeJoueur[0]->getCarteMain();
+            $carte1J2 = $ListeCarteJ2[0];
+        }
+
+        return $this->render('LoveLetterPlatformBundle:Jeu:Pretre.html.twig', array(
+        'id' => $mancheEnCour->getId(), 
+        'joueur' => $id_joueur,
+        'liste_cartesJ1' => $ListeCarteJ1,
+        'liste_cartesJ2' => $ListeCarteJ2,
+        ));
         
-        $url = $repository->find(1);
-        $url2= $repository->find(8);
-        
-        return $this->render('LoveLetterPlatformBundle:Jeu:plateauDeJeu.html.twig', array(
-        'id'=>$id, 
-        'id1' => $url->getId(), 
-        'id2' => $url2->getId(),
-        'url' => $url->getUrl(),
-        'url2' => $url2->getUrl()));
+    }
+    
+    
+    //Test si la manche est fini
+    public function TestFinAction(){
+        //Different test de fin de partie a faire a chaque fin de tour de jeu de chaque joueur
     }
     
     public function RemplisageTableCarteAction(){

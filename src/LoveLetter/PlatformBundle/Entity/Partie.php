@@ -28,7 +28,7 @@ class Partie
      */
     private $nomPartie;
 
-     /**
+    /**
     * @ORM\ManyToMany(targetEntity="LoveLetter\PlatformBundle\Entity\Joueur", cascade={"persist"})
     * @ORM\JoinTable(name="joueur_partie")
     */

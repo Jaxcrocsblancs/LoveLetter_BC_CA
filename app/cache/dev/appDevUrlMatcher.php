@@ -145,9 +145,9 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\HomeController::AccueilAction',  '_route' => 'LoveLetter_platform_accueil',);
         }
 
-        // LoveLetter_platform_jeu
-        if (0 === strpos($pathinfo, '/Partie') && preg_match('#^/Partie(?:/(?P<id>\\d+))?$#s', $pathinfo, $matches)) {
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'LoveLetter_platform_jeu')), array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::DebutJeuAction',  'id' => 0,));
+        // LoveLetter_platform_AffichageJeu
+        if ($pathinfo === '/Partie') {
+            return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::AffichageJeuAction',  '_route' => 'LoveLetter_platform_AffichageJeu',);
         }
 
         // LoveLetter_platform_initialisation
@@ -184,6 +184,16 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::DistributionCarteAction',  '_route' => 'LoveLetter_platform_DistributionCarte',);
             }
 
+        }
+
+        // LoveLetter_platform_TirerCarte
+        if ($pathinfo === '/TirerCarte') {
+            return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::TirerCarteAction',  '_route' => 'LoveLetter_platform_TirerCarte',);
+        }
+
+        // LoveLetter_platform_Choix
+        if ($pathinfo === '/Choix') {
+            return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::ChoixAction',  '_route' => 'LoveLetter_platform_Choix',);
         }
 
         // _welcome

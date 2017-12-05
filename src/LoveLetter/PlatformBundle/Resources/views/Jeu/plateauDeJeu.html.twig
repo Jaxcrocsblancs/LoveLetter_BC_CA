@@ -3,13 +3,25 @@
 {% block LoveLetterplatform_body %}
 
   <h1>Bientot le jeu ici {{id}}</h1>
-
   
- 
-    <a href="http://localhost/LoveLetter/web/app_dev.php/Partie/{{id1}} ">
-    <img src={{url}} alt="" width="211" height="300" /> </a>
-     
-    <a href="http://localhost/LoveLetter/web/app_dev.php/Partie/{{id2}} ">
-    <img src={{url2}} alt="" width="211" height="300" align=bottom/> </a>
-    
+  {% for carte in liste_cartesJ1 %}
+      <a href='http://localhost/LoveLetter/web/app_dev.php/Choix?id_manche={{id}}&id_joueur={{joueur}}&numCarteChoisi={{carte.nombre}}'>
+    <img src={{carte.url}} alt="" width="211" height="300" />
+         </a>
+  {% else %}
+    <li>Pas de carte</li>
+  {% endfor %}
+
+  {% block pretre %}
+   {% for carte in liste_cartesJ2 %}
+    <img src=http://static.mnium.org/images/contenu/actus/HearthStone/Dos_de_cartes/Hearthstone_dos_de_cartes_saison_22.png  alt="" width="211" height="300" />
+  {% else %}
+    <li>Pas de carte</li>
+  {% endfor %}
+  {% endblock %}
+  
+  {%block effet %}
+  {% endblock %}
+   
+  
 {% endblock %}

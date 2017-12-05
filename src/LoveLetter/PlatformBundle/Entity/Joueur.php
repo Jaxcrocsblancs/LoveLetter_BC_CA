@@ -78,24 +78,22 @@ class Joueur
         return $this->carteMain;
     }
     
-      /**
-     * Set carteJouer
+     /**
+     * Set pioche
      *
-     * @param integer $carteJouer
-     * @return carteJouer
+     * @param integer $carteMain
+     * @return carteMain
      */
-    public function setCarteJouer($carteJouer)
+    public function addCarteJouer($carteJouer)
     {
-        $this->carteJouer = $carteJouer;
-
-        return $this;
+        $this->carteJouer[] = $carteJouer;
     }
-
-    /**
-     * Get pioche
-     *
-     * @return pioche
-     */
+   
+    public function removeCarteJouer(Carte $carteJouer)
+    {
+      $this->carteJouer->removeElement($carteJouer);
+    }
+    
     public function getCarteJouer()
     {
         return $this->carteJouer;

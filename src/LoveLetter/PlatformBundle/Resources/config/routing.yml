@@ -8,13 +8,10 @@ LoveLetter_platform_accueil:
         _controller: LoveLetterPlatformBundle:Home:Accueil 
 
         
-LoveLetter_platform_jeu:
-    path: /Partie/{id}
+LoveLetter_platform_AffichageJeu:
+    path: /Partie
     defaults: 
-        _controller: LoveLetterPlatformBundle:Partie:DebutJeu
-        id: 0
-    requirements:
-        id: \d+
+        _controller: LoveLetterPlatformBundle:Partie:AffichageJeu
 
 LoveLetter_platform_initialisation:
     path: /Initialisation
@@ -46,3 +43,12 @@ LoveLetter_platform_DistributionCarte:
     defaults:
            _controller: LoveLetterPlatformBundle:Partie:DistributionCarte
            
+LoveLetter_platform_TirerCarte:
+    path: /TirerCarte
+    defaults:
+           _controller: LoveLetterPlatformBundle:Partie:TirerCarte
+           
+LoveLetter_platform_Choix:
+    path: /Choix
+    defaults:
+           _controller: LoveLetterPlatformBundle:Partie:Choix

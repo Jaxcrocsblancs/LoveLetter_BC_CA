@@ -1,0 +1,10 @@
+{% extends "LoveLetterPlatformBundle:jeu:plateauDeJeu.html.twig" %}
+{% block pretre %}
+    carte adversaire:
+   {% for carte in liste_cartesJ2 %}
+    <img src={{carte.url}} alt="" width="211" height="300" />
+  {% else %}
+    <li>Pas de carte</li>
+  {% endfor %}
+{% endblock %}
+  

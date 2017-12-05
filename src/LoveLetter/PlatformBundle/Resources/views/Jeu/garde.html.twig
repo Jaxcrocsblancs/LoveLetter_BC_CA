@@ -1,0 +1,15 @@
+{# empty Twig template #}
+{% extends "LoveLetterPlatformBundle::layoutJeu.html.twig" %}
+
+{% block LoveLetterplatform_body %}
+    
+    Quelque carte pense veux tu choisir
+   {% for carte in liste_cartes %}
+    <a href='http://localhost/LoveLetter/web/app_dev.php/Garde?id_manche={{id}}&id_joueur={{joueur}}&carte={{carte.nombre}}'>
+    <img src={{carte.url}} alt="" width="211" height="300" />
+      </a>
+  {% else %}
+    <li>Pas de carte</li>
+  {% endfor %}
+    
+{% endblock %}
