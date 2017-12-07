@@ -1,0 +1,23 @@
+{% extends "LoveLetterPlatformBundle::layoutJeu.html.twig" %}
+
+{% block LoveLetterplatform_body %}
+
+  <h1>Point de vu du joueur {{joueur}}</h1>
+  <table>
+    <tr>   
+        <th>toi</th>
+        <th><a href='http://localhost/LoveLetter/web/app_dev.php/{{action}}?id_manche={{id}}&nb_joueur={{joueur}}&choixJoueur=1'>
+            <img src=http://static.mnium.org/images/contenu/actus/HearthStone/Dos_de_cartes/Hearthstone_dos_de_cartes_saison_22.png  alt="" width="211" height="300" />
+            </a>
+        </th>
+    </tr> 
+    <tr>   
+        <th>autre</th>
+        <th> <a href='http://localhost/LoveLetter/web/app_dev.php/{{action}}?id_manche={{id}}&nb_joueur={{joueur}}&choixJoueur=2'>
+             <img src=http://static.mnium.org/images/contenu/actus/HearthStone/Dos_de_cartes/Hearthstone_dos_de_cartes_saison_22.png  alt="" width="211" height="300" />
+             </a>
+        </th>
+    </tr> 
+ </table>
+  
+{% endblock %}

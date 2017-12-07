@@ -196,6 +196,75 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::ChoixAction',  '_route' => 'LoveLetter_platform_Choix',);
         }
 
+        if (0 === strpos($pathinfo, '/Garde')) {
+            // LoveLetter_platform_Garde
+            if ($pathinfo === '/Garde') {
+                return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::GardeAction',  '_route' => 'LoveLetter_platform_Garde',);
+            }
+
+            // LoveLetter_platform_GardeChoix
+            if ($pathinfo === '/GardeChoix') {
+                return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::GardeChoixAction',  '_route' => 'LoveLetter_platform_GardeChoix',);
+            }
+
+        }
+
+        // LoveLetter_platform_Pretre
+        if ($pathinfo === '/Pretre') {
+            return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::PretreAction',  '_route' => 'LoveLetter_platform_Pretre',);
+        }
+
+        // LoveLetter_platform_Baron
+        if ($pathinfo === '/Baron') {
+            return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::BaronAction',  '_route' => 'LoveLetter_platform_Baron',);
+        }
+
+        // LoveLetter_platform_Servante
+        if ($pathinfo === '/Servante') {
+            return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::ServanteAction',  '_route' => 'LoveLetter_platform_Servante',);
+        }
+
+        if (0 === strpos($pathinfo, '/Prince')) {
+            // LoveLetter_platform_Prince
+            if ($pathinfo === '/Prince') {
+                return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::PrinceAction',  '_route' => 'LoveLetter_platform_Prince',);
+            }
+
+            // LoveLetter_platform_PrinceChoix
+            if ($pathinfo === '/PrinceChoix') {
+                return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::PrinceChoixAction',  '_route' => 'LoveLetter_platform_PrinceChoix',);
+            }
+
+        }
+
+        if (0 === strpos($pathinfo, '/Roi')) {
+            // LoveLetter_platform_Roi
+            if ($pathinfo === '/Roi') {
+                return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::RoiAction',  '_route' => 'LoveLetter_platform_Roi',);
+            }
+
+            // LoveLetter_platform_RoiChoix
+            if ($pathinfo === '/RoiChoix') {
+                return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::RoiChoixAction',  '_route' => 'LoveLetter_platform_RoiChoix',);
+            }
+
+        }
+
+        // LoveLetter_platform_Comtesse
+        if ($pathinfo === '/Comtesse') {
+            return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::ComtesseAction',  '_route' => 'LoveLetter_platform_Comtesse',);
+        }
+
+        // LoveLetter_platform_Princesse
+        if ($pathinfo === '/Princesse') {
+            return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::PrincesseAction',  '_route' => 'LoveLetter_platform_Princesse',);
+        }
+
+        // LoveLetter_platform_TestFin
+        if ($pathinfo === '/TestFin') {
+            return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::TestFinAction',  '_route' => 'LoveLetter_platform_TestFin',);
+        }
+
         // _welcome
         if (rtrim($pathinfo, '/') === '') {
             if (substr($pathinfo, -1) !== '/') {

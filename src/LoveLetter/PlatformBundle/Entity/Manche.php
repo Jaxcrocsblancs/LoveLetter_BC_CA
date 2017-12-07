@@ -27,7 +27,6 @@ class Manche
     private $partie;
     
     /**
-    * /**
      * @var array
      *
      * @ORM\Column(name="array", type="array")

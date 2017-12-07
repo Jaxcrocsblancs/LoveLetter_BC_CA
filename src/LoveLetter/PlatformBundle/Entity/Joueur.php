@@ -35,83 +35,42 @@ class Joueur
     private $utilisateur;*/
 
     /**
-    * @ORM\ManyToMany(targetEntity="LoveLetter\PlatformBundle\Entity\Carte", cascade={"persist"})
-    * @ORM\JoinTable(name="CarteMain_Joueur")
-    */
+     * @var array
+     *
+     * @ORM\Column(name="carteMain", type="array")
+     */
     private $carteMain;
     
-     /**
-    * @ORM\ManyToMany(targetEntity="LoveLetter\PlatformBundle\Entity\Carte", cascade={"persist"})
-    * @ORM\JoinTable(name="CarteJouer_Joueur")
-    */
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="carteJouer", type="array")
+     */
     private $carteJouer;
 
      public function __construct()
     {
         $this->score=0;
-        $this->carteMain = new ArrayCollection();
-        $this->carteJouer = new ArrayCollection();
-    }
-      /**
-     * Set pioche
-     *
-     * @param integer $carteMain
-     * @return carteMain
-     */
-    public function addCarteMain($carteMain)
-    {
-        $this->carteMain[] = $carteMain;
-    }
-   
-    public function removeCarteMain(Carte $carteMain)
-    {
-      $this->carteMain->removeElement($carteMain);
     }
     
-    /**
-     * Get carteMain
-     *
-     * @return carteMain
-     */
-    public function getCarteMain()
-    {
+    public function setCarteMain($carteMain){
+        $this->carteMain = $carteMain;
+        return $this;
+    }
+    
+    public function getCarteMain(){
         return $this->carteMain;
     }
     
-     /**
-     * Set pioche
-     *
-     * @param integer $carteMain
-     * @return carteMain
-     */
-    public function addCarteJouer($carteJouer)
-    {
-        $this->carteJouer[] = $carteJouer;
-    }
-   
-    public function removeCarteJouer(Carte $carteJouer)
-    {
-      $this->carteJouer->removeElement($carteJouer);
+    public function setCarteJouer($carteJouer){
+        $this->carteJouer = $carteJouer;
+        return $this;
     }
     
-    public function getCarteJouer()
-    {
+    public function getCarteJouer(){
         return $this->carteJouer;
     }
     
-    /*
-    public function setUtilisateur(Utilisateur $utilisateur)
-   {
-     $this->utilisateur = $utilisateur;
-
-     return $this;
-   }
-
-   public function getUtilisateur()
-   {
-     return $this->utilisateur;
-   }*/
-   
     /**
      * Get id
      *

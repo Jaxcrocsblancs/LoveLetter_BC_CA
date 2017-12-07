@@ -52,3 +52,63 @@ LoveLetter_platform_Choix:
     path: /Choix
     defaults:
            _controller: LoveLetterPlatformBundle:Partie:Choix
+
+LoveLetter_platform_Garde:
+    path: /Garde
+    defaults:
+           _controller: LoveLetterPlatformBundle:Partie:Garde
+           
+LoveLetter_platform_GardeChoix:
+    path: /GardeChoix
+    defaults:
+           _controller: LoveLetterPlatformBundle:Partie:GardeChoix
+           
+LoveLetter_platform_Pretre:
+    path: /Pretre
+    defaults:
+           _controller: LoveLetterPlatformBundle:Partie:Pretre
+
+LoveLetter_platform_Baron:
+    path: /Baron
+    defaults:
+           _controller: LoveLetterPlatformBundle:Partie:Baron
+
+LoveLetter_platform_Servante:
+    path: /Servante
+    defaults:
+           _controller: LoveLetterPlatformBundle:Partie:Servante
+
+LoveLetter_platform_Prince:
+    path: /Prince
+    defaults:
+           _controller: LoveLetterPlatformBundle:Partie:Prince
+
+LoveLetter_platform_PrinceChoix:
+    path: /PrinceChoix
+    defaults:
+           _controller: LoveLetterPlatformBundle:Partie:PrinceChoix
+
+LoveLetter_platform_Roi:
+    path: /Roi
+    defaults:
+           _controller: LoveLetterPlatformBundle:Partie:Roi
+           
+LoveLetter_platform_RoiChoix:
+    path: /RoiChoix
+    defaults:
+           _controller: LoveLetterPlatformBundle:Partie:RoiChoix
+
+LoveLetter_platform_Comtesse:
+    path: /Comtesse
+    defaults:
+           _controller: LoveLetterPlatformBundle:Partie:Comtesse
+
+LoveLetter_platform_Princesse:
+    path: /Princesse
+    defaults:
+           _controller: LoveLetterPlatformBundle:Partie:Princesse
+           
+LoveLetter_platform_TestFin:
+    path: /TestFin
+    defaults:
+           _controller: LoveLetterPlatformBundle:Partie:TestFin

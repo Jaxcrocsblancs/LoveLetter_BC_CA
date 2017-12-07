@@ -1,10 +1,50 @@
-{% extends "LoveLetterPlatformBundle:jeu:plateauDeJeu.html.twig" %}
-{% block pretre %}
-    carte adversaire:
-   {% for carte in liste_cartesJ2 %}
-    <img src={{carte.url}} alt="" width="211" height="300" />
+{% extends "LoveLetterPlatformBundle::layoutJeu.html.twig" %}
+
+{% block LoveLetterplatform_body %}
+
+  <h1>Point de vu du joueur {{joueur}}</h1>
+  <table>
+    <tr>   
+         <th>carte joueur</th>
+  {% for carte in liste_cartesJ1 %}
+    <th><img src={{carte.url}} alt="" width="211" height="300" /></th>
+  {% else %}
+    <th><li>Pas de carte</li></th>
+  {% endfor %}
+  </tr>
+  
+  <tr>   
+   <th>carte defausser par j1 </th>
+  {% for carte in liste_cartesJouerJ1 %}
+    <th><img src={{carte.url}} alt="" width="211" height="300" /></th>
+  {% else %}
+    <th><li>Pas de carte</li></th>
+  {% endfor %}
+  </tr>
+  
+  <tr> 
+  <th>carte adversaire</th>
+  {% for carte in liste_cartesJ2 %}
+    <th><a href='http://localhost/LoveLetter/web/app_dev.php/TestFin?id_manche={{id}}&nb_joueur={{joueur}}'>
+            <img src={{carte.url}} alt="" width="211" height="300" />
+            </a></th>
   {% else %}
     <li>Pas de carte</li>
   {% endfor %}
-{% endblock %}
+  </tr> 
   
+   <tr> 
+   <th>carte defausser par j2</th>
+  {% for carte in liste_cartesJouerJ2 %}
+   <th> <img src={{carte.url}} alt="" width="211" height="300" /></th>
+  {% else %}
+   <th> <li>Pas de carte</li></th>
+  {% endfor %}
+  
+  {%block effet %}
+  {% endblock %}
+  </tr> 
+  
+ </table>
+  
+{% endblock %}
