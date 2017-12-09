@@ -2,51 +2,72 @@
 
 {% block LoveLetterplatform_body %}
 
-  <h1>Point de vu du joueur {{joueur}}</h1>
-  <table>
-    <tr>   
-         <th>carte joueur</th>
-  {% for carte in liste_cartesJ1 %}
-    <th>  <a href='http://localhost/LoveLetter/web/app_dev.php/Choix?id_manche={{id}}&nb_joueur={{joueur}}&numCarteChoisi={{carte.nombre}}'>
-    <img src={{carte.url}} alt="" width="211" height="300" />
-    </a></th>
-  {% else %}
-    <th><li>Pas de carte</li></th>
-  {% endfor %}
-  </tr>
+  <h1>Point de vu du joueur {{joueur}}, tour du joueur {{tour_De}}, il reste {{pioche}} carte dans la pioche </h1>
   
-  <tr>   
-   <th>carte defausser par j1 </th>
-  {% for carte in liste_cartesJouerJ1 %}
-    <th><img src={{carte.url}} alt="" width="211" height="300" /></th>
-  {% else %}
-    <th><li>Pas de carte</li></th>
-  {% endfor %}
-  </tr>
-  
-  <tr> 
-  <th>carte adversaire</th>
-  {% block pretre %}
-    {% for carte in liste_cartesJ2 %}
-      <th><img src=http://static.mnium.org/images/contenu/actus/HearthStone/Dos_de_cartes/Hearthstone_dos_de_cartes_saison_22.png  alt="" width="211" height="300" /></th>
-    {% else %}
-      <th><li>Pas de carte</li></th>
-    {% endfor %}
-  {% endblock %}
-  </tr> 
-  
-   <tr> 
-   <th>carte defausser par j2</th>
-  {% for carte in liste_cartesJouerJ2 %}
-   <th> <img src={{carte.url}} alt="" width="211" height="300" /></th>
-  {% else %}
-   <th> <li>Pas de carte</li></th>
-  {% endfor %}
-  
-  {%block effet %}
-  {% endblock %}
-  </tr> 
-  
+  <table border = 1>
+        {% set cpt = 0 %}  
+        <tr border = 1>
+        {% for joueurL in liste %}
+          {% set cpt = cpt+1 %}
+          <th>Joueur {{cpt}}</th>
+        {% endfor %}
+        </tr>
+        <tr>
+            {% set cpt = 0 %}  
+            {% for joueurL in liste %}
+            <th>
+            {% set cpt = cpt+1 %}
+            {% set cpt2 = 0 %}  
+            {% for listeCarte in joueurL %} 
+
+                {% for carte in listeCarte %}
+                    {% if cpt2 == 0%}
+                        {% if cpt == joueur|number_format%}
+                            {% if tour_De == joueur %}
+                            <a href='http://localhost/LoveLetter/web/app_dev.php/Choix?id_manche={{id}}&nb_joueur={{joueur}}&numCarteChoisi={{carte.nombre}}'>
+                                    <img src={{carte.url}} alt="" width="211" height="300" /></a>
+                            {% else %}
+                                <img src={{carte.url}} alt="" width="211" height="300" />
+                            {% endif %}
+                        {% else %}
+                            <img src=http://static.mnium.org/images/contenu/actus/HearthStone/Dos_de_cartes/Hearthstone_dos_de_cartes_saison_22.png  alt="" width="211" height="300" />
+                        {% endif %}
+                     {% endif%}
+                {% else %}
+                    {% if cpt2 == 0%}
+                    <li>Pas de carte</li>
+                    {% endif%}
+                {% endfor %}
+                {% set cpt2 = cpt2+1 %}
+               
+            {% endfor %}
+            </th>
+      {% endfor %}
+       </tr>
+       <tr>
+            {% set cpt = 0 %}  
+            {% for joueurL in liste %}
+            <th>
+            {% set cpt = cpt+1 %}
+            {% set cpt2 = 0 %}  
+            {% for listeCarte in joueurL %} 
+                {% for carte in listeCarte %}
+                    {% if cpt2 == 1%}
+                        <img src={{carte.url}} alt="" width="211" height="300" />
+                     {% endif%}
+                {% else %}
+                    {% if cpt2 == 1%}
+                    <li>Pas de carte</li>
+                    {% endif%}
+                {% endfor %}
+                {% set cpt2 = cpt2+1 %}
+               
+            {% endfor %}
+            </th>
+      {% endfor %}
+       </tr>
+       
+       
+       
  </table>
-  
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends "LoveLetterPlatformBundle::layoutJeu.html.twig" %}
 
 {% block LoveLetterplatform_body %}
-
+<a href='http://localhost/LoveLetter/web/app_dev.php/TestFin?id_manche={{id}}&nb_joueur={{joueur}}'>
   <h1>Point de vu du joueur {{joueur}}</h1>
   <table>
     <tr>   
@@ -25,9 +25,9 @@
   <tr> 
   <th>carte adversaire</th>
   {% for carte in liste_cartesJ2 %}
-    <th><a href='http://localhost/LoveLetter/web/app_dev.php/TestFin?id_manche={{id}}&nb_joueur={{joueur}}'>
+    <th>
             <img src={{carte.url}} alt="" width="211" height="300" />
-            </a></th>
+            </th>
   {% else %}
     <li>Pas de carte</li>
   {% endfor %}
@@ -46,5 +46,5 @@
   </tr> 
   
  </table>
-  
+  </a>
 {% endblock %}

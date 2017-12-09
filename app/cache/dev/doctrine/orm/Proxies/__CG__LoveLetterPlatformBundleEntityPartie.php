@@ -64,10 +64,10 @@ class Partie extends \LoveLetter\PlatformBundle\Entity\Partie implements \Doctri
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'LoveLetter\\PlatformBundle\\Entity\\Partie' . "\0" . 'id', '' . "\0" . 'LoveLetter\\PlatformBundle\\Entity\\Partie' . "\0" . 'nomPartie', '' . "\0" . 'LoveLetter\\PlatformBundle\\Entity\\Partie' . "\0" . 'joueur');
+            return array('__isInitialized__', '' . "\0" . 'LoveLetter\\PlatformBundle\\Entity\\Partie' . "\0" . 'id', '' . "\0" . 'LoveLetter\\PlatformBundle\\Entity\\Partie' . "\0" . 'nomPartie');
         }
 
-        return array('__isInitialized__', '' . "\0" . 'LoveLetter\\PlatformBundle\\Entity\\Partie' . "\0" . 'id', '' . "\0" . 'LoveLetter\\PlatformBundle\\Entity\\Partie' . "\0" . 'nomPartie', '' . "\0" . 'LoveLetter\\PlatformBundle\\Entity\\Partie' . "\0" . 'joueur');
+        return array('__isInitialized__', '' . "\0" . 'LoveLetter\\PlatformBundle\\Entity\\Partie' . "\0" . 'id', '' . "\0" . 'LoveLetter\\PlatformBundle\\Entity\\Partie' . "\0" . 'nomPartie');
     }
 
     /**
@@ -173,39 +173,6 @@ class Partie extends \LoveLetter\PlatformBundle\Entity\Partie implements \Doctri
     }
 
     
-    /**
-     * {@inheritDoc}
-     */
-    public function addjoueur($joueur)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addjoueur', array($joueur));
-
-        return parent::addjoueur($joueur);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function removejoueur(\LoveLetter\PlatformBundle\Entity\Joueur $joueur)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removejoueur', array($joueur));
-
-        return parent::removejoueur($joueur);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getjoueur()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getjoueur', array());
-
-        return parent::getjoueur();
-    }
-
     /**
      * {@inheritDoc}
      */

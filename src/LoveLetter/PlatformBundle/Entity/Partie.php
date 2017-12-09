@@ -3,7 +3,7 @@
 namespace LoveLetter\PlatformBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * Partie
  *
@@ -28,32 +28,7 @@ class Partie
      */
     private $nomPartie;
 
-    /**
-    * @ORM\ManyToMany(targetEntity="LoveLetter\PlatformBundle\Entity\Joueur", cascade={"persist"})
-    * @ORM\JoinTable(name="joueur_partie")
-    */
-    private $joueur;
-    
-     
-    public function __construct()
-    {
-        $this->joueur = new ArrayCollection();
-    }
-    
-    public function addjoueur($joueur)
-    {
-      $this->joueur[] = $joueur;
-    }
-
-    public function removejoueur(Joueur $joueur)
-    {
-      $this->joueur->removeElement($joueur);
-    }
-
-    public function getjoueur()
-    {
-      return $this->joueur;
-    }
+  
      
     /**
      * Get id

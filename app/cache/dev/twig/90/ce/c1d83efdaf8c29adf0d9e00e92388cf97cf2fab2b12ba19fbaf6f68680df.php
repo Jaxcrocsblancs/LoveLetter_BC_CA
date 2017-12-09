@@ -11,8 +11,6 @@ class __TwigTemplate_90cec1d83efdaf8c29adf0d9e00e92388cf97cf2fab2b12ba19fbaf6f68
 
         $this->blocks = array(
             'LoveLetterplatform_body' => array($this, 'block_LoveLetterplatform_body'),
-            'pretre' => array($this, 'block_pretre'),
-            'effet' => array($this, 'block_effet'),
         );
     }
 
@@ -34,144 +32,227 @@ class __TwigTemplate_90cec1d83efdaf8c29adf0d9e00e92388cf97cf2fab2b12ba19fbaf6f68
   <h1>Point de vu du joueur ";
         // line 5
         echo twig_escape_filter($this->env, (isset($context["joueur"]) ? $context["joueur"] : $this->getContext($context, "joueur")), "html", null, true);
-        echo "</h1>
-  <table>
-    <tr>   
-         <th>carte joueur</th>
-  ";
-        // line 9
-        $context['_parent'] = (array) $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["liste_cartesJ1"]) ? $context["liste_cartesJ1"] : $this->getContext($context, "liste_cartesJ1")));
-        $context['_iterated'] = false;
-        foreach ($context['_seq'] as $context["_key"] => $context["carte"]) {
-            // line 10
-            echo "    <th>  <a href='http://localhost/LoveLetter/web/app_dev.php/Choix?id_manche=";
-            echo twig_escape_filter($this->env, (isset($context["id"]) ? $context["id"] : $this->getContext($context, "id")), "html", null, true);
-            echo "&nb_joueur=";
-            echo twig_escape_filter($this->env, (isset($context["joueur"]) ? $context["joueur"] : $this->getContext($context, "joueur")), "html", null, true);
-            echo "&numCarteChoisi=";
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["carte"]) ? $context["carte"] : $this->getContext($context, "carte")), "nombre"), "html", null, true);
-            echo "'>
-    <img src=";
-            // line 11
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["carte"]) ? $context["carte"] : $this->getContext($context, "carte")), "url"), "html", null, true);
-            echo " alt=\"\" width=\"211\" height=\"300\" />
-    </a></th>
-  ";
-            $context['_iterated'] = true;
-        }
-        if (!$context['_iterated']) {
-            // line 14
-            echo "    <th><li>Pas de carte</li></th>
-  ";
-        }
-        $_parent = $context['_parent'];
-        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['carte'], $context['_parent'], $context['loop']);
-        $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 16
-        echo "  </tr>
+        echo ", tour du joueur ";
+        echo twig_escape_filter($this->env, (isset($context["tour_De"]) ? $context["tour_De"] : $this->getContext($context, "tour_De")), "html", null, true);
+        echo ", il reste ";
+        echo twig_escape_filter($this->env, (isset($context["pioche"]) ? $context["pioche"] : $this->getContext($context, "pioche")), "html", null, true);
+        echo " carte dans la pioche </h1>
   
-  <tr>   
-   <th>carte defausser par j1 </th>
-  ";
-        // line 20
-        $context['_parent'] = (array) $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["liste_cartesJouerJ1"]) ? $context["liste_cartesJouerJ1"] : $this->getContext($context, "liste_cartesJouerJ1")));
-        $context['_iterated'] = false;
-        foreach ($context['_seq'] as $context["_key"] => $context["carte"]) {
-            // line 21
-            echo "    <th><img src=";
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["carte"]) ? $context["carte"] : $this->getContext($context, "carte")), "url"), "html", null, true);
-            echo " alt=\"\" width=\"211\" height=\"300\" /></th>
-  ";
-            $context['_iterated'] = true;
-        }
-        if (!$context['_iterated']) {
-            // line 23
-            echo "    <th><li>Pas de carte</li></th>
-  ";
-        }
-        $_parent = $context['_parent'];
-        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['carte'], $context['_parent'], $context['loop']);
-        $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 25
-        echo "  </tr>
-  
-  <tr> 
-  <th>carte adversaire</th>
-  ";
-        // line 29
-        $this->displayBlock('pretre', $context, $blocks);
-        // line 36
-        echo "  </tr> 
-  
-   <tr> 
-   <th>carte defausser par j2</th>
-  ";
-        // line 40
-        $context['_parent'] = (array) $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["liste_cartesJouerJ2"]) ? $context["liste_cartesJouerJ2"] : $this->getContext($context, "liste_cartesJouerJ2")));
-        $context['_iterated'] = false;
-        foreach ($context['_seq'] as $context["_key"] => $context["carte"]) {
-            // line 41
-            echo "   <th> <img src=";
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["carte"]) ? $context["carte"] : $this->getContext($context, "carte")), "url"), "html", null, true);
-            echo " alt=\"\" width=\"211\" height=\"300\" /></th>
-  ";
-            $context['_iterated'] = true;
-        }
-        if (!$context['_iterated']) {
-            // line 43
-            echo "   <th> <li>Pas de carte</li></th>
-  ";
-        }
-        $_parent = $context['_parent'];
-        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['carte'], $context['_parent'], $context['loop']);
-        $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 45
+  <table border = 1>
+        ";
+        // line 8
+        $context["cpt"] = 0;
         echo "  
-  ";
-        // line 46
-        $this->displayBlock('effet', $context, $blocks);
-        // line 48
-        echo "  </tr> 
-  
- </table>
-  
-";
-    }
-
-    // line 29
-    public function block_pretre($context, array $blocks = array())
-    {
-        // line 30
-        echo "    ";
+        <tr border = 1>
+        ";
+        // line 10
         $context['_parent'] = (array) $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["liste_cartesJ2"]) ? $context["liste_cartesJ2"] : $this->getContext($context, "liste_cartesJ2")));
-        $context['_iterated'] = false;
-        foreach ($context['_seq'] as $context["_key"] => $context["carte"]) {
-            // line 31
-            echo "      <th><img src=http://static.mnium.org/images/contenu/actus/HearthStone/Dos_de_cartes/Hearthstone_dos_de_cartes_saison_22.png  alt=\"\" width=\"211\" height=\"300\" /></th>
-    ";
-            $context['_iterated'] = true;
-        }
-        if (!$context['_iterated']) {
-            // line 33
-            echo "      <th><li>Pas de carte</li></th>
-    ";
+        $context['_seq'] = twig_ensure_traversable((isset($context["liste"]) ? $context["liste"] : $this->getContext($context, "liste")));
+        foreach ($context['_seq'] as $context["_key"] => $context["joueurL"]) {
+            // line 11
+            echo "          ";
+            $context["cpt"] = ((isset($context["cpt"]) ? $context["cpt"] : $this->getContext($context, "cpt")) + 1);
+            // line 12
+            echo "          <th>Joueur ";
+            echo twig_escape_filter($this->env, (isset($context["cpt"]) ? $context["cpt"] : $this->getContext($context, "cpt")), "html", null, true);
+            echo "</th>
+        ";
         }
         $_parent = $context['_parent'];
-        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['carte'], $context['_parent'], $context['loop']);
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['joueurL'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 35
-        echo "  ";
-    }
+        // line 14
+        echo "        </tr>
+        <tr>
+            ";
+        // line 16
+        $context["cpt"] = 0;
+        echo "  
+            ";
+        // line 17
+        $context['_parent'] = (array) $context;
+        $context['_seq'] = twig_ensure_traversable((isset($context["liste"]) ? $context["liste"] : $this->getContext($context, "liste")));
+        foreach ($context['_seq'] as $context["_key"] => $context["joueurL"]) {
+            // line 18
+            echo "            <th>
+            ";
+            // line 19
+            $context["cpt"] = ((isset($context["cpt"]) ? $context["cpt"] : $this->getContext($context, "cpt")) + 1);
+            // line 20
+            echo "            ";
+            $context["cpt2"] = 0;
+            echo "  
+            ";
+            // line 21
+            $context['_parent'] = (array) $context;
+            $context['_seq'] = twig_ensure_traversable((isset($context["joueurL"]) ? $context["joueurL"] : $this->getContext($context, "joueurL")));
+            foreach ($context['_seq'] as $context["_key"] => $context["listeCarte"]) {
+                echo " 
 
-    // line 46
-    public function block_effet($context, array $blocks = array())
-    {
-        // line 47
-        echo "  ";
+                ";
+                // line 23
+                $context['_parent'] = (array) $context;
+                $context['_seq'] = twig_ensure_traversable((isset($context["listeCarte"]) ? $context["listeCarte"] : $this->getContext($context, "listeCarte")));
+                $context['_iterated'] = false;
+                foreach ($context['_seq'] as $context["_key"] => $context["carte"]) {
+                    // line 24
+                    echo "                    ";
+                    if (((isset($context["cpt2"]) ? $context["cpt2"] : $this->getContext($context, "cpt2")) == 0)) {
+                        // line 25
+                        echo "                        ";
+                        if (((isset($context["cpt"]) ? $context["cpt"] : $this->getContext($context, "cpt")) == twig_number_format_filter($this->env, (isset($context["joueur"]) ? $context["joueur"] : $this->getContext($context, "joueur"))))) {
+                            // line 26
+                            echo "                            ";
+                            if (((isset($context["tour_De"]) ? $context["tour_De"] : $this->getContext($context, "tour_De")) == (isset($context["joueur"]) ? $context["joueur"] : $this->getContext($context, "joueur")))) {
+                                // line 27
+                                echo "                            <a href='http://localhost/LoveLetter/web/app_dev.php/Choix?id_manche=";
+                                echo twig_escape_filter($this->env, (isset($context["id"]) ? $context["id"] : $this->getContext($context, "id")), "html", null, true);
+                                echo "&nb_joueur=";
+                                echo twig_escape_filter($this->env, (isset($context["joueur"]) ? $context["joueur"] : $this->getContext($context, "joueur")), "html", null, true);
+                                echo "&numCarteChoisi=";
+                                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["carte"]) ? $context["carte"] : $this->getContext($context, "carte")), "nombre"), "html", null, true);
+                                echo "'>
+                                    <img src=";
+                                // line 28
+                                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["carte"]) ? $context["carte"] : $this->getContext($context, "carte")), "url"), "html", null, true);
+                                echo " alt=\"\" width=\"211\" height=\"300\" /></a>
+                            ";
+                            } else {
+                                // line 30
+                                echo "                                <img src=";
+                                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["carte"]) ? $context["carte"] : $this->getContext($context, "carte")), "url"), "html", null, true);
+                                echo " alt=\"\" width=\"211\" height=\"300\" />
+                            ";
+                            }
+                            // line 32
+                            echo "                        ";
+                        } else {
+                            // line 33
+                            echo "                            <img src=http://static.mnium.org/images/contenu/actus/HearthStone/Dos_de_cartes/Hearthstone_dos_de_cartes_saison_22.png  alt=\"\" width=\"211\" height=\"300\" />
+                        ";
+                        }
+                        // line 35
+                        echo "                     ";
+                    }
+                    // line 36
+                    echo "                ";
+                    $context['_iterated'] = true;
+                }
+                if (!$context['_iterated']) {
+                    // line 37
+                    echo "                    ";
+                    if (((isset($context["cpt2"]) ? $context["cpt2"] : $this->getContext($context, "cpt2")) == 0)) {
+                        // line 38
+                        echo "                    <li>Pas de carte</li>
+                    ";
+                    }
+                    // line 40
+                    echo "                ";
+                }
+                $_parent = $context['_parent'];
+                unset($context['_seq'], $context['_iterated'], $context['_key'], $context['carte'], $context['_parent'], $context['loop']);
+                $context = array_intersect_key($context, $_parent) + $_parent;
+                // line 41
+                echo "                ";
+                $context["cpt2"] = ((isset($context["cpt2"]) ? $context["cpt2"] : $this->getContext($context, "cpt2")) + 1);
+                // line 42
+                echo "               
+            ";
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['listeCarte'], $context['_parent'], $context['loop']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            // line 44
+            echo "            </th>
+      ";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['joueurL'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 46
+        echo "       </tr>
+       <tr>
+            ";
+        // line 48
+        $context["cpt"] = 0;
+        echo "  
+            ";
+        // line 49
+        $context['_parent'] = (array) $context;
+        $context['_seq'] = twig_ensure_traversable((isset($context["liste"]) ? $context["liste"] : $this->getContext($context, "liste")));
+        foreach ($context['_seq'] as $context["_key"] => $context["joueurL"]) {
+            // line 50
+            echo "            <th>
+            ";
+            // line 51
+            $context["cpt"] = ((isset($context["cpt"]) ? $context["cpt"] : $this->getContext($context, "cpt")) + 1);
+            // line 52
+            echo "            ";
+            $context["cpt2"] = 0;
+            echo "  
+            ";
+            // line 53
+            $context['_parent'] = (array) $context;
+            $context['_seq'] = twig_ensure_traversable((isset($context["joueurL"]) ? $context["joueurL"] : $this->getContext($context, "joueurL")));
+            foreach ($context['_seq'] as $context["_key"] => $context["listeCarte"]) {
+                echo " 
+                ";
+                // line 54
+                $context['_parent'] = (array) $context;
+                $context['_seq'] = twig_ensure_traversable((isset($context["listeCarte"]) ? $context["listeCarte"] : $this->getContext($context, "listeCarte")));
+                $context['_iterated'] = false;
+                foreach ($context['_seq'] as $context["_key"] => $context["carte"]) {
+                    // line 55
+                    echo "                    ";
+                    if (((isset($context["cpt2"]) ? $context["cpt2"] : $this->getContext($context, "cpt2")) == 1)) {
+                        // line 56
+                        echo "                        <img src=";
+                        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["carte"]) ? $context["carte"] : $this->getContext($context, "carte")), "url"), "html", null, true);
+                        echo " alt=\"\" width=\"211\" height=\"300\" />
+                     ";
+                    }
+                    // line 58
+                    echo "                ";
+                    $context['_iterated'] = true;
+                }
+                if (!$context['_iterated']) {
+                    // line 59
+                    echo "                    ";
+                    if (((isset($context["cpt2"]) ? $context["cpt2"] : $this->getContext($context, "cpt2")) == 1)) {
+                        // line 60
+                        echo "                    <li>Pas de carte</li>
+                    ";
+                    }
+                    // line 62
+                    echo "                ";
+                }
+                $_parent = $context['_parent'];
+                unset($context['_seq'], $context['_iterated'], $context['_key'], $context['carte'], $context['_parent'], $context['loop']);
+                $context = array_intersect_key($context, $_parent) + $_parent;
+                // line 63
+                echo "                ";
+                $context["cpt2"] = ((isset($context["cpt2"]) ? $context["cpt2"] : $this->getContext($context, "cpt2")) + 1);
+                // line 64
+                echo "               
+            ";
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['listeCarte'], $context['_parent'], $context['loop']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            // line 66
+            echo "            </th>
+      ";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['joueurL'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 68
+        echo "       </tr>
+       
+       
+       
+ </table>
+";
     }
 
     public function getTemplateName()
@@ -186,6 +267,6 @@ class __TwigTemplate_90cec1d83efdaf8c29adf0d9e00e92388cf97cf2fab2b12ba19fbaf6f68
 
     public function getDebugInfo()
     {
-        return array (  174 => 47,  171 => 46,  167 => 35,  160 => 33,  154 => 31,  148 => 30,  145 => 29,  137 => 48,  135 => 46,  132 => 45,  125 => 43,  117 => 41,  112 => 40,  106 => 36,  104 => 29,  98 => 25,  91 => 23,  83 => 21,  78 => 20,  72 => 16,  65 => 14,  57 => 11,  48 => 10,  43 => 9,  36 => 5,  33 => 4,  30 => 3,);
+        return array (  250 => 68,  243 => 66,  236 => 64,  233 => 63,  227 => 62,  223 => 60,  220 => 59,  215 => 58,  209 => 56,  206 => 55,  201 => 54,  195 => 53,  190 => 52,  188 => 51,  185 => 50,  181 => 49,  177 => 48,  173 => 46,  166 => 44,  159 => 42,  156 => 41,  150 => 40,  146 => 38,  143 => 37,  138 => 36,  135 => 35,  131 => 33,  128 => 32,  122 => 30,  117 => 28,  108 => 27,  105 => 26,  102 => 25,  99 => 24,  94 => 23,  87 => 21,  82 => 20,  80 => 19,  77 => 18,  73 => 17,  69 => 16,  65 => 14,  56 => 12,  53 => 11,  49 => 10,  44 => 8,  34 => 5,  31 => 4,  28 => 3,);
     }
 }

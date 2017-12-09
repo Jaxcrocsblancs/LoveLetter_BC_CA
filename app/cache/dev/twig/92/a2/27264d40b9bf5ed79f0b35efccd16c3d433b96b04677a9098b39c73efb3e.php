@@ -29,7 +29,11 @@ class __TwigTemplate_92a227264d40b9bf5ed79f0b35efccd16c3d433b96b04677a9098b39c73
     public function block_LoveLetterplatform_body($context, array $blocks = array())
     {
         // line 4
-        echo "
+        echo "<a href='http://localhost/LoveLetter/web/app_dev.php/TestFin?id_manche=";
+        echo twig_escape_filter($this->env, (isset($context["id"]) ? $context["id"] : $this->getContext($context, "id")), "html", null, true);
+        echo "&nb_joueur=";
+        echo twig_escape_filter($this->env, (isset($context["joueur"]) ? $context["joueur"] : $this->getContext($context, "joueur")), "html", null, true);
+        echo "'>
   <h1>Point de vu du joueur ";
         // line 5
         echo twig_escape_filter($this->env, (isset($context["joueur"]) ? $context["joueur"] : $this->getContext($context, "joueur")), "html", null, true);
@@ -96,16 +100,12 @@ class __TwigTemplate_92a227264d40b9bf5ed79f0b35efccd16c3d433b96b04677a9098b39c73
         $context['_iterated'] = false;
         foreach ($context['_seq'] as $context["_key"] => $context["carte"]) {
             // line 28
-            echo "    <th><a href='http://localhost/LoveLetter/web/app_dev.php/TestFin?id_manche=";
-            echo twig_escape_filter($this->env, (isset($context["id"]) ? $context["id"] : $this->getContext($context, "id")), "html", null, true);
-            echo "&nb_joueur=";
-            echo twig_escape_filter($this->env, (isset($context["joueur"]) ? $context["joueur"] : $this->getContext($context, "joueur")), "html", null, true);
-            echo "'>
+            echo "    <th>
             <img src=";
             // line 29
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["carte"]) ? $context["carte"] : $this->getContext($context, "carte")), "url"), "html", null, true);
             echo " alt=\"\" width=\"211\" height=\"300\" />
-            </a></th>
+            </th>
   ";
             $context['_iterated'] = true;
         }
@@ -152,7 +152,7 @@ class __TwigTemplate_92a227264d40b9bf5ed79f0b35efccd16c3d433b96b04677a9098b39c73
         echo "  </tr> 
   
  </table>
-  
+  </a>
 ";
     }
 
@@ -175,6 +175,6 @@ class __TwigTemplate_92a227264d40b9bf5ed79f0b35efccd16c3d433b96b04677a9098b39c73
 
     public function getDebugInfo()
     {
-        return array (  163 => 45,  160 => 44,  152 => 46,  150 => 44,  147 => 43,  140 => 41,  132 => 39,  127 => 38,  121 => 34,  114 => 32,  106 => 29,  99 => 28,  94 => 27,  88 => 23,  81 => 21,  73 => 19,  68 => 18,  62 => 14,  55 => 12,  47 => 10,  42 => 9,  35 => 5,  32 => 4,  29 => 3,);
+        return array (  163 => 45,  160 => 44,  152 => 46,  150 => 44,  147 => 43,  140 => 41,  132 => 39,  127 => 38,  121 => 34,  114 => 32,  106 => 29,  103 => 28,  98 => 27,  92 => 23,  85 => 21,  77 => 19,  72 => 18,  66 => 14,  59 => 12,  51 => 10,  46 => 9,  39 => 5,  32 => 4,  29 => 3,);
     }
 }
