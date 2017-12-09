@@ -106,6 +106,7 @@ class PartieController extends Controller
         
         $repositoryPartie = $em->getRepository('LoveLetterPlatformBundle:Partie');
         $partie = $repositoryPartie->find($id_partiebis);
+       
         
         //Création d'une nouvelle manche 
         $manche = new Manche;
@@ -115,7 +116,10 @@ class PartieController extends Controller
         $manche->addjoueur($joueur2) ;
         $manche->addjoueur($joueur3) ;
         $manche->addjoueur($joueur4) ;
-        
+        $proteger = array();
+        $manche->setProteger($proteger);
+        $perdu = array();
+        $manche->setProteger($perdu);
         //Creation de la pioche
         $pioche = array(1,1,1,1,1,2,2,3,3,4,4,5,5,6,7,8);
         //shuffle($pioche);
@@ -215,15 +219,20 @@ class PartieController extends Controller
         $repositoryManche = $em->getRepository('LoveLetterPlatformBundle:Manche');
         $id_manchebis = $id_manche->query->get('id_manche');    
         $mancheEnCour = $repositoryManche->find($id_manchebis);
-               
+        $getTourDe = $mancheEnCour->getTourDe();
         $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');
 
+        $proteger = $mancheEnCour->getProteger();
+
+        if(in_array( $getTourDe,$proteger)){
+            array_shift($proteger);
+            $mancheEnCour->setProteger($proteger);
+        }
         $pioche = $mancheEnCour->getPioche();
         $ListeJoueur = $mancheEnCour->getJoueur();
         $tour_de = $mancheEnCour->getTourDe();
         $joueur = $ListeJoueur[$tour_de-1];
         $carteMainJoueur = $joueur->getCarteMain();
-
         $newtab = array($carteMainJoueur[0], $pioche[0]);
         array_shift($pioche);
         $joueur->setCarteMain($newtab);
@@ -235,7 +244,7 @@ class PartieController extends Controller
         //test comtesse
         $carteMain = $joueur->getCarteMain();
         if($carteMain[0] == 7){
-            if($carteMain[1] == 6 || $carteMain[1] == 5){
+            if($carteMain[1] == 6 || $carteMain[1] == 5 || $carteMain[1] == 8){
                 $carteJouer = $joueur->getCarteJouer();
                 if(empty($carteJouer)){
                 $carteJouer = array($carteMain[0]);
@@ -256,7 +265,7 @@ class PartieController extends Controller
             }
         }
         elseif($carteMain[1] == 7){
-            if($carteMain[0] == 6 || $carteMain[0] == 5){
+            if($carteMain[0] == 6 || $carteMain[0] == 5 || $carteMain[0] == 8){
                 $carteJouer = $joueur->getCarteJouer();
                 if(empty($carteJouer)){
                 $carteJouer = array($carteMain[1]);
@@ -295,34 +304,46 @@ class PartieController extends Controller
         $ListeJoueur = $mancheEnCour->getJoueur();
         $nbjoueur = $nb_joueur->query->get('nb_joueur');     
         $numJoueur = 0;
+        $perdu = $mancheEnCour->getPerdu();
+        if(empty($perdu)){
+            $perdu = array();
+        }
         foreach($ListeJoueur as $joueur){
             $numJoueur++;
-            if(empty($joueur->getCarteMain())){
-                return $this->render('LoveLetterPlatformBundle:Jeu:finManche.html.twig', array(
-                    'test' => "plus carte", 
-                    'joueur' => $numJoueur,
-                    'idPartie' => $mancheEnCour->getPartie()->getId(),
-                    ));
-            }
-            $ListeCarteJouer = $joueur->getCarteJouer();
-            if(!empty($ListeCarteJouer)){
-                foreach($ListeCarteJouer as $carte){
-                    if ($carte == 8){
-                        return $this->render('LoveLetterPlatformBundle:Jeu:finManche.html.twig', array(
-                        'test' => "princesses",
-                        'joueur' => $numJoueur,
-                        'idPartie' => $mancheEnCour->getPartie()->getId(),
-                        ));
+            if(!in_array($numJoueur, $perdu)){
+                if(empty($joueur->getCarteMain())){
+                    $perdu[] = $numJoueur;
+                }
+                $ListeCarteJouer = $joueur->getCarteJouer();
+                if(!empty($ListeCarteJouer)){
+                    foreach($ListeCarteJouer as $carte){
+                        if ($carte == 8){
+                           $perdu[] = $numJoueur;
+                        }
                     }
                 }
             }
         }
+       
+        $mancheEnCour->setPerdu($perdu);
         $tour_de = $mancheEnCour->getTourDe();
+        $stock = $tour_de;
         $tour_de++;
         if(count($ListeJoueur)<$tour_de){
-            $tour_de=1;
+                $tour_de=1;
+        }
+        while(in_array($tour_de,$perdu)){
+            $tour_de++;
+            if(count($ListeJoueur)<$tour_de){
+                $tour_de=1;
+            }
+        }
+        if($stock == $tour_de){
+            //envoi debut manche avec num joueur gagnant +1 score et apres faire test si score est suffisant pour arret de la partie
+            return new Response("FIN DE MANCHE".$stock." ".$tour_de);
         }
         $mancheEnCour->setTourDe($tour_de);
+        
         $em->persist($mancheEnCour);
         $em->flush();
         $url = $this->get('router')->generate('LoveLetter_platform_TirerCarte', array(

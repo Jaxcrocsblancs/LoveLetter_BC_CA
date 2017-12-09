@@ -29,10 +29,23 @@ class Manche
     /**
      * @var array
      *
-     * @ORM\Column(name="array", type="array")
+     * @ORM\Column(name="pioche", type="array")
      */
     private $pioche;
 
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="proteger", type="array")
+     */
+    private $proteger;
+    
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="perdu", type="array")
+     */
+    private $perdu;
     /**
     * @ORM\ManyToMany(targetEntity="LoveLetter\PlatformBundle\Entity\Joueur", cascade={"persist"})
     * @ORM\JoinTable(name="joueur_manche")
@@ -90,6 +103,30 @@ class Manche
       return $this->partie;
     }
   
+    public function setProteger($proteger)
+    {
+      $this->proteger = $proteger;
+
+      return $this;
+    }
+
+    public function getProteger()
+    {
+      return $this->proteger;
+    }
+    
+     public function setPerdu($perdu)
+    {
+      $this->perdu = $perdu;
+
+      return $this;
+    }
+
+    public function getPerdu()
+    {
+      return $this->perdu;
+    }
+    
     /**
      * Get id
      *

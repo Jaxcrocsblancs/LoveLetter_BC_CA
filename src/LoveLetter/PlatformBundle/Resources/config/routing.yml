@@ -56,22 +56,37 @@ LoveLetter_platform_Garde:
     path: /Garde
     defaults:
            _controller: LoveLetterPlatformBundle:Carte:Garde
-           
+
 LoveLetter_platform_GardeChoix:
     path: /GardeChoix
     defaults:
            _controller: LoveLetterPlatformBundle:Carte:GardeChoix
+
+LoveLetter_platform_GardeChoix2:
+    path: /GardeChoix2
+    defaults:
+           _controller: LoveLetterPlatformBundle:Carte:GardeChoix2
            
 LoveLetter_platform_Pretre:
     path: /Pretre
     defaults:
            _controller: LoveLetterPlatformBundle:Carte:Pretre
-
+           
+LoveLetter_platform_PretreChoix:
+    path: /PretreChoix
+    defaults:
+           _controller: LoveLetterPlatformBundle:Carte:PretreChoix
+           
 LoveLetter_platform_Baron:
     path: /Baron
     defaults:
            _controller: LoveLetterPlatformBundle:Carte:Baron
-
+           
+LoveLetter_platform_BaronChoix:
+    path: /BaronChoix
+    defaults:
+           _controller: LoveLetterPlatformBundle:Carte:BaronChoix
+           
 LoveLetter_platform_Servante:
     path: /Servante
     defaults:

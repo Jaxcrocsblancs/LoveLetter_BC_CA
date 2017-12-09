@@ -143,7 +143,7 @@ class __TwigTemplate_90cec1d83efdaf8c29adf0d9e00e92388cf97cf2fab2b12ba19fbaf6f68
                     echo "                    ";
                     if (((isset($context["cpt2"]) ? $context["cpt2"] : $this->getContext($context, "cpt2")) == 0)) {
                         // line 38
-                        echo "                    <li>Pas de carte</li>
+                        echo "                    <li>Perdu</li>
                     ";
                     }
                     // line 40

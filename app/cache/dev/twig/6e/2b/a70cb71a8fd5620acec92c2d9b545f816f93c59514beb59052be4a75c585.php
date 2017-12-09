@@ -37,12 +37,14 @@ class __TwigTemplate_6e2ba70cb71a8fd5620acec92c2d9b545f816f93c59514beb59052be4a7
         $context['_iterated'] = false;
         foreach ($context['_seq'] as $context["_key"] => $context["carte"]) {
             // line 8
-            echo "    <a href='http://localhost/LoveLetter/web/app_dev.php/GardeChoix?id_manche=";
+            echo "    <a href='http://localhost/LoveLetter/web/app_dev.php/GardeChoix2?id_manche=";
             echo twig_escape_filter($this->env, (isset($context["id"]) ? $context["id"] : $this->getContext($context, "id")), "html", null, true);
             echo "&nb_joueur=";
             echo twig_escape_filter($this->env, (isset($context["joueur"]) ? $context["joueur"] : $this->getContext($context, "joueur")), "html", null, true);
             echo "&id_carte=";
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["carte"]) ? $context["carte"] : $this->getContext($context, "carte")), "nombre"), "html", null, true);
+            echo "&choixJoueur=";
+            echo twig_escape_filter($this->env, (isset($context["jchoisie"]) ? $context["jchoisie"] : $this->getContext($context, "jchoisie")), "html", null, true);
             echo "'>
     <img src=";
             // line 9
@@ -77,6 +79,6 @@ class __TwigTemplate_6e2ba70cb71a8fd5620acec92c2d9b545f816f93c59514beb59052be4a7
 
     public function getDebugInfo()
     {
-        return array (  64 => 14,  57 => 12,  49 => 9,  40 => 8,  35 => 7,  31 => 5,  28 => 4,);
+        return array (  66 => 14,  59 => 12,  51 => 9,  40 => 8,  35 => 7,  31 => 5,  28 => 4,);
     }
 }

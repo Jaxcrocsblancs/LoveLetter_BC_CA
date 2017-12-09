@@ -5,7 +5,7 @@
     
     Quelque carte pense veux tu choisir
    {% for carte in liste_cartes %}
-    <a href='http://localhost/LoveLetter/web/app_dev.php/GardeChoix?id_manche={{id}}&nb_joueur={{joueur}}&id_carte={{carte.nombre}}'>
+    <a href='http://localhost/LoveLetter/web/app_dev.php/GardeChoix2?id_manche={{id}}&nb_joueur={{joueur}}&id_carte={{carte.nombre}}&choixJoueur={{jchoisie}}'>
     <img src={{carte.url}} alt="" width="211" height="300" />
     </a>
   {% else %}

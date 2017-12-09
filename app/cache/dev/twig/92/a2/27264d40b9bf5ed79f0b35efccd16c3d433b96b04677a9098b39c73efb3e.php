@@ -11,7 +11,6 @@ class __TwigTemplate_92a227264d40b9bf5ed79f0b35efccd16c3d433b96b04677a9098b39c73
 
         $this->blocks = array(
             'LoveLetterplatform_body' => array($this, 'block_LoveLetterplatform_body'),
-            'effet' => array($this, 'block_effet'),
         );
     }
 
@@ -34,133 +33,15 @@ class __TwigTemplate_92a227264d40b9bf5ed79f0b35efccd16c3d433b96b04677a9098b39c73
         echo "&nb_joueur=";
         echo twig_escape_filter($this->env, (isset($context["joueur"]) ? $context["joueur"] : $this->getContext($context, "joueur")), "html", null, true);
         echo "'>
-  <h1>Point de vu du joueur ";
-        // line 5
-        echo twig_escape_filter($this->env, (isset($context["joueur"]) ? $context["joueur"] : $this->getContext($context, "joueur")), "html", null, true);
-        echo "</h1>
-  <table>
-    <tr>   
-         <th>carte joueur</th>
-  ";
-        // line 9
-        $context['_parent'] = (array) $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["liste_cartesJ1"]) ? $context["liste_cartesJ1"] : $this->getContext($context, "liste_cartesJ1")));
-        $context['_iterated'] = false;
-        foreach ($context['_seq'] as $context["_key"] => $context["carte"]) {
-            // line 10
-            echo "    <th><img src=";
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["carte"]) ? $context["carte"] : $this->getContext($context, "carte")), "url"), "html", null, true);
-            echo " alt=\"\" width=\"211\" height=\"300\" /></th>
-  ";
-            $context['_iterated'] = true;
-        }
-        if (!$context['_iterated']) {
-            // line 12
-            echo "    <th><li>Pas de carte</li></th>
-  ";
-        }
-        $_parent = $context['_parent'];
-        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['carte'], $context['_parent'], $context['loop']);
-        $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 14
-        echo "  </tr>
-  
-  <tr>   
-   <th>carte defausser par j1 </th>
-  ";
-        // line 18
-        $context['_parent'] = (array) $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["liste_cartesJouerJ1"]) ? $context["liste_cartesJouerJ1"] : $this->getContext($context, "liste_cartesJouerJ1")));
-        $context['_iterated'] = false;
-        foreach ($context['_seq'] as $context["_key"] => $context["carte"]) {
-            // line 19
-            echo "    <th><img src=";
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["carte"]) ? $context["carte"] : $this->getContext($context, "carte")), "url"), "html", null, true);
-            echo " alt=\"\" width=\"211\" height=\"300\" /></th>
-  ";
-            $context['_iterated'] = true;
-        }
-        if (!$context['_iterated']) {
-            // line 21
-            echo "    <th><li>Pas de carte</li></th>
-  ";
-        }
-        $_parent = $context['_parent'];
-        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['carte'], $context['_parent'], $context['loop']);
-        $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 23
-        echo "  </tr>
-  
-  <tr> 
-  <th>carte adversaire</th>
-  ";
-        // line 27
-        $context['_parent'] = (array) $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["liste_cartesJ2"]) ? $context["liste_cartesJ2"] : $this->getContext($context, "liste_cartesJ2")));
-        $context['_iterated'] = false;
-        foreach ($context['_seq'] as $context["_key"] => $context["carte"]) {
-            // line 28
-            echo "    <th>
-            <img src=";
-            // line 29
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["carte"]) ? $context["carte"] : $this->getContext($context, "carte")), "url"), "html", null, true);
-            echo " alt=\"\" width=\"211\" height=\"300\" />
-            </th>
-  ";
-            $context['_iterated'] = true;
-        }
-        if (!$context['_iterated']) {
-            // line 32
-            echo "    <li>Pas de carte</li>
-  ";
-        }
-        $_parent = $context['_parent'];
-        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['carte'], $context['_parent'], $context['loop']);
-        $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 34
-        echo "  </tr> 
-  
-   <tr> 
-   <th>carte defausser par j2</th>
-  ";
-        // line 38
-        $context['_parent'] = (array) $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["liste_cartesJouerJ2"]) ? $context["liste_cartesJouerJ2"] : $this->getContext($context, "liste_cartesJouerJ2")));
-        $context['_iterated'] = false;
-        foreach ($context['_seq'] as $context["_key"] => $context["carte"]) {
-            // line 39
-            echo "   <th> <img src=";
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["carte"]) ? $context["carte"] : $this->getContext($context, "carte")), "url"), "html", null, true);
-            echo " alt=\"\" width=\"211\" height=\"300\" /></th>
-  ";
-            $context['_iterated'] = true;
-        }
-        if (!$context['_iterated']) {
-            // line 41
-            echo "   <th> <li>Pas de carte</li></th>
-  ";
-        }
-        $_parent = $context['_parent'];
-        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['carte'], $context['_parent'], $context['loop']);
-        $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 43
-        echo "  
-  ";
-        // line 44
-        $this->displayBlock('effet', $context, $blocks);
-        // line 46
-        echo "  </tr> 
-  
- </table>
-  </a>
+    <table>
+ <tr><th>Cliquez un fois que c'est bon</th></tr>
+ <tr><img src=";
+        // line 7
+        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["carte"]) ? $context["carte"] : $this->getContext($context, "carte")), "url"), "html", null, true);
+        echo " alt=\"\" width=\"211\" height=\"300\" /></tr>
+   </table>
+</a>
 ";
-    }
-
-    // line 44
-    public function block_effet($context, array $blocks = array())
-    {
-        // line 45
-        echo "  ";
     }
 
     public function getTemplateName()
@@ -175,6 +56,6 @@ class __TwigTemplate_92a227264d40b9bf5ed79f0b35efccd16c3d433b96b04677a9098b39c73
 
     public function getDebugInfo()
     {
-        return array (  163 => 45,  160 => 44,  152 => 46,  150 => 44,  147 => 43,  140 => 41,  132 => 39,  127 => 38,  121 => 34,  114 => 32,  106 => 29,  103 => 28,  98 => 27,  92 => 23,  85 => 21,  77 => 19,  72 => 18,  66 => 14,  59 => 12,  51 => 10,  46 => 9,  39 => 5,  32 => 4,  29 => 3,);
+        return array (  40 => 7,  31 => 4,  28 => 3,);
     }
 }
