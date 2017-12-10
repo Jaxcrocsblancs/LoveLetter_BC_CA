@@ -2,7 +2,7 @@
 
 {% block LoveLetterplatform_body %}
 
-  <h1>Point de vu du joueur {{joueur}}, tour du joueur {{tour_De}}, il reste {{pioche}} carte dans la pioche </h1>
+  <h1>Point de vu du joueur {{joueur}}, manche {{manche}}, tour du joueur {{tour_De}}, il reste {{pioche}} carte dans la pioche </h1>
   
   <table border = 1>
         {% set cpt = 0 %}  
@@ -12,34 +12,37 @@
           <th>Joueur {{cpt}}</th>
         {% endfor %}
         </tr>
+        {% for score in ListeScore %}
+          <th>score {{score}}</th>
+        {% endfor %}
+        
+        
         <tr>
-            {% set cpt = 0 %}  
-            {% for joueurL in liste %}
-            <th>
-            {% set cpt = cpt+1 %}
-            {% set cpt2 = 0 %}  
+        {% set cpt = 0 %}  
+        {% for joueurL in liste %}
+        <th>
+        {% set cpt = cpt+1 %}
+        {% set cpt2 = 0 %}  
             {% for listeCarte in joueurL %} 
-
                 {% for carte in listeCarte %}
                     {% if cpt2 == 0%}
                         {% if cpt == joueur|number_format%}
                             {% if tour_De == joueur %}
-                            <a href='http://localhost/LoveLetter/web/app_dev.php/Choix?id_manche={{id}}&nb_joueur={{joueur}}&numCarteChoisi={{carte.nombre}}'>
-                                    <img src={{carte.url}} alt="" width="211" height="300" /></a>
+                                <a href='http://localhost/LoveLetter/web/app_dev.php/Choix?id_manche={{id}}&nb_joueur={{joueur}}&numCarteChoisi={{carte.nombre}}'>
+                                <img src={{carte.url}} alt="" width="211" height="300" /></a>
                             {% else %}
-                                <img src={{carte.url}} alt="" width="211" height="300" />
+                                    <img src={{carte.url}} alt="" width="211" height="300" />
                             {% endif %}
                         {% else %}
-                            <img src=http://static.mnium.org/images/contenu/actus/HearthStone/Dos_de_cartes/Hearthstone_dos_de_cartes_saison_22.png  alt="" width="211" height="300" />
+                                <img src=http://static.mnium.org/images/contenu/actus/HearthStone/Dos_de_cartes/Hearthstone_dos_de_cartes_saison_22.png  alt="" width="211" height="300" />
                         {% endif %}
-                     {% endif%}
+                    {% endif%}
                 {% else %}
                     {% if cpt2 == 0%}
-                    <li>Perdu</li>
+                        <li>Perdu</li>
                     {% endif%}
                 {% endfor %}
                 {% set cpt2 = cpt2+1 %}
-               
             {% endfor %}
             </th>
       {% endfor %}

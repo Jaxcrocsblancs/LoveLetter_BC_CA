@@ -1,8 +1,26 @@
 {# src/OC/PlatformBundle/Resources/views/layout.html.twig #}
+<html>
+<head>
+  <meta charset="utf-8">
+    <title>{% block title %}LoveLetter{% endblock %}</title>
+</head>
 
-
-  {#<body background="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmYXVVbyWRV1clLSUc_Vuc_X9PJpQhrLMFisr5mWB72uniFhqL">
-  {# On définit un nouveau bloc, que les vues du bundle pourront remplir #}
-  {% block LoveLetterplatform_body %}
-      
-  {% endblock %}
+<body>
+{% block LoveLetterplatform_body %}
+{% endblock %}
+<div id="update"></div>
+</body>
+</html>
+<script type="text/javascript">
+ 	setInterval(function(){
+		$.ajax({
+			url: "verify.php",
+			method: 'post',
+			data: {id: 2, user: 1}
+		})
+		.done(function(data){
+			console.log(data);
+			$('#update').html(data);
+		});
+ 	}, 500);
+</script>

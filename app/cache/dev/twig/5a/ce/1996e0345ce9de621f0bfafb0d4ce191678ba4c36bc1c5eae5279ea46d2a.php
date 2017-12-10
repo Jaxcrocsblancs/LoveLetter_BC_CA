@@ -40,27 +40,16 @@ class __TwigTemplate_5ace1996e0345ce9de621f0bfafb0d4ce191678ba4c36bc1c5eae5279ea
     public function block_body($context, array $blocks = array())
     {
         // line 10
-        echo "
-  ";
-        // line 12
-        echo "  <h1>Partie en cours</h1>
-
-  <hr>
-
-  ";
-        // line 17
         echo "  ";
         $this->displayBlock('ocplatform_body', $context, $blocks);
-        // line 19
-        echo "
-";
     }
 
-    // line 17
     public function block_ocplatform_body($context, array $blocks = array())
     {
-        // line 18
-        echo "  ";
+        // line 11
+        echo "      
+      
+  ";
     }
 
     public function getTemplateName()
@@ -75,6 +64,6 @@ class __TwigTemplate_5ace1996e0345ce9de621f0bfafb0d4ce191678ba4c36bc1c5eae5279ea
 
     public function getDebugInfo()
     {
-        return array (  63 => 18,  60 => 17,  55 => 19,  52 => 17,  46 => 12,  43 => 10,  40 => 9,  33 => 6,  30 => 5,  31 => 4,  28 => 3,);
+        return array (  50 => 11,  43 => 10,  40 => 9,  33 => 6,  30 => 5,  34 => 5,  31 => 4,  28 => 3,);
     }
 }

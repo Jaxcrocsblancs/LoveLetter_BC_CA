@@ -6,7 +6,12 @@ LoveLetter_platform_accueil:
     path: /accueil
     defaults: 
         _controller: LoveLetterPlatformBundle:Home:Accueil 
-
+        
+LoveLetter_platform_add:
+    path: /add
+    defaults: 
+        _controller: LoveLetterPlatformBundle:Home:add
+        
 LoveLetter_platform_AffichageJeu:
     path: /Partie
     defaults: 
@@ -28,10 +33,12 @@ LoveLetter_platform_UtilisateurRejoinsPartie:
         _controller: LoveLetterPlatformBundle:Partie:UtilisateurRejoinsPartie
       
 LoveLetter_platform_CreationPartie:
-    path: /LancementPartie/{nom}
+    path: /LancementPartie/{nom}/{nb}
     defaults:
            _controller: LoveLetterPlatformBundle:Partie:CreationPartie
-           
+    requirements:
+        nb:   2|3|4
+        
 LoveLetter_platform_DebutManche:
     path: /DebutManche
     defaults:
@@ -126,3 +133,8 @@ LoveLetter_platform_TestFin:
     path: /TestFin
     defaults:
            _controller: LoveLetterPlatformBundle:Partie:TestFin
+
+LoveLetter_platform_TestFinPartie:
+    path: /TestFinPartie
+    defaults:
+           _controller: LoveLetterPlatformBundle:Partie:TestFinPartie

@@ -59,6 +59,21 @@ class Manche
      */
     private $tourDe;
     
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="fin", type="integer")
+     */
+    private $fin;
+    
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="manche_suivant", type="integer", nullable=true)
+     */
+    private $suivant;
+    
     public function __construct()
     {
         $this->joueur = new ArrayCollection();
@@ -159,4 +174,33 @@ class Manche
     {
         return $this->pioche;
     }
+
+    public function setFin($fin)
+    {
+        $this->fin = $fin;
+
+        return $this;
+    }
+
+    public function getFin()
+    {
+        return $this->fin;
+    }
+    
+     public function setSuivant($suivant)
+    {
+        $this->suivant = $suivant;
+
+        return $this;
+    }
+
+    public function getSuivant()
+    {
+        return $this->suivant;
+    }
+    
+    
 }
+
+
+

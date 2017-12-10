@@ -15,481 +15,613 @@ use Symfony\Component\HttpFoundation\Request;
 class CarteController extends Controller
 {
     public function ChoixAction(Request $id_manche, Request $nb_joueur, Request $numCarteChoisi){
-        $em = $this->getDoctrine()->getManager();
-        $id_carteJouer = $numCarteChoisi->query->get('numCarteChoisi');
-
-        $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');    
-        
-        $repositoryManche = $em->getRepository('LoveLetterPlatformBundle:Manche');
-        $id_manchebis = $id_manche->query->get('id_manche');    
-        $mancheEnCour = $repositoryManche->find($id_manchebis);
-
-        $ListeJoueur = $mancheEnCour->getJoueur();
-        $joueur = $ListeJoueur[$nbJoueurJouant-1];
-        
-        $carteMain= $joueur->getCarteMain();
-        $carteJouer= $joueur->getCarteJouer();
-
-        //Deplacer cette function pour ne pas l'utiliser avec toutes les cartes 
-        //a verifier
-        if($carteMain[0] == $id_carteJouer){
-            if(empty($carteJouer)){
-                $carteJouer = array($carteMain[0]);
+       // On récupère l'EntityManager
+       $em = $this->getDoctrine()->getManager();
+       //Recuperation de la manche
+       $id_manchebis = $id_manche->query->get('id_manche');
+       $repository = $em->getRepository('LoveLetterPlatformBundle:Manche');
+       $mancheEnCour = $repository->find($id_manchebis);
+       if($mancheEnCour->getFin() == 0){
+            $id_carteJouer = $numCarteChoisi->query->get('numCarteChoisi');
+            $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');    
+            $ListeJoueur = $mancheEnCour->getJoueur();
+            $joueur = $ListeJoueur[$nbJoueurJouant-1];
+            $carteMain= $joueur->getCarteMain();
+            $carteJouer= $joueur->getCarteJouer();
+            //Deplacer cette function pour ne pas l'utiliser avec toutes les cartes 
+            //a verifier
+            if($carteMain[0] == $id_carteJouer){
+                if(empty($carteJouer)){
+                    $carteJouer = array($carteMain[0]);
+                }
+                else{
+                    array_push($carteJouer, $carteMain[0]);
+                }
+                array_shift($carteMain);
             }
             else{
-                array_push($carteJouer, $carteMain[0]);
+                if(empty($carteJouer)){
+                    $carteJouer = array($carteMain[1]);
+                }
+                else{
+                    array_push($carteJouer, $carteMain[1]);
+                }
+                $carteMain = array($carteMain[0]);
             }
-            array_shift($carteMain);
-        }
-        else{
-            if(empty($carteJouer)){
-                $carteJouer = array($carteMain[1]);
-            }
-            else{
-                array_push($carteJouer, $carteMain[1]);
-            }
-            $carteMain = array($carteMain[0]);
-        }
-        $joueur->setCarteMain($carteMain);
-        $joueur->setCarteJouer($carteJouer);
-        $em->persist($joueur);
-        $em->flush();
-        
-        //revoie sur bon action
-        switch ($id_carteJouer) {
-            case 1:
-                 $url = $this->get('router')->generate('LoveLetter_platform_Garde', array(
-                     'id_manche' => $id_manchebis,
-                     'nb_joueur' => $nbJoueurJouant,
-                     ));
-                 return $this->redirect($url);
-                break;
-            case 2:
-                $url = $this->get('router')->generate('LoveLetter_platform_Pretre', array(
-                     'id_manche' => $id_manchebis,
-                     'nb_joueur' => $nbJoueurJouant,
-                     ));
-                 return $this->redirect($url);
-                break;
-            case 3:
-                $url = $this->get('router')->generate('LoveLetter_platform_Baron', array(
-                     'id_manche' => $id_manchebis,
-                     'nb_joueur' => $nbJoueurJouant,
-                     ));
-                 return $this->redirect($url);
-                break;
-            case 4:
-                $url = $this->get('router')->generate('LoveLetter_platform_Servante', array(
-                     'id_manche' => $id_manchebis,
-                     'nb_joueur' => $nbJoueurJouant,
-                     ));
-                 return $this->redirect($url);
-                break;
-            case 5:
-                $url = $this->get('router')->generate('LoveLetter_platform_Prince', array(
-                     'id_manche' => $id_manchebis,
-                     'nb_joueur' => $nbJoueurJouant,
-                    ));
-                 return $this->redirect($url);
-                break;
-            case 6:
-                $url = $this->get('router')->generate('LoveLetter_platform_Roi', array(
-                     'id_manche' => $id_manchebis,
-                     'nb_joueur' => $nbJoueurJouant,
-                    ));
-                 return $this->redirect($url);
-                break;
-            case 7:
-                $url = $this->get('router')->generate('LoveLetter_platform_Comtesse', array(
-                     'id_manche' => $id_manchebis,
-                     'nb_joueur' => $nbJoueurJouant,
-                     ));
-                 return $this->redirect($url);
-                break;
-            case 8:
-                $url = $this->get('router')->generate('LoveLetter_platform_Princesse', array(
-                     'id_manche' => $id_manchebis,
-                     'nb_joueur' => $nbJoueurJouant,
+            $joueur->setCarteMain($carteMain);
+            $joueur->setCarteJouer($carteJouer);
+            $em->persist($joueur);
+            $em->flush();
+
+            //revoie sur bon action
+            switch ($id_carteJouer) {
+                case 1:
+                     $url = $this->get('router')->generate('LoveLetter_platform_Garde', array(
+                         'id_manche' => $id_manchebis,
+                         'nb_joueur' => $nbJoueurJouant,
+                         ));
+                     return $this->redirect($url);
+                    break;
+                case 2:
+                    $url = $this->get('router')->generate('LoveLetter_platform_Pretre', array(
+                         'id_manche' => $id_manchebis,
+                         'nb_joueur' => $nbJoueurJouant,
+                         ));
+                     return $this->redirect($url);
+                    break;
+                case 3:
+                    $url = $this->get('router')->generate('LoveLetter_platform_Baron', array(
+                         'id_manche' => $id_manchebis,
+                         'nb_joueur' => $nbJoueurJouant,
+                         ));
+                     return $this->redirect($url);
+                    break;
+                case 4:
+                    $url = $this->get('router')->generate('LoveLetter_platform_Servante', array(
+                         'id_manche' => $id_manchebis,
+                         'nb_joueur' => $nbJoueurJouant,
+                         ));
+                     return $this->redirect($url);
+                    break;
+                case 5:
+                    $url = $this->get('router')->generate('LoveLetter_platform_Prince', array(
+                         'id_manche' => $id_manchebis,
+                         'nb_joueur' => $nbJoueurJouant,
                         ));
-                 return $this->redirect($url);
-                break;
-        }
+                     return $this->redirect($url);
+                    break;
+                case 6:
+                    $url = $this->get('router')->generate('LoveLetter_platform_Roi', array(
+                         'id_manche' => $id_manchebis,
+                         'nb_joueur' => $nbJoueurJouant,
+                        ));
+                     return $this->redirect($url);
+                    break;
+                case 7:
+                    $url = $this->get('router')->generate('LoveLetter_platform_Comtesse', array(
+                         'id_manche' => $id_manchebis,
+                         'nb_joueur' => $nbJoueurJouant,
+                         ));
+                     return $this->redirect($url);
+                    break;
+                case 8:
+                    $url = $this->get('router')->generate('LoveLetter_platform_Princesse', array(
+                         'id_manche' => $id_manchebis,
+                         'nb_joueur' => $nbJoueurJouant,
+                            ));
+                     return $this->redirect($url);
+                    break;
+            }
+       }
+       else{
+           return new Response("Manche finie");
+       }
     }
     
     public function GardeAction(Request $id_manche, Request $nb_joueur){
+        // On récupère l'EntityManager
+       $em = $this->getDoctrine()->getManager();
+       //Recuperation de la manche
        $id_manchebis = $id_manche->query->get('id_manche');
-       $repositoryManche = $this->getDoctrine()->getManager()->getRepository('LoveLetterPlatformBundle:Manche');
-       $mancheEnCour = $repositoryManche->find($id_manchebis);
-       $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');    
-       $ListeJoueur = $mancheEnCour->getJoueur();
-       $nbJoueur = 0;
-       $liste = array();
-       $proteger = $mancheEnCour->getProteger();
-       $perdu = $mancheEnCour->getPerdu();
-       if(empty($perdu)){
-           $perdu = array();
+       $repository = $em->getRepository('LoveLetterPlatformBundle:Manche');
+       $mancheEnCour = $repository->find($id_manchebis);
+       if($mancheEnCour->getFin() == 0){
+            $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');    
+            $ListeJoueur = $mancheEnCour->getJoueur();
+            $nbJoueur = 0;
+            $liste = array();
+            $proteger = $mancheEnCour->getProteger();
+            $perdu = $mancheEnCour->getPerdu();
+            if(empty($perdu)){
+                $perdu = array();
+            }
+            if(empty($proteger)){
+                $proteger = array();
+            }
+            foreach($ListeJoueur as $joueur){
+                $nbJoueur++;
+                if($nbJoueur != $nbJoueurJouant && !in_array($nbJoueur, $proteger) && !in_array($nbJoueur, $perdu)){
+                 $liste[]=$nbJoueur;
+                }
+            }
+            
+            if(empty($liste)){
+                $url = $this->get('router')->generate('LoveLetter_platform_TestFin', array(
+                    'id_manche' => $mancheEnCour->getId(),
+                    'nb_joueur' => $nbJoueurJouant,
+                    ));
+                 return $this->redirect($url);
+            }
+             return $this->render('LoveLetterPlatformBundle:Jeu:ChoixJoueur.html.twig', array(
+             'id' => $mancheEnCour->getId(), 
+             'joueur' => $nbJoueurJouant,
+             'Liste' => $liste,
+             'action' => "GardeChoix",
+             ));
        }
-       if(empty($proteger)){
-           $proteger = array();
+       else{
+           return new Response("Manche finie");
        }
-       foreach($ListeJoueur as $joueur){
-           $nbJoueur++;
-           if($nbJoueur != $nbJoueurJouant && !in_array($nbJoueur, $proteger) && !in_array($nbJoueur, $perdu)){
-            $liste[]=$nbJoueur;
-           }
-       }
-
-        return $this->render('LoveLetterPlatformBundle:Jeu:ChoixJoueur.html.twig', array(
-        'id' => $mancheEnCour->getId(), 
-        'joueur' => $nbJoueurJouant,
-        'Liste' => $liste,
-        'action' => "GardeChoix",
-        ));
+          
     }
 
     public function GardeChoixAction(Request $id_manche, Request $nb_joueur, Request $choixJoueur){
-        $em = $this->getDoctrine()->getManager();
-        $repositoryManche = $em->getRepository('LoveLetterPlatformBundle:Manche');
-        $id_manchebis = $id_manche->query->get('id_manche');    
-        $mancheEnCour = $repositoryManche->find($id_manchebis);
-        $nbjoueur = $nb_joueur->query->get('nb_joueur');        
-        $nbjoueurChoisie = $choixJoueur->query->get('choixJoueur');        
-        $repositoryCarte = $em->getRepository('LoveLetterPlatformBundle:Carte');
-        
-        $ListeCarte[0] = $repositoryCarte->find(2);
-        $ListeCarte[1] = $repositoryCarte->find(3);
-        $ListeCarte[2] = $repositoryCarte->find(4);
-        $ListeCarte[3] = $repositoryCarte->find(5);
-        $ListeCarte[4] = $repositoryCarte->find(6);
-        $ListeCarte[5] = $repositoryCarte->find(7);
-        $ListeCarte[6] = $repositoryCarte->find(8);
+         // On récupère l'EntityManager
+       $em = $this->getDoctrine()->getManager();
+       //Recuperation de la manche
+       $id_manchebis = $id_manche->query->get('id_manche');
+       $repository = $em->getRepository('LoveLetterPlatformBundle:Manche');
+       $mancheEnCour = $repository->find($id_manchebis);
+       if($mancheEnCour->getFin() == 0){
+            $nbjoueur = $nb_joueur->query->get('nb_joueur');        
+            $nbjoueurChoisie = $choixJoueur->query->get('choixJoueur');        
+            $repositoryCarte = $em->getRepository('LoveLetterPlatformBundle:Carte');
 
-        return $this->render('LoveLetterPlatformBundle:Jeu:garde.html.twig', array(
-        'id' => $mancheEnCour->getId(), 
-        'joueur' => $nbjoueur,
-        'liste_cartes' => $ListeCarte,
-        'jchoisie' => $nbjoueurChoisie,
-        ));  
-        
+            $ListeCarte[0] = $repositoryCarte->find(2);
+            $ListeCarte[1] = $repositoryCarte->find(3);
+            $ListeCarte[2] = $repositoryCarte->find(4);
+            $ListeCarte[3] = $repositoryCarte->find(5);
+            $ListeCarte[4] = $repositoryCarte->find(6);
+            $ListeCarte[5] = $repositoryCarte->find(7);
+            $ListeCarte[6] = $repositoryCarte->find(8);
+
+            return $this->render('LoveLetterPlatformBundle:Jeu:garde.html.twig', array(
+            'id' => $mancheEnCour->getId(), 
+            'joueur' => $nbjoueur,
+            'liste_cartes' => $ListeCarte,
+            'jchoisie' => $nbjoueurChoisie,
+            ));  
+       }
+       else{
+           return new Response("Manche finie");
+       }
     }
             
     public function GardeChoix2Action(Request $id_manche, Request $nb_joueur, Request $id_carte, Request $choixJoueur){
+         // On récupère l'EntityManager
+       $em = $this->getDoctrine()->getManager();
+       //Recuperation de la manche
+       $id_manchebis = $id_manche->query->get('id_manche');
+       $repository = $em->getRepository('LoveLetterPlatformBundle:Manche');
+       $mancheEnCour = $repository->find($id_manchebis);
+       if($mancheEnCour->getFin() == 0){
 
-        $em = $this->getDoctrine()->getManager();
-        //Recuperation de la manche
-        $repositoryManche = $em->getRepository('LoveLetterPlatformBundle:Manche');
-        $id_manchebis = $id_manche->query->get('id_manche');    
-        $mancheEnCour = $repositoryManche->find($id_manchebis);
+            $ListeJoueur = $mancheEnCour->getJoueur();
+            $nbjoueur = $nb_joueur->query->get('nb_joueur');      
+            $joueurChoisie = $choixJoueur->query->get('choixJoueur'); 
+            $id_cartebis = $id_carte->query->get('id_carte');    
 
-        $ListeJoueur = $mancheEnCour->getJoueur();
-        $nbjoueur = $nb_joueur->query->get('nb_joueur');      
-        $joueurChoisie = $choixJoueur->query->get('choixJoueur'); 
-        $id_cartebis = $id_carte->query->get('id_carte');    
+            $ListeCarteMain = $ListeJoueur[$joueurChoisie-1]->getCarteMain();
+            $ListeCarteJouer = $ListeJoueur[$joueurChoisie-1]->getCarteJouer();
+            if(empty($ListeCarteJouer)){
+                $ListeCarteJouer = array();
+            }
 
-        $ListeCarteMain = $ListeJoueur[$joueurChoisie-1]->getCarteMain();
-        $ListeCarteJouer = $ListeJoueur[$joueurChoisie-1]->getCarteJouer();
-        if(empty($ListeCarteJouer)){
-            $ListeCarteJouer = array();
-        }
-       
-        if($ListeCarteMain[0] == $id_cartebis){
-            $ListeCarteJouer = array_merge($ListeCarteJouer, $ListeCarteMain);
-            $ListeCarteMain = array();
-            $ListeJoueur[$joueurChoisie-1]->setCarteMain($ListeCarteMain);
-            $ListeJoueur[$joueurChoisie-1]->setCarteJouer($ListeCarteJouer);
-            $em->persist($ListeJoueur[$joueurChoisie-1]);
-            $em->flush();
-        }
-           $url = $this->get('router')->generate('LoveLetter_platform_TestFin', array(
-            'id_manche' => $mancheEnCour->getId(),
-            'nb_joueur' => $nbjoueur,
-            ));
-        return $this->redirect($url);
+            if($ListeCarteMain[0] == $id_cartebis){
+                $ListeCarteJouer = array_merge($ListeCarteJouer, $ListeCarteMain);
+                $ListeCarteMain = array();
+                $ListeJoueur[$joueurChoisie-1]->setCarteMain($ListeCarteMain);
+                $ListeJoueur[$joueurChoisie-1]->setCarteJouer($ListeCarteJouer);
+                $em->persist($ListeJoueur[$joueurChoisie-1]);
+                $em->flush();
+            }
+            $url = $this->get('router')->generate('LoveLetter_platform_TestFin', array(
+                'id_manche' => $mancheEnCour->getId(),
+                'nb_joueur' => $nbjoueur,
+                ));
+            return $this->redirect($url);
+       }
+       else{
+           return new Response("Manche finie");
+       }
     }
             
     public function PretreAction(Request $id_manche, Request $nb_joueur){
+         // On récupère l'EntityManager
+       $em = $this->getDoctrine()->getManager();
+       //Recuperation de la manche
        $id_manchebis = $id_manche->query->get('id_manche');
-       $repositoryManche = $this->getDoctrine()->getManager()->getRepository('LoveLetterPlatformBundle:Manche');
-       $mancheEnCour = $repositoryManche->find($id_manchebis);
-       $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');    
-       $ListeJoueur = $mancheEnCour->getJoueur();
-       $nbJoueur = 0;
-       $liste = array();
-       $proteger = $mancheEnCour->getProteger();
-       $perdu = $mancheEnCour->getPerdu();
-        if(empty($perdu)){
-           $perdu = array();
+       $repository = $em->getRepository('LoveLetterPlatformBundle:Manche');
+       $mancheEnCour = $repository->find($id_manchebis);
+       if($mancheEnCour->getFin() == 0){
+        $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');    
+        $ListeJoueur = $mancheEnCour->getJoueur();
+        $nbJoueur = 0;
+        $liste = array();
+        $proteger = $mancheEnCour->getProteger();
+        $perdu = $mancheEnCour->getPerdu();
+         if(empty($perdu)){
+            $perdu = array();
+        }
+        if(empty($proteger)){
+            $proteger = array();
+        }
+        foreach($ListeJoueur as $joueur){
+            $nbJoueur++;
+            if($nbJoueur != $nbJoueurJouant && !in_array($nbJoueur, $proteger) && !in_array($nbJoueur, $perdu)){
+             $liste[]=$nbJoueur;
+            }
+        }
+        if(empty($liste)){
+                $url = $this->get('router')->generate('LoveLetter_platform_TestFin', array(
+                    'id_manche' => $mancheEnCour->getId(),
+                    'nb_joueur' => $nbJoueurJouant,
+                    ));
+                 return $this->redirect($url);
+        }
+         return $this->render('LoveLetterPlatformBundle:Jeu:ChoixJoueur.html.twig', array(
+         'id' => $mancheEnCour->getId(), 
+         'joueur' => $nbJoueurJouant,
+         'Liste' => $liste,
+         'action' => "PretreChoix",
+         ));
        }
-       if(empty($proteger)){
-           $proteger = array();
+       else{
+           return new Response("Manche finie");
        }
-       foreach($ListeJoueur as $joueur){
-           $nbJoueur++;
-           if($nbJoueur != $nbJoueurJouant && !in_array($nbJoueur, $proteger) && !in_array($nbJoueur, $perdu)){
-            $liste[]=$nbJoueur;
-           }
-       }
-
-        return $this->render('LoveLetterPlatformBundle:Jeu:ChoixJoueur.html.twig', array(
-        'id' => $mancheEnCour->getId(), 
-        'joueur' => $nbJoueurJouant,
-        'Liste' => $liste,
-        'action' => "PretreChoix",
-        ));
     }
     
     public function PretreChoixAction(Request $id_manche, Request $nb_joueur, Request $choixJoueur){
-         $em = $this->getDoctrine()->getManager();
-        //recuperation de l'id_manche
-        $id_manchebis = $id_manche->query->get('id_manche');
-        //recuperation de repository des manches
-        $repositoryManche = $em->getRepository('LoveLetterPlatformBundle:Manche');
+         // On récupère l'EntityManager
+       $em = $this->getDoctrine()->getManager();
+       //Recuperation de la manche
+       $id_manchebis = $id_manche->query->get('id_manche');
+       $repository = $em->getRepository('LoveLetterPlatformBundle:Manche');
+       $mancheEnCour = $repository->find($id_manchebis);
+       if($mancheEnCour->getFin() == 0){
+           //recuperation de la liste des joueurs participant a la manche
+           $ListeJoueur = $mancheEnCour->getJoueur();
+           $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');
+           $nbJoueurChoisie = $choixJoueur->query->get('choixJoueur');
+           $repositoryCarte = $em->getRepository('LoveLetterPlatformBundle:Carte');
 
-        //recuperation de la class manche en cour
-        $mancheEnCour = $repositoryManche->find($id_manchebis);
-                   
-        //recuperation de la liste des joueurs participant a la manche
-        $ListeJoueur = $mancheEnCour->getJoueur();
-        $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');
-        $nbJoueurChoisie = $choixJoueur->query->get('choixJoueur');
-        $repositoryCarte = $em->getRepository('LoveLetterPlatformBundle:Carte');
+           $carte = $ListeJoueur[$nbJoueurChoisie-1]->getCarteMain();
+           $carteAffichage = $repositoryCarte->find($carte[0]);
 
-        $carte = $ListeJoueur[$nbJoueurChoisie-1]->getCarteMain();
-        $carteAffichage = $repositoryCarte->find($carte[0]);
-        
-        return $this->render('LoveLetterPlatformBundle:Jeu:Pretre.html.twig', array(
-        'id' => $mancheEnCour->getId(), 
-        'joueur' => $nbJoueurJouant,
-        'tour_De' => $mancheEnCour->getTourDe(),
-        'carte' => $carteAffichage,
-        ));
+           return $this->render('LoveLetterPlatformBundle:Jeu:Pretre.html.twig', array(
+           'id' => $mancheEnCour->getId(), 
+           'joueur' => $nbJoueurJouant,
+           'tour_De' => $mancheEnCour->getTourDe(),
+           'carte' => $carteAffichage,
+           ));
+       }
+       else{
+           return new Response("Manche finie");
+       }
     }
 
     public function BaronAction(Request $id_manche, Request $nb_joueur){
+         // On récupère l'EntityManager
+       $em = $this->getDoctrine()->getManager();
+       //Recuperation de la manche
        $id_manchebis = $id_manche->query->get('id_manche');
-       $repositoryManche = $this->getDoctrine()->getManager()->getRepository('LoveLetterPlatformBundle:Manche');
-       $mancheEnCour = $repositoryManche->find($id_manchebis);
-       $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');    
-       $ListeJoueur = $mancheEnCour->getJoueur();
-       $nbJoueur = 0;
-       $liste = array();
-       $proteger = $mancheEnCour->getProteger();
-       $perdu = $mancheEnCour->getPerdu();
-        if(empty($perdu)){
-           $perdu = array();
+       $repository = $em->getRepository('LoveLetterPlatformBundle:Manche');
+       $mancheEnCour = $repository->find($id_manchebis);
+       if($mancheEnCour->getFin() == 0){
+        $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');    
+        $ListeJoueur = $mancheEnCour->getJoueur();
+        $nbJoueur = 0;
+        $liste = array();
+        $proteger = $mancheEnCour->getProteger();
+        $perdu = $mancheEnCour->getPerdu();
+         if(empty($perdu)){
+            $perdu = array();
+        }
+        if(empty($proteger)){
+            $proteger = array();
+        }
+        foreach($ListeJoueur as $joueur){
+            $nbJoueur++;
+            if($nbJoueur != $nbJoueurJouant && !in_array($nbJoueur, $proteger) && !in_array($nbJoueur, $perdu)){
+             $liste[]=$nbJoueur;
+            }
+        }
+        if(empty($liste)){
+                $url = $this->get('router')->generate('LoveLetter_platform_TestFin', array(
+                    'id_manche' => $mancheEnCour->getId(),
+                    'nb_joueur' => $nbJoueurJouant,
+                    ));
+                 return $this->redirect($url);
+        }
+         return $this->render('LoveLetterPlatformBundle:Jeu:ChoixJoueur.html.twig', array(
+         'id' => $mancheEnCour->getId(), 
+         'joueur' => $nbJoueurJouant,
+         'Liste' => $liste,
+         'action' => "BaronChoix",
+         ));
        }
-       if(empty($proteger)){
-           $proteger = array();
+       else{
+           return new Reponse("Manche finie");
        }
-       foreach($ListeJoueur as $joueur){
-           $nbJoueur++;
-           if($nbJoueur != $nbJoueurJouant && !in_array($nbJoueur, $proteger) && !in_array($nbJoueur, $perdu)){
-            $liste[]=$nbJoueur;
-           }
-       }
-
-        return $this->render('LoveLetterPlatformBundle:Jeu:ChoixJoueur.html.twig', array(
-        'id' => $mancheEnCour->getId(), 
-        'joueur' => $nbJoueurJouant,
-        'Liste' => $liste,
-        'action' => "BaronChoix",
-        ));
     }
         
-    public function BaronChoixAction(Request $id_manche, Request $nb_joueur, Request $choixJoueur){
+    public function BaronChoixAction(Request $id_manche, Request $nb_joueur, Request $choixJoueur){ // On récupère l'EntityManager
        $em = $this->getDoctrine()->getManager();
+       //Recuperation de la manche
        $id_manchebis = $id_manche->query->get('id_manche');
-       $repositoryManche = $em->getRepository('LoveLetterPlatformBundle:Manche');
-       $mancheEnCour = $repositoryManche->find($id_manchebis);
-       $ListeJoueur = $mancheEnCour->getJoueur();
-       $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');   
-       $nbJoueurChoisi = $choixJoueur->query->get('choixJoueur');
-        $ListeCarteJ1 = $ListeJoueur[$nbJoueurJouant-1]->getCarteMain();
-        $ListeCarteJ2 = $ListeJoueur[$nbJoueurChoisi-1]->getCarteMain();
-        if($ListeCarteJ1[0]<$ListeCarteJ2[0]){
-            array_shift($ListeCarteJ1);
-            $ListeJoueur[$nbJoueurJouant-1]->setCarteMain($ListeCarteJ1);
-            $em->persist($ListeJoueur[$nbJoueurJouant-1]);
-        }
-        elseif($ListeCarteJ1[0]>$ListeCarteJ2[0]){
-            array_shift($ListeCarteJ2);
-            $ListeJoueur[$nbJoueurChoisi-1]->setCarteMain($ListeCarteJ2);
-            $em->persist($ListeJoueur[$nbJoueurChoisi-1]);
-        }        
-        $em->flush();
-        
-         $url = $this->get('router')->generate('LoveLetter_platform_TestFin', array(
-            'id_manche' => $mancheEnCour->getId(),
-            'nb_joueur' => $nbJoueurJouant,
-            ));
-        return $this->redirect($url);
+       $repository = $em->getRepository('LoveLetterPlatformBundle:Manche');
+       $mancheEnCour = $repository->find($id_manchebis);
+       if($mancheEnCour->getFin() == 0){
+        $ListeJoueur = $mancheEnCour->getJoueur();
+        $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');   
+        $nbJoueurChoisi = $choixJoueur->query->get('choixJoueur');
+         $ListeCarteJ1 = $ListeJoueur[$nbJoueurJouant-1]->getCarteMain();
+         $ListeCarteJ2 = $ListeJoueur[$nbJoueurChoisi-1]->getCarteMain();
+         if($ListeCarteJ1[0]<$ListeCarteJ2[0]){
+             array_shift($ListeCarteJ1);
+             $ListeJoueur[$nbJoueurJouant-1]->setCarteMain($ListeCarteJ1);
+             $em->persist($ListeJoueur[$nbJoueurJouant-1]);
+         }
+         elseif($ListeCarteJ1[0]>$ListeCarteJ2[0]){
+             array_shift($ListeCarteJ2);
+             $ListeJoueur[$nbJoueurChoisi-1]->setCarteMain($ListeCarteJ2);
+             $em->persist($ListeJoueur[$nbJoueurChoisi-1]);
+         }        
+         $em->flush();
+
+          $url = $this->get('router')->generate('LoveLetter_platform_TestFin', array(
+             'id_manche' => $mancheEnCour->getId(),
+             'nb_joueur' => $nbJoueurJouant,
+             ));
+         return $this->redirect($url);
+       }
+       else{
+           return new Response("Manche finie");
+       }
     }
     
     public function ServanteAction(Request $id_manche, Request $nb_joueur){
-        $em = $this->getDoctrine()->getManager();
-        $id_manchebis = $id_manche->query->get('id_manche');
-        $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');   
-        $repositoryManche = $em->getRepository('LoveLetterPlatformBundle:Manche');
-        $mancheEnCour = $repositoryManche->find($id_manchebis);
-        $proteger = $mancheEnCour->getProteger();
-        if(empty($proteger)){
-            $newtab = array($nbJoueurJouant);
-        }
-        else{
-            $newtab = array($proteger, $nbJoueurJouant);
-        }
-        $mancheEnCour->setProteger($newtab);
-        $em->persist($mancheEnCour);
-        $em->flush();
-        $url = $this->get('router')->generate('LoveLetter_platform_TestFin', array(
-            'id_manche' => $mancheEnCour->getId(),
-            'nb_joueur' => $nbJoueurJouant,
-            ));
-        return $this->redirect($url);
+         // On récupère l'EntityManager
+       $em = $this->getDoctrine()->getManager();
+       //Recuperation de la manche
+       $id_manchebis = $id_manche->query->get('id_manche');
+       $repository = $em->getRepository('LoveLetterPlatformBundle:Manche');
+       $mancheEnCour = $repository->find($id_manchebis);
+       if($mancheEnCour->getFin() == 0){
+            $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');   
+            $proteger = $mancheEnCour->getProteger();
+            if(empty($proteger)){
+                $newtab = array($nbJoueurJouant);
+            }
+            else{
+                $newtab = array($proteger, $nbJoueurJouant);
+            }
+            $mancheEnCour->setProteger($newtab);
+            $em->persist($mancheEnCour);
+            $em->flush();
+            $url = $this->get('router')->generate('LoveLetter_platform_TestFin', array(
+                'id_manche' => $mancheEnCour->getId(),
+                'nb_joueur' => $nbJoueurJouant,
+                ));
+            return $this->redirect($url);
+       }
+       else{
+           return new Reponse("Manche finie");
+       }
     }
     
     public function PrinceAction(Request $id_manche, Request $nb_joueur){
+         // On récupère l'EntityManager
+       $em = $this->getDoctrine()->getManager();
+       //Recuperation de la manche
        $id_manchebis = $id_manche->query->get('id_manche');
-       $repositoryManche = $this->getDoctrine()->getManager()->getRepository('LoveLetterPlatformBundle:Manche');
-       $mancheEnCour = $repositoryManche->find($id_manchebis);
-       $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');    
-       $ListeJoueur = $mancheEnCour->getJoueur();
-       $nbJoueur = 0;
-       $liste = array();
-       $proteger = $mancheEnCour->getProteger();
-       $perdu = $mancheEnCour->getPerdu();
-        if(empty($perdu)){
-           $perdu = array();
+       $repository = $em->getRepository('LoveLetterPlatformBundle:Manche');
+       $mancheEnCour = $repository->find($id_manchebis);
+       if($mancheEnCour->getFin() == 0){
+        $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');    
+        $ListeJoueur = $mancheEnCour->getJoueur();
+        $nbJoueur = 0;
+        $liste = array();
+        $proteger = $mancheEnCour->getProteger();
+        $perdu = $mancheEnCour->getPerdu();
+         if(empty($perdu)){
+            $perdu = array();
+        }
+        if(empty($proteger)){
+            $proteger = array();
+        }
+        foreach($ListeJoueur as $joueur){
+            $nbJoueur++;
+            if($nbJoueur != $nbJoueurJouant && !in_array($nbJoueur, $proteger) && !in_array($nbJoueur, $perdu)){
+              $liste[]=$nbJoueur;
+            }
+        }
+        if(empty($liste)){
+                $url = $this->get('router')->generate('LoveLetter_platform_TestFin', array(
+                    'id_manche' => $mancheEnCour->getId(),
+                    'nb_joueur' => $nbJoueurJouant,
+                    ));
+                 return $this->redirect($url);
+        }
+         return $this->render('LoveLetterPlatformBundle:Jeu:ChoixJoueur.html.twig', array(
+         'id' => $mancheEnCour->getId(), 
+         'joueur' => $nbJoueurJouant,
+         'Liste' => $liste,
+         'action' => "PrinceChoix",
+         ));
        }
-       if(empty($proteger)){
-           $proteger = array();
+       else{
+           return new Response("Manche finie");
        }
-       foreach($ListeJoueur as $joueur){
-           $nbJoueur++;
-           if($nbJoueur != $nbJoueurJouant && !in_array($nbJoueur, $proteger) && !in_array($nbJoueur, $perdu)){
-             $liste[]=$nbJoueur;
-           }
-       }
-       
-        return $this->render('LoveLetterPlatformBundle:Jeu:ChoixJoueur.html.twig', array(
-        'id' => $mancheEnCour->getId(), 
-        'joueur' => $nbJoueurJouant,
-        'Liste' => $liste,
-        'action' => "PrinceChoix",
-        ));
     }
     
     public function PrinceChoixAction(Request $id_manche, Request $nb_joueur, Request $choixJoueur){
+         // On récupère l'EntityManager
        $em = $this->getDoctrine()->getManager();
+       //Recuperation de la manche
        $id_manchebis = $id_manche->query->get('id_manche');
-       $repositoryManche = $this->getDoctrine()->getManager()->getRepository('LoveLetterPlatformBundle:Manche');
-       $mancheEnCour = $repositoryManche->find($id_manchebis);
-       $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');    
-       $Jchoisie = $choixJoueur->query->get('choixJoueur');    
-       $ListeJoueur = $mancheEnCour->getJoueur();
-       
-       
-       $carteMain= $ListeJoueur[$Jchoisie-1]->getCarteMain();
-       $carteJouer= $ListeJoueur[$Jchoisie-1]->getCarteJouer();
+       $repository = $em->getRepository('LoveLetterPlatformBundle:Manche');
+       $mancheEnCour = $repository->find($id_manchebis);
+       if($mancheEnCour->getFin() == 0){
+        $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');    
+        $Jchoisie = $choixJoueur->query->get('choixJoueur');    
+        $ListeJoueur = $mancheEnCour->getJoueur();
+        $carteMain= $ListeJoueur[$Jchoisie-1]->getCarteMain();
+        $carteJouer= $ListeJoueur[$Jchoisie-1]->getCarteJouer();
 
-        if(empty($carteJouer)){
-           $carteJouer = array($carteMain[0]);
-        }
-        else{
-            array_push($carteJouer, $carteMain[0]);
-        }       
-        array_shift($carteMain);    
+         if(empty($carteJouer)){
+            $carteJouer = array($carteMain[0]);
+         }
+         else{
+             array_push($carteJouer, $carteMain[0]);
+         }       
+         array_shift($carteMain);    
 
-        $ListeJoueur[$Jchoisie-1]->setCarteJouer($carteJouer);    
-        $pioche = $mancheEnCour->getPioche();          
-        $newtab = array($pioche[0]);
-        array_shift($pioche);
-        $ListeJoueur[$Jchoisie-1]->setCarteMain($newtab);
-        $mancheEnCour->setPioche($pioche);
-        $em->persist($mancheEnCour);
-        $em->persist($ListeJoueur[$Jchoisie-1]);
-        $em->flush();        
+         $ListeJoueur[$Jchoisie-1]->setCarteJouer($carteJouer);    
+         $pioche = $mancheEnCour->getPioche();          
+         $newtab = array($pioche[0]);
+         array_shift($pioche);
+         $ListeJoueur[$Jchoisie-1]->setCarteMain($newtab);
+         $mancheEnCour->setPioche($pioche);
+         $em->persist($mancheEnCour);
+         $em->persist($ListeJoueur[$Jchoisie-1]);
+         $em->flush();        
 
-        $url = $this->get('router')->generate('LoveLetter_platform_TestFin', array(
-             'id_manche' => $mancheEnCour->getId(),
-             'nb_joueur' => $nbJoueurJouant,
-                ));
-        return $this->redirect($url);
+         $url = $this->get('router')->generate('LoveLetter_platform_TestFin', array(
+              'id_manche' => $mancheEnCour->getId(),
+              'nb_joueur' => $nbJoueurJouant,
+                 ));
+         return $this->redirect($url);
+       }
+       else{
+           return new Response ("Manche finie");
+       }
     }
     
     public function RoiAction(Request $id_manche, Request $nb_joueur){
-        $id_manchebis = $id_manche->query->get('id_manche');
-       $repositoryManche = $this->getDoctrine()->getManager()->getRepository('LoveLetterPlatformBundle:Manche');
-       $mancheEnCour = $repositoryManche->find($id_manchebis);
-       $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');    
-       $ListeJoueur = $mancheEnCour->getJoueur();
-       $nbJoueur = 0;
-       $liste = array();
-       $proteger = $mancheEnCour->getProteger();
-       $perdu = $mancheEnCour->getPerdu();
-        if(empty($perdu)){
-           $perdu = array();
-       }
-       if(empty($proteger)){
-           $proteger = array();
-       }
-       foreach($ListeJoueur as $joueur){
-           $nbJoueur++;
-           if($nbJoueur != $nbJoueurJouant && !in_array($nbJoueur, $proteger) && !in_array($nbJoueur, $perdu)){
-            $liste[]=$nbJoueur;
+         // On récupère l'EntityManager
+       $em = $this->getDoctrine()->getManager();
+       //Recuperation de la manche
+       $id_manchebis = $id_manche->query->get('id_manche');
+       $repository = $em->getRepository('LoveLetterPlatformBundle:Manche');
+       $mancheEnCour = $repository->find($id_manchebis);
+       if($mancheEnCour->getFin() == 0){
+           $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');    
+           $ListeJoueur = $mancheEnCour->getJoueur();
+           $nbJoueur = 0;
+           $liste = array();
+           $proteger = $mancheEnCour->getProteger();
+           $perdu = $mancheEnCour->getPerdu();
+            if(empty($perdu)){
+               $perdu = array();
            }
+           if(empty($proteger)){
+               $proteger = array();
+           }
+           foreach($ListeJoueur as $joueur){
+               $nbJoueur++;
+               if($nbJoueur != $nbJoueurJouant && !in_array($nbJoueur, $proteger) && !in_array($nbJoueur, $perdu)){
+                $liste[]=$nbJoueur;
+               }
+           }
+                   if(empty($liste)){
+                $url = $this->get('router')->generate('LoveLetter_platform_TestFin', array(
+                    'id_manche' => $mancheEnCour->getId(),
+                    'nb_joueur' => $nbJoueurJouant,
+                    ));
+                 return $this->redirect($url);
+             }
+            return $this->render('LoveLetterPlatformBundle:Jeu:ChoixJoueur.html.twig', array(
+            'id' => $mancheEnCour->getId(), 
+            'joueur' => $nbJoueurJouant,
+            'Liste' => $liste,
+            'action' => "RoiChoix",
+            ));
        }
-
-        return $this->render('LoveLetterPlatformBundle:Jeu:ChoixJoueur.html.twig', array(
-        'id' => $mancheEnCour->getId(), 
-        'joueur' => $nbJoueurJouant,
-        'Liste' => $liste,
-        'action' => "RoiChoix",
-        ));
+       else{
+           return new Response("Manche finie");
+       }
     }
     
     public function RoiChoixAction(Request $id_manche, Request $nb_joueur, Request $choixJoueur){
-        $em = $this->getDoctrine()->getManager();
-        $id_manchebis = $id_manche->query->get('id_manche');
-        $repositoryManche = $em->getRepository('LoveLetterPlatformBundle:Manche');
-        $mancheEnCour = $repositoryManche->find($id_manchebis);
-        $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');    
-        $nbJoueurChoisie= $choixJoueur->query->get('choixJoueur');    
+         // On récupère l'EntityManager
+       $em = $this->getDoctrine()->getManager();
+       //Recuperation de la manche
+       $id_manchebis = $id_manche->query->get('id_manche');
+       $repository = $em->getRepository('LoveLetterPlatformBundle:Manche');
+       $mancheEnCour = $repository->find($id_manchebis);
+       if($mancheEnCour->getFin() == 0){
+            $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');    
+            $nbJoueurChoisie= $choixJoueur->query->get('choixJoueur');    
 
-        $ListeJoueur = $mancheEnCour->getJoueur();
-        $carteMainJ1= $ListeJoueur[$nbJoueurJouant-1]->getCarteMain();
-        $carteMainJ2= $ListeJoueur[$nbJoueurChoisie-1]->getCarteMain();
-        $ListeJoueur[$nbJoueurJouant-1]->setCarteMain($carteMainJ2);
-        $ListeJoueur[$nbJoueurChoisie-1]->setCarteMain($carteMainJ1);
-        $em->persist($ListeJoueur[$nbJoueurJouant-1]);
-        $em->persist($ListeJoueur[$nbJoueurChoisie-1]);
-        $em->flush();
-        
-        $url = $this->get('router')->generate('LoveLetter_platform_TestFin', array(
-            'id_manche' => $mancheEnCour->getId(),
-            'nb_joueur' => $nbJoueurJouant,
-            ));
-        return $this->redirect($url);
+            $ListeJoueur = $mancheEnCour->getJoueur();
+            $carteMainJ1= $ListeJoueur[$nbJoueurJouant-1]->getCarteMain();
+            $carteMainJ2= $ListeJoueur[$nbJoueurChoisie-1]->getCarteMain();
+            $ListeJoueur[$nbJoueurJouant-1]->setCarteMain($carteMainJ2);
+            $ListeJoueur[$nbJoueurChoisie-1]->setCarteMain($carteMainJ1);
+            $em->persist($ListeJoueur[$nbJoueurJouant-1]);
+            $em->persist($ListeJoueur[$nbJoueurChoisie-1]);
+            $em->flush();
+
+            $url = $this->get('router')->generate('LoveLetter_platform_TestFin', array(
+                'id_manche' => $mancheEnCour->getId(),
+                'nb_joueur' => $nbJoueurJouant,
+                ));
+            return $this->redirect($url);
+       }
+       else{
+           return new Response("Manche finie");
+       }
     }
     
     public function ComtesseAction(Request $id_manche, Request $nb_joueur){
-        $id_manchebis = $id_manche->query->get('id_manche');
+         // On récupère l'EntityManager
+       $em = $this->getDoctrine()->getManager();
+       //Recuperation de la manche
+       $id_manchebis = $id_manche->query->get('id_manche');
+       $repository = $em->getRepository('LoveLetterPlatformBundle:Manche');
+       $mancheEnCour = $repository->find($id_manchebis);
+       if($mancheEnCour->getFin() == 0){
         $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');   
         $url = $this->get('router')->generate('LoveLetter_platform_TestFin', array(
             'id_manche' => $id_manchebis,
             'nb_joueur' => $nbJoueurJouant,
             ));
         return $this->redirect($url);
+       }
+       else{
+           return new Response("Manche finie");
+       }
     }
     
     public function PrincesseAction(Request $id_manche, Request $nb_joueur){
-        $id_manchebis = $id_manche->query->get('id_manche');
-        $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');   
-        $url = $this->get('router')->generate('LoveLetter_platform_TestFin', array(
-            'id_manche' => $id_manchebis,
-            'nb_joueur' => $nbJoueurJouant,
-            ));
-        return $this->redirect($url);
+         // On récupère l'EntityManager
+       $em = $this->getDoctrine()->getManager();
+       //Recuperation de la manche
+       $id_manchebis = $id_manche->query->get('id_manche');
+       $repository = $em->getRepository('LoveLetterPlatformBundle:Manche');
+       $mancheEnCour = $repository->find($id_manchebis);
+       if($mancheEnCour->getFin() == 0){
+            $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');   
+            $url = $this->get('router')->generate('LoveLetter_platform_TestFin', array(
+                'id_manche' => $id_manchebis,
+                'nb_joueur' => $nbJoueurJouant,
+                ));
+            return $this->redirect($url);
+       }
+       else{
+           return new Response("Manche finie");
+       }
     }
     
     public function RemplisageTableCarteAction(){

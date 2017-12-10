@@ -4,12 +4,15 @@
 {% block LoveLetterplatform_body %}
     
     Quelque carte pense veux tu choisir
+    <table border = 0>
+        <tr>
    {% for carte in liste_cartes %}
-    <a href='http://localhost/LoveLetter/web/app_dev.php/GardeChoix2?id_manche={{id}}&nb_joueur={{joueur}}&id_carte={{carte.nombre}}&choixJoueur={{jchoisie}}'>
+       <th><a href='http://localhost/LoveLetter/web/app_dev.php/GardeChoix2?id_manche={{id}}&nb_joueur={{joueur}}&id_carte={{carte.nombre}}&choixJoueur={{jchoisie}}'>
     <img src={{carte.url}} alt="" width="211" height="300" />
-    </a>
+    </a></th>
   {% else %}
-    <li>Pas de carte</li>
+    <th>Pas de carte</th>
   {% endfor %}
-    
+  </tr>
+     </table>
 {% endblock %}

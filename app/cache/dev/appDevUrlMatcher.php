@@ -140,9 +140,17 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'LoveLetterPlatformBundle:Advert:index',  '_route' => 'LoveLetter_platform_index',);
         }
 
-        // LoveLetter_platform_accueil
-        if ($pathinfo === '/accueil') {
-            return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\HomeController::AccueilAction',  '_route' => 'LoveLetter_platform_accueil',);
+        if (0 === strpos($pathinfo, '/a')) {
+            // LoveLetter_platform_accueil
+            if ($pathinfo === '/accueil') {
+                return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\HomeController::AccueilAction',  '_route' => 'LoveLetter_platform_accueil',);
+            }
+
+            // LoveLetter_platform_add
+            if ($pathinfo === '/add') {
+                return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\HomeController::addAction',  '_route' => 'LoveLetter_platform_add',);
+            }
+
         }
 
         // LoveLetter_platform_AffichageJeu
@@ -169,7 +177,7 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
         }
 
         // LoveLetter_platform_CreationPartie
-        if (0 === strpos($pathinfo, '/LancementPartie') && preg_match('#^/LancementPartie/(?P<nom>[^/]++)$#s', $pathinfo, $matches)) {
+        if (0 === strpos($pathinfo, '/LancementPartie') && preg_match('#^/LancementPartie/(?P<nom>[^/]++)/(?P<nb>2|3|4)$#s', $pathinfo, $matches)) {
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'LoveLetter_platform_CreationPartie')), array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::CreationPartieAction',));
         }
 
@@ -284,9 +292,17 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\CarteController::PrincesseAction',  '_route' => 'LoveLetter_platform_Princesse',);
         }
 
-        // LoveLetter_platform_TestFin
-        if ($pathinfo === '/TestFin') {
-            return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::TestFinAction',  '_route' => 'LoveLetter_platform_TestFin',);
+        if (0 === strpos($pathinfo, '/TestFin')) {
+            // LoveLetter_platform_TestFin
+            if ($pathinfo === '/TestFin') {
+                return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::TestFinAction',  '_route' => 'LoveLetter_platform_TestFin',);
+            }
+
+            // LoveLetter_platform_TestFinPartie
+            if ($pathinfo === '/TestFinPartie') {
+                return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::TestFinPartieAction',  '_route' => 'LoveLetter_platform_TestFinPartie',);
+            }
+
         }
 
         // _welcome
