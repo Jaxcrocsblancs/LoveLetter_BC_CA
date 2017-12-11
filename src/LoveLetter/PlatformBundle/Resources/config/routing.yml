@@ -12,6 +12,16 @@ LoveLetter_platform_add:
     defaults: 
         _controller: LoveLetterPlatformBundle:Home:add
         
+LoveLetter_platform_CreationPartie:
+    path: /CreationPartie
+    defaults: 
+        _controller: LoveLetterPlatformBundle:Home:CreationPartie
+        
+LoveLetter_platform_ChercheManche:
+    path: /ChercheManche/{id}
+    defaults: 
+        _controller: LoveLetterPlatformBundle:Home:ChercheManche
+        
 LoveLetter_platform_AffichageJeu:
     path: /Partie
     defaults: 
@@ -31,8 +41,8 @@ LoveLetter_platform_UtilisateurRejoinsPartie:
     path: /UtilisateurRejoinsPartie
     defaults: 
         _controller: LoveLetterPlatformBundle:Partie:UtilisateurRejoinsPartie
-      
-LoveLetter_platform_CreationPartie:
+    
+LoveLetter_platform_LancementPartie:
     path: /LancementPartie/{nom}/{nb}
     defaults:
            _controller: LoveLetterPlatformBundle:Partie:CreationPartie

@@ -29,12 +29,41 @@ class __TwigTemplate_285e14442c4b02b10bd65c9b5ea0a65cfa743f87a06adbac65ce281d51a
     {
         // line 4
         echo "
+    
+    
+    
   <h2>Liste des parties</h2>
-
+  Cliquer pour être spectateur
   <ul>
     
+    ";
+        // line 12
+        $context['_parent'] = (array) $context;
+        $context['_seq'] = twig_ensure_traversable((isset($context["ListePartie"]) ? $context["ListePartie"] : $this->getContext($context, "ListePartie")));
+        foreach ($context['_seq'] as $context["_key"] => $context["partie"]) {
+            // line 13
+            echo "        <a href=\"http://localhost/LoveLetter/web/app_dev.php/ChercheManche/";
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["partie"]) ? $context["partie"] : $this->getContext($context, "partie")), "id"), "html", null, true);
+            echo "\">
+        <li> ";
+            // line 14
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["partie"]) ? $context["partie"] : $this->getContext($context, "partie")), "nomPartie"), "html", null, true);
+            echo "</li>
+        </a>
+    ";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['partie'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 17
+        echo "    
+    </br>
+    </br>
+    <a href=\"http://localhost/LoveLetter/web/app_dev.php/CreationPartie\">
+    Creer un partie
+    </a>
   </ul>
-
+  
 ";
     }
 
@@ -50,6 +79,6 @@ class __TwigTemplate_285e14442c4b02b10bd65c9b5ea0a65cfa743f87a06adbac65ce281d51a
 
     public function getDebugInfo()
     {
-        return array (  31 => 4,  28 => 3,);
+        return array (  59 => 17,  50 => 14,  45 => 13,  41 => 12,  31 => 4,  28 => 3,);
     }
 }

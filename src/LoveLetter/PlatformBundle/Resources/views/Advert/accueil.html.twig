@@ -2,10 +2,24 @@
 
 {% block ocplatform_body %}
 
+    
+    
+    
   <h2>Liste des parties</h2>
-
+  Cliquer pour être spectateur
   <ul>
     
+    {% for partie in ListePartie %}
+        <a href="http://localhost/LoveLetter/web/app_dev.php/ChercheManche/{{partie.id}}">
+        <li> {{partie.nomPartie}}</li>
+        </a>
+    {% endfor %}
+    
+    </br>
+    </br>
+    <a href="http://localhost/LoveLetter/web/app_dev.php/CreationPartie">
+    Creer un partie
+    </a>
   </ul>
-
+  
 {% endblock %}

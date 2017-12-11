@@ -16,20 +16,18 @@ class __TwigTemplate_81d3b34244280a3dd19d30f2a78bce135df43e40107adee4ad207634e33
     protected function doDisplay(array $context, array $blocks = array())
     {
         // line 1
-        echo "
-   <center> <h1>Creation Compte</h1></center>
+        echo "<center><h1>Creation Compte</h1></center>
     <center>
-    <form action=>
-       <li>Pseudo :";
-        // line 5
-        echo         $this->env->getExtension('form')->renderer->renderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "pseudo"), 'form');
-        echo "</li>
-       <li> Mots de passe :";
-        // line 6
-        echo         $this->env->getExtension('form')->renderer->renderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "mdp"), 'form');
-        echo "</li>
-    <input type=\"submit\" />
-        </form></center>
+    <form action=\"";
+        // line 3
+        echo $this->env->getExtension('routing')->getPath("LoveLetter_platform_add");
+        echo "\" method=\"post\">
+       ";
+        // line 4
+        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), 'form');
+        echo "
+       <input type=\"submit\" />
+    </form></center>
 ";
     }
 
@@ -45,6 +43,6 @@ class __TwigTemplate_81d3b34244280a3dd19d30f2a78bce135df43e40107adee4ad207634e33
 
     public function getDebugInfo()
     {
-        return array (  29 => 6,  25 => 5,  19 => 1,);
+        return array (  27 => 4,  23 => 3,  19 => 1,);
     }
 }

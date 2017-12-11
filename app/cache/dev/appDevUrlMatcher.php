@@ -153,6 +153,19 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        if (0 === strpos($pathinfo, '/C')) {
+            // LoveLetter_platform_CreationPartie
+            if ($pathinfo === '/CreationPartie') {
+                return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\HomeController::CreationPartieAction',  '_route' => 'LoveLetter_platform_CreationPartie',);
+            }
+
+            // LoveLetter_platform_ChercheManche
+            if (0 === strpos($pathinfo, '/ChercheManche') && preg_match('#^/ChercheManche/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'LoveLetter_platform_ChercheManche')), array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\HomeController::ChercheMancheAction',));
+            }
+
+        }
+
         // LoveLetter_platform_AffichageJeu
         if ($pathinfo === '/Partie') {
             return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::AffichageJeuAction',  '_route' => 'LoveLetter_platform_AffichageJeu',);
@@ -176,9 +189,9 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
-        // LoveLetter_platform_CreationPartie
+        // LoveLetter_platform_LancementPartie
         if (0 === strpos($pathinfo, '/LancementPartie') && preg_match('#^/LancementPartie/(?P<nom>[^/]++)/(?P<nb>2|3|4)$#s', $pathinfo, $matches)) {
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'LoveLetter_platform_CreationPartie')), array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::CreationPartieAction',));
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'LoveLetter_platform_LancementPartie')), array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::CreationPartieAction',));
         }
 
         if (0 === strpos($pathinfo, '/D')) {

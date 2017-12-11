@@ -28,8 +28,6 @@ class Partie
      */
     private $nomPartie;
 
-  
-     
     /**
      * Get id
      *
