@@ -38,23 +38,22 @@ class __TwigTemplate_cb78da078e42e0d08528771debb8d3286d737c26b232ad98d1da29667fc
         </tr>
          <tr>
             <th>
-                <a href=\"LancementPartie/PasEuLeTemps/2\" >
+                <a href=\"LancementPartie/PasEuLeTempsDeFaireChoisirLeNom/2\" >
                 <img src=http://static.mnium.org/images/contenu/actus/HearthStone/Dos_de_cartes/Hearthstone_dos_de_cartes_saison_22.png  alt=\"\" width=\"211\" height=\"300\" />
                 </a>    
             </th>
             <th>
-                 <a href=\"LancementPartie/PasEuLeTemps/3\" >
+                 <a href=\"LancementPartie/PasEuLeTempsDeFaireChoisirLeNom/3\" >
                 <img src=http://static.mnium.org/images/contenu/actus/HearthStone/Dos_de_cartes/Hearthstone_dos_de_cartes_saison_22.png  alt=\"\" width=\"211\" height=\"300\" />
                 </a>
             </th>
             <th>
-                 <a href=\"LancementPartie/PasEuLeTemps/4\" >
+                 <a href=\"LancementPartie/PasEuLeTempsDeFaireChoisirLeNom/4\" >
                 <img src=http://static.mnium.org/images/contenu/actus/HearthStone/Dos_de_cartes/Hearthstone_dos_de_cartes_saison_22.png  alt=\"\" width=\"211\" height=\"300\" />
                  </a>
             </th>
         </tr>
-        
-             </table>
+        </table>
 ";
     }
 

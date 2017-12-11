@@ -217,105 +217,42 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\CarteController::ChoixAction',  '_route' => 'LoveLetter_platform_Choix',);
         }
 
-        if (0 === strpos($pathinfo, '/Garde')) {
-            // LoveLetter_platform_Garde
-            if ($pathinfo === '/Garde') {
-                return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\CarteController::GardeAction',  '_route' => 'LoveLetter_platform_Garde',);
+        if (0 === strpos($pathinfo, '/GardeChoix')) {
+            // LoveLetter_platform_GardeChoix
+            if ($pathinfo === '/GardeChoix') {
+                return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\CarteController::GardeChoixAction',  '_route' => 'LoveLetter_platform_GardeChoix',);
             }
 
-            if (0 === strpos($pathinfo, '/GardeChoix')) {
-                // LoveLetter_platform_GardeChoix
-                if ($pathinfo === '/GardeChoix') {
-                    return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\CarteController::GardeChoixAction',  '_route' => 'LoveLetter_platform_GardeChoix',);
-                }
-
-                // LoveLetter_platform_GardeChoix2
-                if ($pathinfo === '/GardeChoix2') {
-                    return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\CarteController::GardeChoix2Action',  '_route' => 'LoveLetter_platform_GardeChoix2',);
-                }
-
+            // LoveLetter_platform_GardeChoix2
+            if ($pathinfo === '/GardeChoix2') {
+                return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\CarteController::GardeChoix2Action',  '_route' => 'LoveLetter_platform_GardeChoix2',);
             }
 
         }
 
-        if (0 === strpos($pathinfo, '/Pretre')) {
-            // LoveLetter_platform_Pretre
-            if ($pathinfo === '/Pretre') {
-                return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\CarteController::PretreAction',  '_route' => 'LoveLetter_platform_Pretre',);
-            }
-
-            // LoveLetter_platform_PretreChoix
-            if ($pathinfo === '/PretreChoix') {
-                return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\CarteController::PretreChoixAction',  '_route' => 'LoveLetter_platform_PretreChoix',);
-            }
-
+        // LoveLetter_platform_PretreChoix
+        if ($pathinfo === '/PretreChoix') {
+            return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\CarteController::PretreChoixAction',  '_route' => 'LoveLetter_platform_PretreChoix',);
         }
 
-        if (0 === strpos($pathinfo, '/Baron')) {
-            // LoveLetter_platform_Baron
-            if ($pathinfo === '/Baron') {
-                return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\CarteController::BaronAction',  '_route' => 'LoveLetter_platform_Baron',);
-            }
-
-            // LoveLetter_platform_BaronChoix
-            if ($pathinfo === '/BaronChoix') {
-                return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\CarteController::BaronChoixAction',  '_route' => 'LoveLetter_platform_BaronChoix',);
-            }
-
+        // LoveLetter_platform_BaronChoix
+        if ($pathinfo === '/BaronChoix') {
+            return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\CarteController::BaronChoixAction',  '_route' => 'LoveLetter_platform_BaronChoix',);
         }
 
-        // LoveLetter_platform_Servante
-        if ($pathinfo === '/Servante') {
-            return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\CarteController::ServanteAction',  '_route' => 'LoveLetter_platform_Servante',);
+        // LoveLetter_platform_PrinceChoix
+        if ($pathinfo === '/PrinceChoix') {
+            return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\CarteController::PrinceChoixAction',  '_route' => 'LoveLetter_platform_PrinceChoix',);
         }
 
-        if (0 === strpos($pathinfo, '/Prince')) {
-            // LoveLetter_platform_Prince
-            if ($pathinfo === '/Prince') {
-                return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\CarteController::PrinceAction',  '_route' => 'LoveLetter_platform_Prince',);
-            }
-
-            // LoveLetter_platform_PrinceChoix
-            if ($pathinfo === '/PrinceChoix') {
-                return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\CarteController::PrinceChoixAction',  '_route' => 'LoveLetter_platform_PrinceChoix',);
-            }
-
+        // LoveLetter_platform_RoiChoix
+        if ($pathinfo === '/RoiChoix') {
+            return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\CarteController::RoiChoixAction',  '_route' => 'LoveLetter_platform_RoiChoix',);
         }
 
-        if (0 === strpos($pathinfo, '/Roi')) {
-            // LoveLetter_platform_Roi
-            if ($pathinfo === '/Roi') {
-                return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\CarteController::RoiAction',  '_route' => 'LoveLetter_platform_Roi',);
-            }
-
-            // LoveLetter_platform_RoiChoix
-            if ($pathinfo === '/RoiChoix') {
-                return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\CarteController::RoiChoixAction',  '_route' => 'LoveLetter_platform_RoiChoix',);
-            }
-
-        }
-
-        // LoveLetter_platform_Comtesse
-        if ($pathinfo === '/Comtesse') {
-            return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\CarteController::ComtesseAction',  '_route' => 'LoveLetter_platform_Comtesse',);
-        }
-
-        // LoveLetter_platform_Princesse
-        if ($pathinfo === '/Princesse') {
-            return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\CarteController::PrincesseAction',  '_route' => 'LoveLetter_platform_Princesse',);
-        }
-
-        if (0 === strpos($pathinfo, '/TestFin')) {
-            // LoveLetter_platform_TestFin
-            if ($pathinfo === '/TestFin') {
-                return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::TestFinAction',  '_route' => 'LoveLetter_platform_TestFin',);
-            }
-
-            // LoveLetter_platform_TestFinPartie
-            if ($pathinfo === '/TestFinPartie') {
-                return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::TestFinPartieAction',  '_route' => 'LoveLetter_platform_TestFinPartie',);
-            }
-
+        // LoveLetter_platform_TestFin
+        if ($pathinfo === '/TestFin') {
+            return array (  '_controller' => 'LoveLetter\\PlatformBundle\\Controller\\PartieController::TestFinAction',  '_route' => 'LoveLetter_platform_TestFin',);
         }
 
         // _welcome

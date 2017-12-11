@@ -33,7 +33,7 @@ class __TwigTemplate_8fbd8fbae281a858c83bf8cda9b74f11b285069880090d78c6c14cb464b
         // line 5
         echo twig_escape_filter($this->env, (isset($context["joueur"]) ? $context["joueur"] : $this->getContext($context, "joueur")), "html", null, true);
         echo "</h1>
-  <table border = 1>
+  <table>
         <tr>  
      ";
         // line 8

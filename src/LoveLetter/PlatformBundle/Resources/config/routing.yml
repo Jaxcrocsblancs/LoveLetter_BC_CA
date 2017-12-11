@@ -69,11 +69,6 @@ LoveLetter_platform_Choix:
     defaults:
            _controller: LoveLetterPlatformBundle:Carte:Choix
 
-LoveLetter_platform_Garde:
-    path: /Garde
-    defaults:
-           _controller: LoveLetterPlatformBundle:Carte:Garde
-
 LoveLetter_platform_GardeChoix:
     path: /GardeChoix
     defaults:
@@ -83,68 +78,30 @@ LoveLetter_platform_GardeChoix2:
     path: /GardeChoix2
     defaults:
            _controller: LoveLetterPlatformBundle:Carte:GardeChoix2
-           
-LoveLetter_platform_Pretre:
-    path: /Pretre
-    defaults:
-           _controller: LoveLetterPlatformBundle:Carte:Pretre
+
            
 LoveLetter_platform_PretreChoix:
     path: /PretreChoix
     defaults:
            _controller: LoveLetterPlatformBundle:Carte:PretreChoix
-           
-LoveLetter_platform_Baron:
-    path: /Baron
-    defaults:
-           _controller: LoveLetterPlatformBundle:Carte:Baron
+
            
 LoveLetter_platform_BaronChoix:
     path: /BaronChoix
     defaults:
            _controller: LoveLetterPlatformBundle:Carte:BaronChoix
-           
-LoveLetter_platform_Servante:
-    path: /Servante
-    defaults:
-           _controller: LoveLetterPlatformBundle:Carte:Servante
-
-LoveLetter_platform_Prince:
-    path: /Prince
-    defaults:
-           _controller: LoveLetterPlatformBundle:Carte:Prince
 
 LoveLetter_platform_PrinceChoix:
     path: /PrinceChoix
     defaults:
            _controller: LoveLetterPlatformBundle:Carte:PrinceChoix
 
-LoveLetter_platform_Roi:
-    path: /Roi
-    defaults:
-           _controller: LoveLetterPlatformBundle:Carte:Roi
-           
 LoveLetter_platform_RoiChoix:
     path: /RoiChoix
     defaults:
            _controller: LoveLetterPlatformBundle:Carte:RoiChoix
-
-LoveLetter_platform_Comtesse:
-    path: /Comtesse
-    defaults:
-           _controller: LoveLetterPlatformBundle:Carte:Comtesse
-
-LoveLetter_platform_Princesse:
-    path: /Princesse
-    defaults:
-           _controller: LoveLetterPlatformBundle:Carte:Princesse
            
 LoveLetter_platform_TestFin:
     path: /TestFin
     defaults:
            _controller: LoveLetterPlatformBundle:Partie:TestFin
-
-LoveLetter_platform_TestFinPartie:
-    path: /TestFinPartie
-    defaults:
-           _controller: LoveLetterPlatformBundle:Partie:TestFinPartie

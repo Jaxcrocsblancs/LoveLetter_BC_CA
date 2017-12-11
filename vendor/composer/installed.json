@@ -20,7 +20,7 @@
         "require-dev": {
             "phpunit/phpunit": "3.7.*"
         },
-        "time": "2014-01-12 16:20:24",
+        "time": "2014-01-12T16:20:24+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -66,7 +66,7 @@
             "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b",
             "shasum": ""
         },
-        "time": "2012-12-21 11:40:51",
+        "time": "2012-12-21T11:40:51+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -109,7 +109,7 @@
         "require": {
             "php": ">=5.2.4"
         },
-        "time": "2014-07-05 12:19:05",
+        "time": "2014-07-05T12:19:05+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -168,7 +168,7 @@
         "require": {
             "php": ">=5.3.2"
         },
-        "time": "2013-01-12 18:59:04",
+        "time": "2013-01-12T18:59:04+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -227,7 +227,7 @@
             "doctrine/cache": "1.*",
             "phpunit/phpunit": "4.*"
         },
-        "time": "2014-07-06 15:52:21",
+        "time": "2014-07-06T15:52:21+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -297,7 +297,7 @@
         "require": {
             "php": ">=5.3.2"
         },
-        "time": "2014-02-03 23:07:43",
+        "time": "2014-02-03T23:07:43+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -374,7 +374,7 @@
             "phpunit/phpunit": ">=3.7",
             "satooshi/php-coveralls": "~0.6"
         },
-        "time": "2013-10-25 19:04:14",
+        "time": "2013-10-25T19:04:14+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -443,7 +443,7 @@
         "require": {
             "php": ">=5.3.2"
         },
-        "time": "2013-01-10 21:49:15",
+        "time": "2013-01-10T21:49:15+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -517,7 +517,7 @@
         "require-dev": {
             "phpunit/phpunit": "~3.7"
         },
-        "time": "2014-05-21 19:28:51",
+        "time": "2014-05-21T19:28:51+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -647,7 +647,7 @@
             "ocramius/proxy-manager": ">=0.3.1,<0.6-dev",
             "propel/propel1": "1.6.*"
         },
-        "time": "2014-09-03 09:51:48",
+        "time": "2014-09-03T09:51:48+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -709,7 +709,7 @@
             "php": ">=5.3.3",
             "symfony/intl": "~2.3"
         },
-        "time": "2014-07-25 09:58:17",
+        "time": "2014-07-25T09:58:17+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -764,7 +764,7 @@
         "suggest": {
             "symfony/console": "Allows use of the command line interface"
         },
-        "time": "2014-01-01 16:43:57",
+        "time": "2014-01-01T16:43:57+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -838,7 +838,7 @@
             "doctrine/orm": "The Doctrine ORM integration is optional in the bundle.",
             "symfony/web-profiler-bundle": "to use the data collector"
         },
-        "time": "2013-03-25 20:13:59",
+        "time": "2013-03-25T20:13:59+00:00",
         "type": "symfony-bundle",
         "extra": {
             "branch-alias": {
@@ -918,7 +918,7 @@
             "ptachoire/cssembed": "Assetic provides the integration with phpcssembed to embed data uris",
             "twig/twig": "Assetic provides the integration with the Twig templating engine"
         },
-        "time": "2013-07-19 00:03:27",
+        "time": "2013-07-19T00:03:27+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -986,7 +986,7 @@
         "suggest": {
             "symfony/twig-bundle": "~2.1"
         },
-        "time": "2013-05-16 05:32:23",
+        "time": "2013-05-16T05:32:23+00:00",
         "type": "symfony-bundle",
         "extra": {
             "branch-alias": {
@@ -1047,7 +1047,7 @@
         "suggest": {
             "symfony/yaml": "If you want to use YAML Metadata Mapping Driver"
         },
-        "time": "2014-07-11 03:05:53",
+        "time": "2014-07-11T03:05:53+00:00",
         "bin": [
             "bin/doctrine",
             "bin/doctrine.php"
@@ -1114,7 +1114,7 @@
         "require": {
             "twig/twig": "~1.12"
         },
-        "time": "2014-07-05 10:01:35",
+        "time": "2014-07-05T10:01:35+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1167,7 +1167,7 @@
         "require-dev": {
             "mockery/mockery": "~0.9.1"
         },
-        "time": "2014-06-13 11:44:54",
+        "time": "2014-06-13T11:44:54+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1229,7 +1229,7 @@
             "symfony/http-kernel": "~2.1",
             "symfony/yaml": "~2.1"
         },
-        "time": "2014-04-05 17:15:52",
+        "time": "2014-04-05T17:15:52+00:00",
         "type": "symfony-bundle",
         "extra": {
             "branch-alias": {
@@ -1298,7 +1298,7 @@
             "rollbar/rollbar": "Allow sending log messages to Rollbar",
             "ruflin/elastica": "Allow sending log messages to an Elastic Search server"
         },
-        "time": "2014-06-04 16:30:04",
+        "time": "2014-06-04T16:30:04+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1358,7 +1358,7 @@
             "symfony/console": "~2.3",
             "symfony/yaml": "~2.3"
         },
-        "time": "2014-07-21 00:36:06",
+        "time": "2014-07-21T00:36:06+00:00",
         "type": "symfony-bundle",
         "extra": {
             "branch-alias": {
@@ -1411,7 +1411,7 @@
             "ext-curl": "*",
             "symfony/console": "~2.0"
         },
-        "time": "2014-07-19 10:52:35",
+        "time": "2014-07-19T10:52:35+00:00",
         "bin": [
             "security-checker"
         ],
@@ -1465,7 +1465,7 @@
             "symfony/validator": "~2.2",
             "symfony/yaml": "~2.2"
         },
-        "time": "2014-08-26 13:14:47",
+        "time": "2014-08-26T13:14:47+00:00",
         "type": "symfony-bundle",
         "extra": {
             "branch-alias": {
@@ -1522,7 +1522,7 @@
             "symfony/expression-language": "",
             "symfony/security-bundle": ""
         },
-        "time": "2014-09-02 07:11:30",
+        "time": "2014-09-02T07:11:30+00:00",
         "type": "symfony-bundle",
         "extra": {
             "branch-alias": {
@@ -1576,7 +1576,7 @@
             "phpspec/prophecy-phpunit": "~1.0",
             "symfony/filesystem": "~2.2"
         },
-        "time": "2013-12-07 10:10:39",
+        "time": "2013-12-07T10:10:39+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1630,7 +1630,7 @@
             "symfony/doctrine-bridge": "~2.2",
             "twig/twig": "~1.11"
         },
-        "time": "2014-04-28 14:01:06",
+        "time": "2014-04-28T14:01:06+00:00",
         "type": "symfony-bundle",
         "extra": {
             "branch-alias": {

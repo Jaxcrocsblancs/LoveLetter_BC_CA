@@ -2,9 +2,8 @@
 
 {% block LoveLetterplatform_body %}
 
-  <h1>Point de vu du joueur {{joueur}}, manche {{manche}}, tour du joueur {{tour_De}}, il reste {{pioche}} carte dans la pioche </h1>
-  
-  <table border = 1>
+  <h1>Point de vue du joueur {{joueur}}, manche {{manche}}, tour du joueur {{tour_De}}, il reste {{pioche}} carte dans la pioche </h1>
+  <table>
         {% set cpt = 0 %}  
         <tr border = 1>
         {% for joueurL in liste %}
@@ -15,8 +14,6 @@
         {% for score in ListeScore %}
           <th>score {{score}}</th>
         {% endfor %}
-        
-        
         <tr>
         {% set cpt = 0 %}  
         {% for joueurL in liste %}
