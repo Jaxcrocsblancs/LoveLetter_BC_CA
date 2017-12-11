@@ -27,13 +27,13 @@ class __TwigTemplate_1582f8b74ee61661bf9bf9a7dc357c95e611a336ab01aca1f064f23a070
         echo "</title>
 </head>
 
-<body  style=\"background-color:#006600;\">
-
+<body  style=\"background-color:#FFEFD5;\">
+<center>
 ";
         // line 9
         $this->displayBlock('LoveLetterplatform_body', $context, $blocks);
         // line 11
-        echo "
+        echo "</center>
 <div id=\"update\"></div>
 </body>
 </html>
@@ -70,6 +70,6 @@ class __TwigTemplate_1582f8b74ee61661bf9bf9a7dc357c95e611a336ab01aca1f064f23a070
 
     public function getDebugInfo()
     {
-        return array (  62 => 9,  56 => 4,  36 => 11,  26 => 4,  21 => 1,  265 => 69,  258 => 67,  251 => 65,  248 => 64,  242 => 63,  238 => 61,  235 => 60,  230 => 59,  224 => 57,  221 => 56,  216 => 55,  210 => 54,  205 => 53,  203 => 52,  200 => 51,  196 => 50,  192 => 49,  188 => 47,  181 => 45,  175 => 44,  172 => 43,  166 => 42,  162 => 40,  159 => 39,  154 => 38,  151 => 37,  147 => 35,  144 => 34,  138 => 32,  133 => 30,  124 => 29,  121 => 28,  118 => 27,  115 => 26,  110 => 25,  104 => 24,  99 => 23,  97 => 22,  94 => 21,  90 => 20,  86 => 19,  83 => 18,  74 => 16,  70 => 15,  67 => 14,  58 => 12,  55 => 11,  51 => 10,  46 => 8,  34 => 9,  31 => 4,  28 => 3,);
+        return array (  62 => 9,  56 => 4,  36 => 11,  34 => 9,  26 => 4,  21 => 1,);
     }
 }

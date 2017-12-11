@@ -22,9 +22,8 @@ class HomeController extends Controller
         
     }
 
-       
+    //affiche Partie commencé
     public function ChercheMancheAction($id){
-
         $em = $this->getDoctrine()->getManager();
         $repositoryPartie = $em->getRepository('LoveLetterPlatformBundle:Manche');
         $ListeManche = $repositoryPartie->findAll();
@@ -39,12 +38,13 @@ class HomeController extends Controller
         return new Response ("FAIL");
     }
     
+    //Choix du nombre de joueur pour creer une partie
     public function CreationPartieAction(){
           return $this->render('LoveLetterPlatformBundle:Advert:choixNbJoueur.html.twig');
     }
     
+    //Ajout utilisateur "pas fini"
     public function addAction(Request $request){
-       
         $Utilisateur = new Utilisateur();
         $form = $this->createFormBuilder($Utilisateur)
                 ->add('pseudo')
@@ -52,7 +52,7 @@ class HomeController extends Controller
                 ->getForm();
         $form->handleRequest($request);
         
-         if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $utilisatueur = $form->getData();
             $em = $this->getDoctrine()->getManager();
             $em->persist($utilisatueur);
@@ -65,12 +65,10 @@ class HomeController extends Controller
     }
     
 
-    
+    //fonction inutile a supprimer
     public function indexAction()
      {
         $user = new test();
-
-
         $entityManager->remove($user);
         return $this->render('LoveLetterPlatformBundle:Advert:index.html.twig');
     }

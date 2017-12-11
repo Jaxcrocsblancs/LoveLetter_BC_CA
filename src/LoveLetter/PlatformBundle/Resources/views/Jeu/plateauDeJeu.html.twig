@@ -6,32 +6,36 @@
   <table>
         {% set cpt = 0 %}  
         <tr border = 1>
+             <th></th>
         {% for joueurL in liste %}
           {% set cpt = cpt+1 %}
           <th>Joueur {{cpt}}</th>
         {% endfor %}
         </tr>
+         <th></th>
         {% for score in ListeScore %}
-          <th>score {{score}}</th>
+          <th>point: {{score}}</th>
         {% endfor %}
         <tr>
         {% set cpt = 0 %}  
+            <th>Main des Joueurs </th>
         {% for joueurL in liste %}
         <th>
         {% set cpt = cpt+1 %}
         {% set cpt2 = 0 %}  
+     
             {% for listeCarte in joueurL %} 
                 {% for carte in listeCarte %}
                     {% if cpt2 == 0%}
                         {% if cpt == joueur|number_format%}
                             {% if tour_De == joueur %}
                                 <a href='http://localhost/LoveLetter/web/app_dev.php/Choix?id_manche={{id}}&nb_joueur={{joueur}}&numCarteChoisi={{carte.nombre}}'>
-                                <img src={{carte.url}} alt="" width="211" height="300" /></a>
+                                <img src={{carte.url}} alt="" width="200" height="284" /></a>
                             {% else %}
-                                    <img src={{carte.url}} alt="" width="211" height="300" />
+                                    <img src={{carte.url}} alt="" width="200" height="284" />
                             {% endif %}
                         {% else %}
-                                <img src=http://static.mnium.org/images/contenu/actus/HearthStone/Dos_de_cartes/Hearthstone_dos_de_cartes_saison_22.png  alt="" width="211" height="300" />
+                                <img src=http://static.mnium.org/images/contenu/actus/HearthStone/Dos_de_cartes/Hearthstone_dos_de_cartes_saison_22.png  alt="dos de carte" width="200" height="284" />
                         {% endif %}
                     {% endif%}
                 {% else %}
@@ -46,6 +50,7 @@
        </tr>
        <tr>
             {% set cpt = 0 %}  
+           <th> Defausse des Joueurs</th>
             {% for joueurL in liste %}
             <th>
             {% set cpt = cpt+1 %}
@@ -53,7 +58,7 @@
             {% for listeCarte in joueurL %} 
                 {% for carte in listeCarte %}
                     {% if cpt2 == 1%}
-                        <img src={{carte.url}} alt="" width="211" height="300" />
+                        <img src={{carte.url}} alt="{{carte.pouvoir}}" width="150" height="214" />
                      {% endif%}
                 {% else %}
                     {% if cpt2 == 1%}

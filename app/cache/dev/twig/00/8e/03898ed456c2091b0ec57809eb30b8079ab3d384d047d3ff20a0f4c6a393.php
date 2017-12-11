@@ -41,49 +41,26 @@ class __TwigTemplate_008e03898ed456c2091b0ec57809eb30b8079ab3d384d047d3ff20a0f4c
 <body>
   <div class=\"container\">
     <div id=\"header\" class=\"jumbotron\">
-      <h1>Jeu</h1>
-      <p>
-        Ce projet est propulsé par Symfony,
-        et construit grâce au MOOC OpenClassrooms et SensioLabs.
-      </p>
+      <h1>LoveLetter</h1>
+      
     </div>
 
-    <div class=\"row\">
-      <div id=\"menu\" class=\"col-md-3\">
-        <h3>Les Parties</h3>
-        <ul class=\"nav nav-pills nav-stacked\">
-         ";
-        // line 32
-        echo "         ";
-        // line 33
-        echo "        </ul>
-
-        <h4>Dernières Partie</h4>
-        ";
-        // line 37
-        echo "      </div>
+   
       <div id=\"content\" class=\"col-md-9\">
         ";
-        // line 39
+        // line 26
         $this->displayBlock('body', $context, $blocks);
-        // line 41
+        // line 28
         echo "      </div>
     </div>
 
-    <hr>
-
-    <footer>
-      <p>The sky's the limit © ";
-        // line 47
-        echo twig_escape_filter($this->env, twig_date_format_filter($this->env, "now", "Y"), "html", null, true);
-        echo " and beyond.</p>
-    </footer>
+      <hr>
   </div>
 
   ";
-        // line 51
+        // line 34
         $this->displayBlock('javascripts', $context, $blocks);
-        // line 56
+        // line 39
         echo "
 </body>
 </html>";
@@ -105,19 +82,19 @@ class __TwigTemplate_008e03898ed456c2091b0ec57809eb30b8079ab3d384d047d3ff20a0f4c
   ";
     }
 
-    // line 39
+    // line 26
     public function block_body($context, array $blocks = array())
     {
-        // line 40
+        // line 27
         echo "        ";
     }
 
-    // line 51
+    // line 34
     public function block_javascripts($context, array $blocks = array())
     {
-        // line 52
+        // line 35
         echo "    ";
-        // line 53
+        // line 36
         echo "    <script src=\"//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js\"></script>
     <script src=\"//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js\"></script>
   ";
@@ -128,13 +105,8 @@ class __TwigTemplate_008e03898ed456c2091b0ec57809eb30b8079ab3d384d047d3ff20a0f4c
         return "::layout.html.twig";
     }
 
-    public function isTraitable()
-    {
-        return false;
-    }
-
     public function getDebugInfo()
     {
-        return array (  121 => 53,  119 => 52,  116 => 51,  112 => 40,  109 => 39,  104 => 13,  102 => 12,  99 => 11,  93 => 9,  87 => 56,  85 => 51,  78 => 47,  70 => 41,  68 => 39,  64 => 37,  57 => 32,  39 => 15,  37 => 11,  32 => 9,  23 => 2,  43 => 10,  40 => 9,  33 => 6,  30 => 5,  59 => 33,  50 => 11,  45 => 13,  41 => 12,  31 => 4,  28 => 3,);
+        return array (  98 => 36,  96 => 35,  93 => 34,  89 => 27,  86 => 26,  81 => 13,  79 => 12,  76 => 11,  70 => 9,  64 => 39,  62 => 34,  54 => 28,  52 => 26,  39 => 15,  37 => 11,  32 => 9,  23 => 2,);
     }
 }

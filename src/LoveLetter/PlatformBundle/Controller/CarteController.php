@@ -14,6 +14,21 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CarteController extends Controller
 {
+    //Test si c'est bien le tour du joueur qui tente de faire une action
+    public function TestTourDe($id_manche, $nb_joueur){
+        $em = $this->getDoctrine()->getManager();
+       //Recuperation de la manche
+       $repository = $em->getRepository('LoveLetterPlatformBundle:Manche');
+       $mancheEnCour = $repository->find($id_manche);
+       $tourDe = $mancheEnCour->getTourDe();
+       if($tourDe != $nb_joueur){
+           return "false";
+       }
+       else{
+          return "true";
+       } 
+    }
+    
     public function ChoixAction(Request $id_manche, Request $nb_joueur, Request $numCarteChoisi){
        // On récupère l'EntityManager
        $em = $this->getDoctrine()->getManager();
@@ -21,15 +36,17 @@ class CarteController extends Controller
        $id_manchebis = $id_manche->query->get('id_manche');
        $repository = $em->getRepository('LoveLetterPlatformBundle:Manche');
        $mancheEnCour = $repository->find($id_manchebis);
-       if($mancheEnCour->getFin() == 0){
+       $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');    
+       $reponse = $this->TestTourDe($id_manchebis,$nbJoueurJouant);
+       //test pour verifier que c'est bien le bon joueur qui teste un action
+       if($mancheEnCour->getFin() == 0 && $reponse == "true"){
+            //Supprime la carte de la main du joueur et transfert vers la liste des cartes jouer
             $id_carteJouer = $numCarteChoisi->query->get('numCarteChoisi');
-            $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');    
             $ListeJoueur = $mancheEnCour->getJoueur();
             $joueur = $ListeJoueur[$nbJoueurJouant-1];
             $carteMain= $joueur->getCarteMain();
             $carteJouer= $joueur->getCarteJouer();
-            //Deplacer cette function pour ne pas l'utiliser avec toutes les cartes 
-            //a verifier
+            //Suppression de la bonne carte
             if($carteMain[0] == $id_carteJouer){
                 if(empty($carteJouer)){
                     $carteJouer = array($carteMain[0]);
@@ -48,12 +65,13 @@ class CarteController extends Controller
                 }
                 $carteMain = array($carteMain[0]);
             }
+            //Stockage des nouveaux tableaux dans l'entité
             $joueur->setCarteMain($carteMain);
             $joueur->setCarteJouer($carteJouer);
             $em->persist($joueur);
             $em->flush();
 
-            //revoie sur bon action
+            //revoie sur la bonne action 
             switch ($id_carteJouer) {
                 case 1:
                      $response = $this->Garde($id_manchebis,$nbJoueurJouant);
@@ -90,7 +108,7 @@ class CarteController extends Controller
             }
        }
        else{
-           return new Response("Manche finie");
+           return new Response("Tricher c'est Mal");
        }
     }
     
@@ -103,8 +121,10 @@ class CarteController extends Controller
        $ListeJoueur = $mancheEnCour->getJoueur();
        $nbJoueur = 0;
        $liste = array();
+       
        $proteger = $mancheEnCour->getProteger();
        $perdu = $mancheEnCour->getPerdu();
+        //Fabrication de la liste des joueurs pouvant être affecter pas 
             if(empty($perdu)){
                 $perdu = array();
             }
@@ -117,6 +137,7 @@ class CarteController extends Controller
                  $liste[]=$nbJoueur;
                 }
             }
+            //si la liste est vide renvoi vers testFin pour la fin du tour
             if(empty($liste)){
                 $url = $this->get('router')->generate('LoveLetter_platform_TestFin', array(
                     'id_manche' => $id_manche,
@@ -124,6 +145,7 @@ class CarteController extends Controller
                     ));
                  return $this->redirect($url);
             }
+            //envoie sur le choix du joueur
              return $this->render('LoveLetterPlatformBundle:Jeu:ChoixJoueur.html.twig', array(
              'id' => $id_manche, 
              'joueur' =>  $nb_joueur,
@@ -139,7 +161,10 @@ class CarteController extends Controller
        $id_manchebis = $id_manche->query->get('id_manche');
        $repository = $em->getRepository('LoveLetterPlatformBundle:Manche');
        $mancheEnCour = $repository->find($id_manchebis);
-       if($mancheEnCour->getFin() == 0){
+       $nbjoueur = $nb_joueur->query->get('nb_joueur');    
+       $reponse = $this->TestTourDe($id_manchebis,$nbjoueur);
+       if($mancheEnCour->getFin() == 0 && $reponse == "true"){
+           //affichage des cartes selectionnable
             $nbjoueur = $nb_joueur->query->get('nb_joueur');        
             $nbjoueurChoisie = $choixJoueur->query->get('choixJoueur');        
             $repositoryCarte = $em->getRepository('LoveLetterPlatformBundle:Carte');
@@ -171,10 +196,13 @@ class CarteController extends Controller
        $id_manchebis = $id_manche->query->get('id_manche');
        $repository = $em->getRepository('LoveLetterPlatformBundle:Manche');
        $mancheEnCour = $repository->find($id_manchebis);
-       if($mancheEnCour->getFin() == 0){
+       $nbjoueur = $nb_joueur->query->get('nb_joueur'); 
+       $reponse = $this->TestTourDe($id_manchebis,$nbjoueur);
 
-            $ListeJoueur = $mancheEnCour->getJoueur();
-            $nbjoueur = $nb_joueur->query->get('nb_joueur');      
+       if($mancheEnCour->getFin() == 0 && $reponse == "true"){
+           //application des choix
+           //suppression de la carte de la main du joueur si elle y est
+            $ListeJoueur = $mancheEnCour->getJoueur();     
             $joueurChoisie = $choixJoueur->query->get('choixJoueur'); 
             $id_cartebis = $id_carte->query->get('id_carte');    
 
@@ -211,10 +239,11 @@ class CarteController extends Controller
        $mancheEnCour = $repository->find($id_manche);
         $ListeJoueur = $mancheEnCour->getJoueur();
         $nbJoueur = 0;
+         //Fabrication de la liste des joueurs pouvant être affecter pas 
         $liste = array();
         $proteger = $mancheEnCour->getProteger();
         $perdu = $mancheEnCour->getPerdu();
-         if(empty($perdu)){
+        if(empty($perdu)){
             $perdu = array();
         }
         if(empty($proteger)){
@@ -248,10 +277,13 @@ class CarteController extends Controller
        $id_manchebis = $id_manche->query->get('id_manche');
        $repository = $em->getRepository('LoveLetterPlatformBundle:Manche');
        $mancheEnCour = $repository->find($id_manchebis);
-       if($mancheEnCour->getFin() == 0){
-           //recuperation de la liste des joueurs participant a la manche
+        $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');
+        $reponse = $this->TestTourDe($id_manchebis,$nbJoueurJouant);
+
+       if($mancheEnCour->getFin() == 0 && $reponse == "true"){
+           //Affichage de la carte selon le choix du joueur
            $ListeJoueur = $mancheEnCour->getJoueur();
-           $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');
+          
            $nbJoueurChoisie = $choixJoueur->query->get('choixJoueur');
            $repositoryCarte = $em->getRepository('LoveLetterPlatformBundle:Carte');
 
@@ -263,6 +295,7 @@ class CarteController extends Controller
            'joueur' => $nbJoueurJouant,
            'tour_De' => $mancheEnCour->getTourDe(),
            'carte' => $carteAffichage,
+           'nb' => $nbJoueurChoisie,    
            ));
        }
        else{
@@ -277,6 +310,7 @@ class CarteController extends Controller
        $repository = $em->getRepository('LoveLetterPlatformBundle:Manche');
        $mancheEnCour = $repository->find($id_manche); 
         $ListeJoueur = $mancheEnCour->getJoueur();
+         //Fabrication de la liste des joueurs pouvant être affecter pas 
         $nbJoueur = 0;
         $liste = array();
         $proteger = $mancheEnCour->getProteger();
@@ -314,22 +348,34 @@ class CarteController extends Controller
        $id_manchebis = $id_manche->query->get('id_manche');
        $repository = $em->getRepository('LoveLetterPlatformBundle:Manche');
        $mancheEnCour = $repository->find($id_manchebis);
-       if($mancheEnCour->getFin() == 0){
+       $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');   
+       $reponse = $this->TestTourDe($id_manchebis,$nbJoueurJouant);
+
+       if($mancheEnCour->getFin() == 0 && $reponse == "true"){
         $ListeJoueur = $mancheEnCour->getJoueur();
-        $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');   
+        //Comparaison des cartes des 2 joueurs et suppression si besoin
         $nbJoueurChoisi = $choixJoueur->query->get('choixJoueur');
          $ListeCarteJ1 = $ListeJoueur[$nbJoueurJouant-1]->getCarteMain();
          $ListeCarteJ2 = $ListeJoueur[$nbJoueurChoisi-1]->getCarteMain();
+         $ListeCarteJouerJ1 = $ListeJoueur[$nbJoueurJouant-1]->getCarteJouer();
+         $ListeCarteJouerJ2 = $ListeJoueur[$nbJoueurChoisi-1]->getCarteJouer();
          if($ListeCarteJ1[0]<$ListeCarteJ2[0]){
+             $ListeCarteJouerJ1[] = $ListeCarteJ1[0];
              array_shift($ListeCarteJ1);
              $ListeJoueur[$nbJoueurJouant-1]->setCarteMain($ListeCarteJ1);
+             $ListeJoueur[$nbJoueurJouant-1]->setCarteJouer($ListeCarteJouerJ1);
              $em->persist($ListeJoueur[$nbJoueurJouant-1]);
          }
          elseif($ListeCarteJ1[0]>$ListeCarteJ2[0]){
+             $ListeCarteJouerJ2[] = $ListeCarteJ2[0];
              array_shift($ListeCarteJ2);
              $ListeJoueur[$nbJoueurChoisi-1]->setCarteMain($ListeCarteJ2);
+             $ListeJoueur[$nbJoueurChoisi-1]->setCarteJouer($ListeCarteJouerJ2);
              $em->persist($ListeJoueur[$nbJoueurChoisi-1]);
-         }        
+         }
+         else{
+             
+         }
          $em->flush();
 
           $url = $this->get('router')->generate('LoveLetter_platform_TestFin', array(
@@ -349,12 +395,13 @@ class CarteController extends Controller
        //Recuperation de la manche
        $repository = $em->getRepository('LoveLetterPlatformBundle:Manche');
        $mancheEnCour = $repository->find($id_manche);
+       //Ajout du joueur dans la liste des joueurs proteger
             $proteger = $mancheEnCour->getProteger();
             if(empty($proteger)){
                 $newtab = array($nb_joueur);
             }
             else{
-                $newtab = array($proteger, $nbJoueurJouant);
+                $newtab = array($proteger, $nb_joueur);
             }
             $mancheEnCour->setProteger($newtab);
             $em->persist($mancheEnCour);
@@ -373,6 +420,7 @@ class CarteController extends Controller
        $repository = $em->getRepository('LoveLetterPlatformBundle:Manche');
        $mancheEnCour = $repository->find($id_manche);
         $ListeJoueur = $mancheEnCour->getJoueur();
+         //Fabrication de la liste des joueurs pouvant être affecter pas 
         $nbJoueur = 0;
         $liste = array();
         $proteger = $mancheEnCour->getProteger();
@@ -385,7 +433,7 @@ class CarteController extends Controller
         }
         foreach($ListeJoueur as $joueur){
             $nbJoueur++;
-            if($nbJoueur != $nb_joueur && !in_array($nbJoueur, $proteger) && !in_array($nbJoueur, $perdu)){
+            if( !in_array($nbJoueur, $proteger) && !in_array($nbJoueur, $perdu)){
               $liste[]=$nbJoueur;
             }
         }
@@ -411,8 +459,11 @@ class CarteController extends Controller
        $id_manchebis = $id_manche->query->get('id_manche');
        $repository = $em->getRepository('LoveLetterPlatformBundle:Manche');
        $mancheEnCour = $repository->find($id_manchebis);
-       if($mancheEnCour->getFin() == 0){
-        $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');    
+       $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');    
+        $reponse = $this->TestTourDe($id_manchebis,$nbJoueurJouant);
+
+       if($mancheEnCour->getFin() == 0 && $reponse == "true"){
+        //Defausse la carte du joueur choisie et retire une autre carte
         $Jchoisie = $choixJoueur->query->get('choixJoueur');    
         $ListeJoueur = $mancheEnCour->getJoueur();
         $carteMain= $ListeJoueur[$Jchoisie-1]->getCarteMain();
@@ -454,6 +505,7 @@ class CarteController extends Controller
        $repository = $em->getRepository('LoveLetterPlatformBundle:Manche');
        $mancheEnCour = $repository->find($id_manche);
            $ListeJoueur = $mancheEnCour->getJoueur();
+            //Fabrication de la liste des joueurs pouvant être affecter pas 
            $nbJoueur = 0;
            $liste = array();
            $proteger = $mancheEnCour->getProteger();
@@ -486,14 +538,17 @@ class CarteController extends Controller
        }
     
     public function RoiChoixAction(Request $id_manche, Request $nb_joueur, Request $choixJoueur){
-         // On récupère l'EntityManager
+       // On récupère l'EntityManager
        $em = $this->getDoctrine()->getManager();
        //Recuperation de la manche
        $id_manchebis = $id_manche->query->get('id_manche');
        $repository = $em->getRepository('LoveLetterPlatformBundle:Manche');
        $mancheEnCour = $repository->find($id_manchebis);
-       if($mancheEnCour->getFin() == 0){
-            $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');    
+       $nbJoueurJouant = $nb_joueur->query->get('nb_joueur');    
+       $reponse = $this->TestTourDe($id_manchebis,$nbJoueurJouant);
+
+       if($mancheEnCour->getFin() == 0 && $reponse == "true"){
+            //Enchange des mains entre le joueur du tour et le joueur choisie
             $nbJoueurChoisie= $choixJoueur->query->get('choixJoueur');    
 
             $ListeJoueur = $mancheEnCour->getJoueur();
@@ -517,6 +572,7 @@ class CarteController extends Controller
     }
     
     public function Comtesse($id_manche,$nb_joueur){
+        //revoie vers la fin de manche le test comtesse ce fait en tirant la carte
         $url = $this->get('router')->generate('LoveLetter_platform_TestFin', array(
             'id_manche' => $id_manche,
             'nb_joueur' => $nb_joueur,
@@ -525,6 +581,7 @@ class CarteController extends Controller
     }
     
     public function Princesse($id_manche, $nb_joueur){
+        //l'effet de la princesse ce fait dans le test de fin de tour
         $url = $this->get('router')->generate('LoveLetter_platform_TestFin', array(
             'id_manche' => $id_manche,
             'nb_joueur' => $nb_joueur,

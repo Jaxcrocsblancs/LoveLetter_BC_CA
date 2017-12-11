@@ -28,7 +28,13 @@ class __TwigTemplate_92a227264d40b9bf5ed79f0b35efccd16c3d433b96b04677a9098b39c73
     public function block_LoveLetterplatform_body($context, array $blocks = array())
     {
         // line 4
-        echo "<a href='http://localhost/LoveLetter/web/app_dev.php/TestFin?id_manche=";
+        echo "    
+    <h1>Carte du joueur ";
+        // line 5
+        echo twig_escape_filter($this->env, (isset($context["nb"]) ? $context["nb"] : $this->getContext($context, "nb")), "html", null, true);
+        echo "</h1>
+<a href='http://localhost/LoveLetter/web/app_dev.php/TestFin?id_manche=";
+        // line 6
         echo twig_escape_filter($this->env, (isset($context["id"]) ? $context["id"] : $this->getContext($context, "id")), "html", null, true);
         echo "&nb_joueur=";
         echo twig_escape_filter($this->env, (isset($context["joueur"]) ? $context["joueur"] : $this->getContext($context, "joueur")), "html", null, true);
@@ -36,7 +42,7 @@ class __TwigTemplate_92a227264d40b9bf5ed79f0b35efccd16c3d433b96b04677a9098b39c73
     <table>
  <tr><th>Cliquez un fois que c'est bon</th></tr>
  <tr><img src=";
-        // line 7
+        // line 9
         echo twig_escape_filter($this->env, $this->getAttribute((isset($context["carte"]) ? $context["carte"] : $this->getContext($context, "carte")), "url"), "html", null, true);
         echo " alt=\"\" width=\"211\" height=\"300\" /></tr>
    </table>
@@ -56,6 +62,6 @@ class __TwigTemplate_92a227264d40b9bf5ed79f0b35efccd16c3d433b96b04677a9098b39c73
 
     public function getDebugInfo()
     {
-        return array (  40 => 7,  31 => 4,  28 => 3,);
+        return array (  46 => 9,  38 => 6,  34 => 5,  31 => 4,  28 => 3,);
     }
 }

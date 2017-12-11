@@ -29,7 +29,7 @@ class __TwigTemplate_6e2ba70cb71a8fd5620acec92c2d9b545f816f93c59514beb59052be4a7
     {
         // line 5
         echo "    
-    Quelque carte pense veux tu choisir
+    <h1>Quelque carte pense veux tu choisir</h1>
     <table border = 0>
         <tr>
    ";

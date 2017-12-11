@@ -14,6 +14,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class PartieController extends Controller
 {
+    
+    //fonction non aboutie car manque le systeme de session
    /*  public function UtilisateurCreerPartieAction()
     {      
         
@@ -67,6 +69,7 @@ class PartieController extends Controller
         return $this->redirect($url);
     }*/
     
+    //Creation de la partie dans la BDD
     public function CreationPartieAction($nom, $nb){
         //Création d'une nouvelle partie
         $partie = new Partie;
@@ -86,6 +89,7 @@ class PartieController extends Controller
         return $response;
     }
     
+    //Creation d'un nouvelle nouvelle manche
     public function DebutManche($id_partie, $premierJoueur, $id_manchePrecedente, $id_joueur, $nb){
           // On récupère l'EntityManager
         $em = $this->getDoctrine()->getManager();
@@ -97,6 +101,7 @@ class PartieController extends Controller
         $manche = new Manche;
         $manche->setPartie($partie);
         $manche->setFin(0);
+        //Creation de nouveau joueur selon le nombre définit
         $joueur1 = new Joueur;
         $em->persist($joueur1);
         $manche->addjoueur($joueur1) ;
@@ -110,7 +115,7 @@ class PartieController extends Controller
             if($nb>3){
                 $joueur4 = new Joueur;
                 $em->persist($joueur4);
-                 $manche->addjoueur($joueur4) ;
+                $manche->addjoueur($joueur4) ;
             }
         }
         
@@ -125,8 +130,7 @@ class PartieController extends Controller
         if($nb == 2){
             array_shift($pioche);
             array_shift($pioche);
-            array_shift($pioche);
-               
+            array_shift($pioche);   
         }
         array_shift($pioche);
         $manche->setPioche($pioche);
@@ -137,6 +141,7 @@ class PartieController extends Controller
         // Étape 2 : On « flush » tout ce qui a été persisté avant
         $em->flush();
         
+        //Si il y a une manche précedente récuperation des données
         if($id_manchePrecedente != null){
             $repositoryManche = $em->getRepository('LoveLetterPlatformBundle:Manche');
             $ManchePreced = $repositoryManche->find($id_manchePrecedente);
@@ -165,6 +170,7 @@ class PartieController extends Controller
        $mancheEnCour = $repository->find($id_manche);
         $ListeJoueur = $mancheEnCour->getJoueur();
         $pioche = $mancheEnCour->getPioche();
+        //distrubution d'une carte par joueur, les cartes sont supprimé de la pioche
          foreach ($ListeJoueur as $Joueur) {
              $Joueur->setCarteMain(array($pioche[0]));
              $em->persist($Joueur);
@@ -193,6 +199,7 @@ class PartieController extends Controller
             $ListeEnvoi = array();
             $ListeScore = array();
             $nbJoueur = 0;
+            //Creation de la liste pour affichage
             foreach($ListeJoueur as $joueur){//parcours de la liste des joueurs
                 $ListeEnvoi[$nbJoueur] = array();
                 if(!empty($joueur->getCarteMain())){
@@ -244,12 +251,14 @@ class PartieController extends Controller
        //Recuperation de la manche
        $repository = $em->getRepository('LoveLetterPlatformBundle:Manche');
        $mancheEnCour = $repository->find($id_manche);
+         //suppression du joueur dans le tableau proteger si il l'etait
             $getTourDe = $mancheEnCour->getTourDe();
             $proteger = $mancheEnCour->getProteger();
             if(in_array( $getTourDe,$proteger)){
                 array_shift($proteger);
                 $mancheEnCour->setProteger($proteger);
             }
+            //tirage d'une carte
             $pioche = $mancheEnCour->getPioche();
             $ListeJoueur = $mancheEnCour->getJoueur();
             $tour_de = $mancheEnCour->getTourDe();
@@ -262,7 +271,7 @@ class PartieController extends Controller
             $em->persist($mancheEnCour);
             $em->persist($joueur);
             $em->flush();        
-            //test comtesse
+            //test comtesse si avec la comtesse il y a un prince un roi ou un princesse la comptesse est jouer automatiquement
             $carteMain = $joueur->getCarteMain();
             if($carteMain[0] == 7){
                 if($carteMain[1] == 6 || $carteMain[1] == 5 || $carteMain[1] == 8){
@@ -329,6 +338,23 @@ class PartieController extends Controller
             if(empty($perdu)){
                 $perdu = array();
             }
+            //Si la pioche est vide fin de manche
+            $pioche = $mancheEnCour-> getPioche();
+            if(empty($pioche)){
+                $carteMax = 0;
+                $joueurMax = 0;
+                foreach($ListeJoueur as $joueur){
+                    $numJoueur++;
+                    if($joueur->getMain()>$carteMax){
+                         $carteMax = $joueur->getMain();
+                         $joueurMax = $numJoueur;
+                    }
+                }
+                $response = $this->TestFinPartie($id_manchebis,$joueurMax);
+                return $response;
+            }
+            
+           //Ajout des joueurs aux tableaux perdu si ils ont perdu
             foreach($ListeJoueur as $joueur){
                 $numJoueur++;
                 if(!in_array($numJoueur, $perdu)){
@@ -340,14 +366,31 @@ class PartieController extends Controller
                         foreach($ListeCarteJouer as $carte){
                             if ($carte == 8){
                                $perdu[] = $numJoueur;
+                               $ListeCarteMain = $joueur->getCarteMain();
+                               while(!empty($ListeCarteMain)){
+                                   $ListeCarteJouer[] = $ListeCarteMain[0];
+                                   array_shift($ListeCarteMain);
+                               }
+                               $joueur->setCarteMain($ListeCarteMain);
+                               $joueur->setCarteJouer($ListeCarteJouer);
+                               $em->persist($joueur);
                             }
                         }
                     }
                 }
             }
+            
+            // fin de manche si il ne reste plus qu'un joueur
+              if((count($perdu)+1) == $numJoueur){
+                //envoi debut manche avec num joueur gagnant +1 score et apres faire test si score est suffisant pour arret de la partie
+                $response = $this->TestFinPartie($id_manchebis,$nbjoueur);
+                     return $response;
+            }
+            
+            //changement de tour
             $mancheEnCour->setPerdu($perdu);
             $tour_de = $mancheEnCour->getTourDe();
-            $stock = $tour_de ;
+            $stock = $tour_de;
             $tour_de++;
             if(count($ListeJoueur)<$tour_de){
                     $tour_de=1;
@@ -362,11 +405,6 @@ class PartieController extends Controller
             $em->persist($mancheEnCour);
             $em->flush();
             
-            if(count($perdu)+1 == $numJoueur || $tour_de == $stock){
-                //envoi debut manche avec num joueur gagnant +1 score et apres faire test si score est suffisant pour arret de la partie
-                $response = $this->TestFinPartie($id_manchebis,$nbjoueur);
-                     return $response;
-            }
             $response = $this->TirerCarte($id_manchebis,$nbjoueur);
             return $response;
        }
@@ -382,13 +420,15 @@ class PartieController extends Controller
        //Recuperation de la manche
        $repository = $em->getRepository('LoveLetterPlatformBundle:Manche');
        $mancheEnCour = $repository->find($id_manche);
+       //definie que la manche est finie
             $mancheEnCour->setFin(1);
             $em->persist($mancheEnCour);
             $em->flush();
+            //test si la partie est finie
             $ListeJoueur = $mancheEnCour->getJoueur();     
             $nb = 0;
             $tourDe = $mancheEnCour->getTourDe();
-            $scoreSelonNbJoueur = array(0,0,3,5,4);
+            $scoreSelonNbJoueur = array(0,0,7,5,4);
             $nombreDeJoueur = count($ListeJoueur);
             foreach($ListeJoueur as $joueur){
                 $nb++;
@@ -400,8 +440,7 @@ class PartieController extends Controller
                     $em->flush();
                     if($joueur->getScore() == $scoreSelonNbJoueur[$nombreDeJoueur]){
                           return $this->render('LoveLetterPlatformBundle:Jeu:finPartie.html.twig', array(
-                        'joueur' => $nb,
-
+                        'joueur' => $nb
                     ));
                     }
                     else{
